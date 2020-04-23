@@ -1,0 +1,11 @@
+{
+  "presets": [
+    // Para trabajar con EnmaScript 5 y 6
+    "@babel/preset-env",
+    // Para transpilar el código y poder usar React .jsx
+    "@babel/preset-react"
+  ]
+  // "plugins": [
+  //   "react-hot-loader/babel"
+  // ]
+}
