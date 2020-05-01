@@ -114,7 +114,7 @@ module.exports = {
     // }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: 'index.html',
+      filename: './index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
     // prettier-ignore

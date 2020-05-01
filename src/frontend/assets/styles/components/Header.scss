@@ -3,14 +3,20 @@
   background: #f7ba48;
   color: whitesmoke;
   display: flex;
-  height: 100px;
+  height: 64px;
   justify-content: space-between;
   top: 0px;
   width: 100%;
 }
+
+// cambio 1
+.header p {
+  margin-top: 10px;
+}
+
 .header__img {
   margin-left: 30px;
-  width: 80px;
+  width: 50px;
 }
 
 .header__menu {
@@ -37,7 +43,7 @@ ul:hover {
 }
 
 .header__menu li a {
-  color: black;
+  color: gray;
   text-decoration: none;
 }
 
@@ -54,4 +60,9 @@ ul:hover {
 .header__menu--profile img {
   margin-right: 8px;
   width: 40px;
+}
+
+// cambio 2
+.header__menu--profile p {
+  margin-top: 10px;
 }
