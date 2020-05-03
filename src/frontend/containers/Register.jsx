@@ -1,33 +1,41 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
-// import { registerRequest } from '../actions';
+import { registerRequest } from '../actions';
 import '../assets/styles/components/Register.scss';
 import Footer from '../components/layout/Footer';
 
-const Register = () => {
-  // const Register = (props) => {
-  //   const [form, setValues] = useState({
-  //     email: '',
-  //     name: '',
-  //     password: '',
-  //   });
+const Register = (props) => {
+  // form: estado del componente
+  // setValues: captura los valores pasados en los inputs
+  const [form, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    password: '',
+  });
 
-  //   const handleInput = (event) => {
-  //     setValues({
-  //       ...form,
-  //       [event.target.name]: event.target.value,
-  //     });
-  //   };
+  // Para capturar la info que se transmitirá al estado a partir del form
+  const handleInput = (event) => {
+    setValues({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     props.registerRequest(form);
-  //     props.history.push('/');
-  //   };
+  // Para mandar la información
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(form);
+    props.registerRequest(form);
+    // history de react router (browser routerr)
+    // mandar a '/' después del registro
+    props.history.push('/');
+  };
 
   return (
     <>
@@ -39,10 +47,7 @@ const Register = () => {
           <div className="register__container--title text-center mb-2">
             <h2>Regístrate</h2>
           </div>
-          <form
-            className="register__container--form"
-            // onSubmit={handleSubmit}
-          >
+          <form className="register__container--form" onSubmit={handleSubmit}>
             <div className="form-group mb-3 wrap-input">
               <input
                 name="firstName"
@@ -51,7 +56,7 @@ const Register = () => {
                 placeholder="Nombre"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -63,7 +68,7 @@ const Register = () => {
                 placeholder="Apellido"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -75,7 +80,7 @@ const Register = () => {
                 placeholder="Correo"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -87,7 +92,7 @@ const Register = () => {
                 placeholder="Número de celular"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -99,7 +104,7 @@ const Register = () => {
                 placeholder="Dirección"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -111,7 +116,7 @@ const Register = () => {
                 placeholder="Contraseña"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -128,10 +133,8 @@ const Register = () => {
   );
 };
 
-// const mapDispatchToProps = {
-//   registerRequest,
-// };
+const mapDispatchToProps = {
+  registerRequest,
+};
 
-// export default connect(null, mapDispatchToProps)(Register);
-
-export default Register;
+export default connect(null, mapDispatchToProps)(Register);

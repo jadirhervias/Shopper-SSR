@@ -1,9 +1,18 @@
+@import '../Vars.scss';
+@import '../Media.scss';
+
+.categories {
+  margin: 0px 32px;
+  padding: 16px;
+  justify-content: center;
+  /////////
+  // background-color: rosybrown;
+}
+
 .categories__title {
-  // background: #f7ba48;
-  color: gray;
+  color: $gray-scale-4;
   font-size: 2em;
-  margin-top: 8px;
   position: absolute;
-  padding-left: 30px;
-  width: 100%;
+  // padding-left: 30px;
+  // width: 100%;
 }

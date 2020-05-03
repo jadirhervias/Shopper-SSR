@@ -3,33 +3,44 @@
 
 .main {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  // align-items: center;
+  // justify-content: center;
   flex-direction: column;
   height: 300px;
-  border-radius: 0px, 0px, 40px, 40px;
+  background-image: url('../../static/background.png');
+  background-attachment: fixed;
+}
+
+.search__container {
+  margin: 128px 32px 0px 32px;
+  padding: 0px 32px;
 }
 
 .search__container--title {
   color: $gray-scale-4;
-  font-size: 25px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: default;
 }
 
-.main__form--input-search {
-  background-color: rgba(255, 255, 255, 0.1);
+.search__container--form--input-search {
+  background-color: white;
   border: 2px solid $gray-scale-3;
   border-radius: 25px;
   color: $gray-scale-3;
   font-family: 'Muli', sans-serif;
   font-size: 16px;
+  font-weight: bold;
   height: 48px;
-  width: 200%;
+  width: 60%;
   margin-bottom: 20px;
   outline: none;
   padding: 0px 20px;
 }
 
-.main__form ::placeholder {
+.search__container input::placeholder {
   color: $gray-scale-2;
   text-align: center;
+  font-weight: lighter;
+  font-style: italic;
 }

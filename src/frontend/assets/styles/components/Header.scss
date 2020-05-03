@@ -1,3 +1,6 @@
+@import '../Vars.scss';
+@import '../Media.scss';
+
 .header {
   align-items: center;
   background: #f7ba48;
@@ -9,18 +12,14 @@
   width: 100%;
 }
 
-// cambio 1
-.header p {
-  margin-top: 10px;
-}
+// .header nav {
+//   width: 100%;
+//   align-items: center;
+//   background: #f7ba48 !important;
+// }
 
 .header__img {
-  margin-left: 30px;
   width: 50px;
-}
-
-.header__menu {
-  margin-right: 30px;
 }
 
 .header__menu ul {
@@ -33,22 +32,43 @@
   text-align: right;
 }
 
+// .header__menu--profile-name {
+//   list-style: none;
+// }
+
+// .header__menu:hover ul,
+// .header__menu--profile-options:hover {
+//   display: block;
+// }
+
 .header__menu:hover ul,
 ul:hover {
   display: block;
+  position: relative;
+  // display: flex;
 }
 
-.header__menu li {
-  margin: 10px 0px;
+.header__menu--profile-options {
+  position: absolute;
+  // align-items: center;
+  // vertical-align: middle;
+  // padding: 10px;
 }
 
-.header__menu li a {
-  color: gray;
+.header__menu--profile-options ul {
+  // margin: 10px 10px 0px 0px;
+  justify-content: space-evenly;
+}
+
+.header__menu--profile-options li a {
+  color: $gray-scale-4;
   text-decoration: none;
 }
 
-.header__menu li a:hover {
-  text-decoration: underline;
+.header__menu--profile-options li a:hover {
+  color: $secondary-color-3;
+  text-decoration: none;
+  font-weight: bolder;
 }
 
 .header__menu--profile {
@@ -59,10 +79,7 @@ ul:hover {
 
 .header__menu--profile img {
   margin-right: 8px;
-  width: 40px;
-}
-
-// cambio 2
-.header__menu--profile p {
-  margin-top: 10px;
+  width: auto;
+  border-radius: 100%;
+  object-fit: cover;
 }

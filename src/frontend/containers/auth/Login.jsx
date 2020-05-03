@@ -1,34 +1,37 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { loginRequest } from '../actions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginRequest } from '../../actions';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import '../../assets/styles/components/Login.scss';
 import googleIcon from '../../assets/static/google-icon.png';
 
-const Login = () => {
-  // const Login = (props) => {
-  // const [form, setValues] = useState({
-  //   email: '',
-  // });
+const Login = (props) => {
+  const [form, setValues] = useState({
+    email: '',
+  });
 
-  // const handleInput = (event) => {
-  //   setValues({
-  //     ...form,
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
+  console.log(form);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   props.loginRequest(form);
-  //   props.history.push('/');
-  // };
+  const handleInput = (event) => {
+    setValues({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    // para evitar recargas de página, cambios en la URL, comportamientos típicos de html
+    event.preventDefault();
+    console.log(form);
+    props.loginRequest(form);
+    props.history.push('/');
+  };
 
   return (
     <>
@@ -42,7 +45,7 @@ const Login = () => {
             className="login__container--form"
             // method="POST"
             // action="#"
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
           >
             <div className="form-group mb-3 wrap-input">
               <input
@@ -51,7 +54,8 @@ const Login = () => {
                 type="text"
                 placeholder="Correo o usuario"
                 autoComplete="off"
-                // onChange={handleInput}
+                // para capturar los cambios en tiempo real
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -63,7 +67,7 @@ const Login = () => {
                 placeholder="Contraseña"
                 autoComplete="off"
                 required
-                // onChange={handleInput}
+                onChange={handleInput}
               />
               <span className="focus-input" />
             </div>
@@ -101,10 +105,12 @@ const Login = () => {
   );
 };
 
-// const mapDispatchToProps = {
-//   loginRequest,
+// Login.propTypes = {
+//   email: PropTypes.string,
 // };
 
-// export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = {
+  loginRequest,
+};
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

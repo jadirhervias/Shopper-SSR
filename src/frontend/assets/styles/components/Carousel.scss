@@ -1,9 +1,14 @@
+@import '../Vars.scss';
+@import '../Media.scss';
+
 .carousel {
   overflow: hidden;
   padding-left: 30px;
-  padding-bottom: 60px;
+  // padding-bottom: 60px;
   width: 100%;
   position: relative;
+  ////////////
+  // background-color: darkcyan;
 }
 
 .carousel__container {
@@ -14,6 +19,9 @@
   white-space: nowrap;
   margin: 70px 0px;
   padding-bottom: 10px;
+  ///////////77777
+  // overflow-x: scroll;
+  // overflow-y: hidden;
 }
 
 .carousel__container:hover .carousel-item {

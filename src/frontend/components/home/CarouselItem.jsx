@@ -42,7 +42,7 @@ const CarouselItem = (props) => {
     <div className="carousel-item">
       <img
         className="carousel-item__img"
-        // src="http://placehold.it/200x250"
+        src="http://placehold.it/200x250"
         alt={name}
       />
       <div className="carousel-item__detaisls">

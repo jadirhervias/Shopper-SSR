@@ -1,20 +1,51 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { searchRequest } from '../../actions';
 import '../../assets/styles/components/Search.scss';
 
-const Search = () => (
-  <section className="main">
-    {/* ¿Dónde quieres comprar hoy? */}
-    <div className="search__container">
-      <h2 className="search__container--title">¿Dónde te ubicas?</h2>
-      <form action="/" className="main__form">
-        <input
-          type="text"
-          className="main__form--input-search"
-          placeholder="Ingresa tu ubicación"
-        />
-      </form>
-    </div>
-  </section>
-);
+const Search = (props) => {
+  const [searchInput, doSearch] = useState({
+    searching: '',
+  });
 
-export default Search;
+  console.log(`PAYLOAD INICIAL: ${JSON.stringify(searchInput)}`);
+
+  const handleInput = (event) => {
+    event.preventDefault();
+
+    console.log(`SEARCHING: ${event.target.value.trim()}`);
+    console.log(typeof event.target.value.trim());
+    console.log(`SIZE: ${event.target.value.trim().length}`);
+
+    doSearch({
+      ...searchInput,
+      [event.target.name]: event.target.value.trim(),
+    });
+  };
+
+  // eslint-disable-next-line react/destructuring-assignment
+  props.searchRequest(searchInput);
+
+  return (
+    <section className="main">
+      {/* ¿Dónde quieres comprar hoy? */}
+      <div className="search__container text-center">
+        <h2 className="search__container--title">¿Dónde te ubicamos?</h2>
+        <input
+          name="searching"
+          type="text"
+          className="search__container--form--input-search"
+          placeholder="Ingresa lo que buscas"
+          onChange={handleInput}
+        />
+      </div>
+    </section>
+  );
+};
+
+const mapDispatchToProps = {
+  searchRequest,
+};
+
+export default connect(null, mapDispatchToProps)(Search);

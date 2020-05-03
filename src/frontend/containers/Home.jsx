@@ -4,16 +4,28 @@ import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Search from '../components/main/Search';
+import Features from '../components/home/Features';
 import Categories from '../components/home/Categories';
 import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';
 import '../assets/styles/App.scss';
 
-const Home = ({ myList, catalogs }) => {
+const Home = ({ myList, catalogs, searchResults }) => {
   return (
     <>
       <Header />
       <Search />
+      <Features />
+
+      {searchResults.length > 0 && (
+        <Categories title="Resultados de búsqueda">
+          <Carousel>
+            {searchResults.map((item) => (
+              <CarouselItem key={item.id} {...item} />
+            ))}
+          </Carousel>
+        </Categories>
+      )}
 
       {/* 'isFav' es una prop usada para habilitar el botón eliminar y deshabilitar el boton agregar */}
       {myList.length > 0 && (
@@ -41,7 +53,6 @@ const Home = ({ myList, catalogs }) => {
       </Categories>
 
       {/* TODO: Categoría de Tiendas y Supermercados Asociados */}
-
       <Footer />
     </>
   );
@@ -52,6 +63,7 @@ const mapStateToProps = (state) => {
   return {
     myList: state.myList,
     catalogs: state.catalogs,
+    searchResults: state.searchResults,
   };
 };
 

@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 import reducer from './reducers';
 import App from './routes/App';
 // import Login from './containers/auth/Login';
@@ -14,6 +14,7 @@ if (typeof window !== 'undefined') {
   const initialState = {
     user: {},
     myList: [],
+    searchResults: [],
     catalogs: [
       {
         id: '11a650e6a4d33c4a846af22f',
@@ -854,7 +855,11 @@ if (typeof window !== 'undefined') {
     ],
   };
 
-  const store = createStore(reducer, initialState);
+  // para habilitar debugging de redux en el navegador
+  const componseEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // se modificará cada vez cuando se hace connect() al final de cada componente
+  const store = createStore(reducer, initialState, componseEnhancers());
 
   ReactDOM.render(
     <Provider store={store}>
