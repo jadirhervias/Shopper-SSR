@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setFavoriteCatalog, removeFavoriteCatalog } from '../../actions';
 import '../../assets/styles/components/CarouselItem.scss';
-import playIcon from '../../assets/static/play-icon.png';
-import plusIcon from '../../assets/static/plus-icon.png';
-import plusIconDark from '../../assets/static/plus-icon-dark.png';
+import enterIcon from '../../assets/static/enter-icon.png';
+import favoriteIcon from '../../assets/static/favorite-icon.png';
 import removeIcon from '../../assets/static/remove-icon.png';
 
 const CarouselItem = (props) => {
@@ -43,13 +42,14 @@ const CarouselItem = (props) => {
       <img
         className="carousel-item__img"
         src="http://placehold.it/200x250"
+        // src="http://dummyimage.com/800x600.png/99118E/ffffff"
         alt={name}
       />
-      <div className="carousel-item__detaisls">
+      <div className="carousel-item__details">
         <div>
           <img
             className="carousel-item__details--img"
-            src={playIcon}
+            src={enterIcon}
             alt="Play Icon"
           />
           {isFav && parent === 'myList' ? (
@@ -62,8 +62,8 @@ const CarouselItem = (props) => {
           ) : !isFav ? (
             <img
               className="carousel-item__details--img"
-              src={plusIcon}
-              alt="Plus Icon"
+              src={favoriteIcon}
+              alt="Favorite Icon"
               onClick={handleSetFavoriteCatalog}
             />
           ) : (
@@ -71,8 +71,8 @@ const CarouselItem = (props) => {
             parent === 'catalogs' && (
               <img
                 className="carousel-item__details--img"
-                src={plusIconDark}
-                alt="Plus Icon Disable"
+                // src={plusIconDark}
+                alt="Favorite Icon Disable"
                 onClick={handleSetFavoriteCatalog}
               />
             )

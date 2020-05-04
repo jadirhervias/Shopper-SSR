@@ -6,12 +6,13 @@
   // align-items: center;
   // justify-content: center;
   flex-direction: column;
-  height: 300px;
+  height: 360px;
   background-image: url('../../static/background.png');
   background-attachment: fixed;
 }
 
 .search__container {
+  text-align: center;
   margin: 128px 32px 0px 32px;
   padding: 0px 32px;
 }
@@ -32,7 +33,7 @@
   font-size: 16px;
   font-weight: bold;
   height: 48px;
-  width: 60%;
+  width: 80%;
   margin-bottom: 20px;
   outline: none;
   padding: 0px 20px;

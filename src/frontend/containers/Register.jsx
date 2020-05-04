@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -48,7 +49,7 @@ const Register = (props) => {
             <h2>Regístrate</h2>
           </div>
           <form className="register__container--form" onSubmit={handleSubmit}>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="firstName"
                 className="register__container--form--input"
@@ -60,7 +61,7 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="lastName"
                 className="register__container--form--input"
@@ -72,7 +73,7 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="email"
                 className="register__container--form--input"
@@ -84,7 +85,7 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="phoneNumber"
                 className="register__container--form--input"
@@ -96,7 +97,7 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="address"
                 className="register__container--form--input"
@@ -108,7 +109,7 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="password"
                 className="register__container--form--input"

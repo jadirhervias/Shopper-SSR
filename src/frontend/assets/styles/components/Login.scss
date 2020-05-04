@@ -27,6 +27,9 @@
 
 .login__container--title {
   color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 8px;
   h2 {
     font-weight: bold;
   }
@@ -39,7 +42,10 @@
     font-size: 14px;
   }
   button {
+    background-color: white;
     color: $gray-scale-4;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 0px;
     border: none;
     height: 48px;
@@ -47,7 +53,12 @@
   }
   button:hover {
     color: $secondary-color-3;
+    background-color: $gray-scale-1;
   }
+}
+
+.login__container--form-group {
+  margin-bottom: 12px;
 }
 
 .login__container--form--textInput {
@@ -110,12 +121,16 @@
   color: white;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
-.login__container--remember-me--switch > label {
-  color: white !important;
+.login__container--remember-me--switch {
+  color: white;
 }
+
+// .login__container--remember-me--switch > label {
+//   // color: white !important;
+// }
 
 .login__container--remember-me a {
   color: white;
@@ -130,9 +145,10 @@
 .login__container--social-media > div {
   text-align: center;
   align-items: center;
+  justify-content: center;
   display: flex;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin: 16px 0px;
 }
 
 .login__container--social-media > div > img {

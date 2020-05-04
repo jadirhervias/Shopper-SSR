@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { searchRequest } from '../../actions';
@@ -37,6 +38,7 @@ const Search = (props) => {
           type="text"
           className="search__container--form--input-search"
           placeholder="Ingresa lo que buscas"
+          autoComplete="off"
           onChange={handleInput}
         />
       </div>

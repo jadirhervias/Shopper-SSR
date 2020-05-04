@@ -3,10 +3,13 @@
 
 .carousel {
   overflow: hidden;
-  padding-left: 30px;
+  // padding-top: 64px;
+  margin: 0px 32px;
+  // padding-left: 30px;
   // padding-bottom: 60px;
   width: 100%;
   position: relative;
+
   ////////////
   // background-color: darkcyan;
 }
@@ -17,11 +20,15 @@
   transition: 450ms transform, 450ms -webkit-transform;
   font-size: 0;
   white-space: nowrap;
-  margin: 70px 0px;
-  padding-bottom: 10px;
+  // margin: 16px 0px;
+  // padding-bottom: 10px;
+  padding-bottom: 64px;
+  padding-top: 64px;
+
   ///////////77777
-  // overflow-x: scroll;
-  // overflow-y: hidden;
+  // background-color: hotpink;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .carousel__container:hover .carousel-item {

@@ -3,16 +3,22 @@
 
 .categories {
   margin: 0px 32px;
-  padding: 16px;
+  // padding: 16px;
   justify-content: center;
+  // position: absolute;
+
   /////////
-  // background-color: rosybrown;
+  // background-color: greenyellow;
 }
 
 .categories__title {
   color: $gray-scale-4;
   font-size: 2em;
-  position: absolute;
-  // padding-left: 30px;
-  // width: 100%;
+  position: relative;
+
+  ///////////////
+  // margin: 32px 0px;
+  padding-left: 32px;
+  // margin-bottom: 16px;
+  width: 100%;
 }

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-one-expression-per-line */
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -47,7 +48,7 @@ const Login = (props) => {
             // action="#"
             onSubmit={handleSubmit}
           >
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="email"
                 className="login__container--form--textInput"
@@ -59,7 +60,7 @@ const Login = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="form-group mb-3 wrap-input">
+            <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
                 name="password"
                 className="login__container--form--textInput"
@@ -80,7 +81,7 @@ const Login = (props) => {
                   type="checkbox"
                   className="custom-control-input"
                   id="customSwitch1"
-                  disabled
+                  // disabled
                 />
                 <label className="custom-control-label" htmlFor="customSwitch1">
                   Recuérdame

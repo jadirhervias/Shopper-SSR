@@ -27,6 +27,9 @@
 
 .register__container--title {
   color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 8px;
   h2 {
     font-weight: bold;
   }
@@ -39,15 +42,23 @@
     font-size: 14px;
   }
   button {
+    background-color: white;
     color: $gray-scale-4;
     margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
     height: 48px;
     border-radius: 31px;
   }
   button:hover {
     color: $secondary-color-3;
+    background-color: $gray-scale-1;
   }
+}
+
+.login__container--form-group {
+  margin-bottom: 12px;
 }
 
 .register__container--form--input {

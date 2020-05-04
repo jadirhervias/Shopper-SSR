@@ -25,17 +25,18 @@ const Header = (props) => {
       <Link to="/">
         <img src={logo} alt="Shopper" className="header__img" />
       </Link>
-      <p>Shopper</p>
       <div className="header__menu">
         <div className="header__menu--profile">
           {hasUser ? (
             <img src={profile} alt={user.email} />
           ) : (
-            <img src="" alt="profile" />
+            // <img src="" alt="profile" />
+            <img src={profile} alt="profile" />
           )}
-          <p>
+          {/* <p>
             {user.first_name} {user.last_name}
-          </p>
+          </p> */}
+          <p>Jadir Hervias</p>
         </div>
         <div className="header__menu--profile-options">
           <ul>
