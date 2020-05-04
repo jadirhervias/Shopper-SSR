@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
-import { registerRequest } from '../actions';
+import { registerUser } from '../actions/users';
 import '../assets/styles/components/Register.scss';
 import Footer from '../components/layout/Footer';
 
@@ -31,11 +31,12 @@ const Register = (props) => {
   // Para mandar la información
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(form);
-    props.registerRequest(form);
-    // history de react router (browser routerr)
+    props.registerUser(form, '/login');
+
+    // YA NO ES NECEARIO, PORQUE LA REDIRECCIÓN SE HACE EN EL MISMO ACTION
+    // history de react router (browser router)
     // mandar a '/' después del registro
-    props.history.push('/');
+    // props.history.push('/');
   };
 
   return (
@@ -135,7 +136,7 @@ const Register = (props) => {
 };
 
 const mapDispatchToProps = {
-  registerRequest,
+  registerUser,
 };
 
 export default connect(null, mapDispatchToProps)(Register);

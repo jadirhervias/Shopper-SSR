@@ -1,9 +1,8 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-multi-assign */
 // payload: es la información que estamos mandando al reducer.
 
 // Crear action que describen lo que se hará como respuesta a un evento.
 // Así pasar un objeto que se tendrá disponible en el reducer y luego alterará el store(estado)
+
 import {
   SET_FAVORITE_CATALOG,
   REMOVE_FAVORITE_CATALOG,
@@ -11,6 +10,7 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SET_ERROR,
 } from '../types';
 
 export const setFavoriteCatalog = (payload) => ({
@@ -40,5 +40,10 @@ export const registerRequest = (payload) => ({
 
 export const searchRequest = (payload) => ({
   type: SEARCH_REQUEST,
+  payload,
+});
+
+export const setError = (payload) => ({
+  type: SET_ERROR,
   payload,
 });

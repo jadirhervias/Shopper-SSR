@@ -1,21 +1,30 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
+require('dotenv').config();
+
 const isProd = process.env.NODE_ENV === 'production';
 
+const entry = ['./src/frontend/index.js'];
+
+if (!isProd) {
+  entry.push(
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'
+  );
+}
+
 module.exports = {
-  entry: './src/frontend/index.js',
-  devtool: isProd ? 'hidden-source-map' : 'cheap-source-map',
+  entry,
+  // devtool: isProd ? 'hidden-source-map' : 'cheap-source-map',
   mode: isProd ? 'production' : 'development',
-  // Para solucionar problema con dotenv
-  node: {
-    fs: 'empty',
-  },
+  // Si hay problema con dotenv
+  // node: {
+  //   fs: 'empty',
+  // },
   output: {
     path: path.resolve(__dirname, 'src/server/public'),
     // isProd ?
@@ -70,14 +79,6 @@ module.exports = {
         },
       },
       {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
-      {
         test: /\.(s*)css$/,
         use: [
           {
@@ -112,16 +113,14 @@ module.exports = {
     //     ],
     //   },
     // }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: './index.html',
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    // prettier-ignore
-    isProd ? new CompressionWebpackPlugin({
-      test: /\.js$|\.css$/,
-      filename: '[path].gz',
-    }) : () => {},
+    // para refrescar en caliente la app
+    !isProd ? new webpack.HotModuleReplacementPlugin() : () => {},
+    isProd ?
+      new CompressionWebpackPlugin({
+        test: /\.js$|\.css$/,
+        filename: '[path].gz',
+      }) :
+      () => {},
     isProd ? new ManifestPlugin() : () => {},
     new MiniCssExtractPlugin({
       filename: isProd ? 'assets/app-[hash].css' : 'assets/app.css',

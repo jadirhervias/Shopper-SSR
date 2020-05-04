@@ -4,9 +4,9 @@
     "@babel/preset-env",
     // Para transpilar el código y poder usar React .jsx
     "@babel/preset-react"
+  ],
+  "plugins": [
+    ["react-hot-loader/babel"]
+    // ["@babel/transform-runtime"]
   ]
-  // "plugins": [
-  //   ["react-hot-loader/babel"],
-  //   ["@babel/transform-runtime"]
-  // ]
 }
