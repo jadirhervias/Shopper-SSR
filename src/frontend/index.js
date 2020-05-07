@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -12,23 +12,26 @@ if (typeof window !== 'undefined') {
   const history = createBrowserHistory();
   const preloadedState = window.__PRELOADED_STATE__;
 
-  // para habilitar debugging de redux en el navegador
-  const componseEnhancers =
+  // const composeEnhancers = (process.env.NODE_ENV === 'production') ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose);
+  // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : para habilitar debugging de redux en el navegador
+
+  const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   // se modificará cada vez cuando se hace connect() al final de cada componente
   const store = createStore(
     reducer,
     preloadedState,
-    componseEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk))
   );
 
   // para no exponer los datos de la app al usuario
   delete window.__PRELOADED_STATE__;
 
-  ReactDOM.hydrate(
+  hydrate(
     <Provider store={store}>
       <Router history={history}>
-        <App />
+        <App isLogged={preloadedState.user.id} />
       </Router>
     </Provider>,
     document.getElementById('root')

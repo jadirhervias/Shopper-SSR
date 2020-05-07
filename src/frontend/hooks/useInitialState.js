@@ -1,17 +1,30 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
-const useInitialState = (api) => {
-  // [variable para guardar estado, función para actualizar el estado] = useState(valor para inicializar estado)
-  const [productos, setProductos] = useState([]);
+// const useInitialState = (apis) => {
+//   // [variable para guardar estado, función para actualizar el estado] = useState(valor para inicializar estado)
+//   const [shops, setShops] = useState([]);
 
-  // useEffect(función efecto, listener de props que cambien) // Si no hay listener -> bucle infinito
-  useEffect(() => {
-    fetch(api)
-      .then((response) => response.json())
-      .then((data) => setProductos(data));
-  }, []);
+//   const [myList, setMyList] = useState([]);
 
-  return productos;
-};
+//   // useEffect(función efecto, listener de props que cambien) // Si no hay listener -> bucle infinito
+//   useEffect(() => {
+//     fetch(apis[0])
+//       .then((response) => response.json())
+//       .then((data) => setShops(data));
+//   }, []);
 
-export default useInitialState;
+//   useEffect(() => {
+//     fetch(apis[1])
+//       .then((response) => response.json())
+//       .then((data) => setMyList(data));
+//   }, []);
+
+//   const response = {
+//     shops,
+//     myList,
+//   };
+
+//   return response;
+// };
+
+// export default useInitialState;

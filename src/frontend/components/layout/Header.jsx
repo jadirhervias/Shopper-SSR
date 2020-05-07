@@ -14,7 +14,13 @@ const Header = (props) => {
 
   const handleLogout = () => {
     // vaciar los datos del usuario
+    document.cookie = 'id=';
+    document.cookie = 'email=';
+    document.cookie = 'fullName=';
+    document.cookie = 'token=';
     props.logoutRequest({});
+    // window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (
@@ -30,13 +36,9 @@ const Header = (props) => {
           {hasUser ? (
             <img src={profile} alt={user.email} />
           ) : (
-            // <img src="" alt="profile" />
             <img src={profile} alt="profile" />
           )}
-          {/* <p>
-            {user.first_name} {user.last_name}
-          </p> */}
-          <p>Jadir Hervias</p>
+          {hasUser ? <p>{user.fullName}</p> : <p>Perfil</p>}
         </div>
         <div className="header__menu--profile-options">
           <ul>

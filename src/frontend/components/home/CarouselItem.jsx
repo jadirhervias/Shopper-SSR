@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setFavoriteCatalog, removeFavoriteCatalog } from '../../actions';
+import { setFavoriteShop, removeFavoriteShop } from '../../actions';
 import '../../assets/styles/components/CarouselItem.scss';
 import enterIcon from '../../assets/static/enter-icon.png';
 import favoriteIcon from '../../assets/static/favorite-icon.png';
@@ -15,13 +15,13 @@ const CarouselItem = (props) => {
   console.log('PROPS: ', props);
 
   // Función Handle para guardar el nuevo estado
-  const handleSetFavoriteCatalog = () => {
+  const handleSetFavoriteShop = () => {
     isFav = true;
     parent = 'myList';
     console.log(`ISFAV: ${isFav}`);
     console.log(`PARENT: ${parent}`);
     // Payload: objeto de propiedades para el componente
-    props.setFavoriteCatalog({
+    props.setFavoriteShop({
       id,
       name,
       categories,
@@ -29,12 +29,12 @@ const CarouselItem = (props) => {
     });
   };
 
-  const handleRemoveFavoriteCatalog = (id) => {
+  const handleRemoveFavoriteShop = (id) => {
     isFav = false;
-    parent = 'catalogs';
+    parent = 'shops';
     console.log(`ISFAV: ${isFav}`);
     console.log(`PARENT: ${parent}`);
-    props.removeFavoriteCatalog(id);
+    props.removeFavoriteShop(id);
   };
 
   return (
@@ -42,7 +42,6 @@ const CarouselItem = (props) => {
       <img
         className="carousel-item__img"
         src="http://placehold.it/200x250"
-        // src="http://dummyimage.com/800x600.png/99118E/ffffff"
         alt={name}
       />
       <div className="carousel-item__details">
@@ -57,23 +56,23 @@ const CarouselItem = (props) => {
               className="carousel-item__details--img"
               src={removeIcon}
               alt="Remove Icon"
-              onClick={() => handleRemoveFavoriteCatalog(id)}
+              onClick={() => handleRemoveFavoriteShop(id)}
             />
           ) : !isFav ? (
             <img
               className="carousel-item__details--img"
               src={favoriteIcon}
               alt="Favorite Icon"
-              onClick={handleSetFavoriteCatalog}
+              onClick={handleSetFavoriteShop}
             />
           ) : (
             isFav &&
-            parent === 'catalogs' && (
+            parent === 'shops' && (
               <img
                 className="carousel-item__details--img"
                 // src={plusIconDark}
                 alt="Favorite Icon Disable"
-                onClick={handleSetFavoriteCatalog}
+                onClick={handleSetFavoriteShop}
               />
             )
           )}
@@ -98,8 +97,8 @@ CarouselItem.propTypes = {
 
 // Dispatch de acciones
 const mapDispatchToProps = {
-  setFavoriteCatalog,
-  removeFavoriteCatalog,
+  setFavoriteShop,
+  removeFavoriteShop,
 };
 
 // export default CarouselItem;

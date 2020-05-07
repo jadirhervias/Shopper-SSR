@@ -4,8 +4,8 @@
 // Así pasar un objeto que se tendrá disponible en el reducer y luego alterará el store(estado)
 
 import {
-  SET_FAVORITE_CATALOG,
-  REMOVE_FAVORITE_CATALOG,
+  SET_FAVORITE_SHOP,
+  REMOVE_FAVORITE_SHOP,
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
@@ -13,13 +13,13 @@ import {
   SET_ERROR,
 } from '../types';
 
-export const setFavoriteCatalog = (payload) => ({
-  type: SET_FAVORITE_CATALOG,
+export const setFavoriteShop = (payload) => ({
+  type: SET_FAVORITE_SHOP,
   payload,
 });
 
-export const removeFavoriteCatalog = (payload) => ({
-  type: REMOVE_FAVORITE_CATALOG,
+export const removeFavoriteShop = (payload) => ({
+  type: REMOVE_FAVORITE_SHOP,
   payload,
 });
 

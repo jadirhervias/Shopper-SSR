@@ -10,14 +10,8 @@ const Search = (props) => {
     searching: '',
   });
 
-  console.log(`PAYLOAD INICIAL: ${JSON.stringify(searchInput)}`);
-
   const handleInput = (event) => {
     event.preventDefault();
-
-    console.log(`SEARCHING: ${event.target.value.trim()}`);
-    console.log(typeof event.target.value.trim());
-    console.log(`SIZE: ${event.target.value.trim().length}`);
 
     doSearch({
       ...searchInput,

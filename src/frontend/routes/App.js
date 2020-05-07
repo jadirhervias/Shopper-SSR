@@ -9,7 +9,7 @@ import Layout from '../components/layout/Layout';
 // Provider: Permite encapsular nuestros componente por medio de un connect,
 // para poder transmitir toda la informacion del STORE(estado) a todos los componentes dentro
 
-const App = () => (
+const App = ({ isLogged }) => (
   // Encapsula los componentes que se necesitan y sus rutas
   <BrowserRouter>
     <Layout>
@@ -17,6 +17,7 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/registrar" component={Register} />
+        {/* <Route exact path="/comprar" component={isLogged ? Compra : Login} /> */}
         <Route component={NotFound} />
       </Switch>
     </Layout>

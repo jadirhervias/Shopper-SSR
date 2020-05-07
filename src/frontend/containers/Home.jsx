@@ -10,7 +10,7 @@ import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';
 import '../assets/styles/App.scss';
 
-const Home = ({ myList, catalogs, searchResults }) => {
+const Home = ({ myList, shops, searchResults }) => {
   return (
     <>
       <Header />
@@ -29,7 +29,7 @@ const Home = ({ myList, catalogs, searchResults }) => {
 
       {/* 'isFav' es una prop usada para habilitar el botón eliminar y deshabilitar el boton agregar */}
       {myList.length > 0 && (
-        <Categories title="Mis Catálogos preferidos">
+        <Categories title="Mis Tiendas preferidas">
           <Carousel>
             {myList.map((item) => (
               <CarouselItem key={item.id} {...item} isFav parent="myList" />
@@ -39,14 +39,14 @@ const Home = ({ myList, catalogs, searchResults }) => {
       )}
 
       {/* 'isList' es una prop usada para deshabilitar el botón de agregar a favs si ya lo está */}
-      <Categories title="Catálogos">
+      <Categories title="Tiendas afiliadas">
         <Carousel>
-          {catalogs.map((item) => (
+          {shops.map((item) => (
             <CarouselItem
               key={item.id}
               {...item}
               isFav={false}
-              parent="catalogs"
+              parent="shops"
             />
           ))}
         </Carousel>
@@ -62,7 +62,7 @@ const Home = ({ myList, catalogs, searchResults }) => {
 const mapStateToProps = (state) => {
   return {
     myList: state.myList,
-    catalogs: state.catalogs,
+    shops: state.shops,
     searchResults: state.searchResults,
   };
 };

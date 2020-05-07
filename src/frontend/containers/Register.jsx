@@ -3,22 +3,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Header from '../components/layout/Header';
 import { registerUser } from '../actions/users';
 import '../assets/styles/components/Register.scss';
-import Footer from '../components/layout/Footer';
 
 const Register = (props) => {
   // form: estado del componente
   // setValues: captura los valores pasados en los inputs
   const [form, setValues] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
+    phone_number: '',
     address: '',
     password: '',
   });
+
+  console.log(form);
 
   // Para capturar la info que se transmitirá al estado a partir del form
   const handleInput = (event) => {
@@ -52,7 +52,7 @@ const Register = (props) => {
           <form className="register__container--form" onSubmit={handleSubmit}>
             <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
-                name="firstName"
+                name="first_name"
                 className="register__container--form--input"
                 type="text"
                 placeholder="Nombre"
@@ -64,7 +64,7 @@ const Register = (props) => {
             </div>
             <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
-                name="lastName"
+                name="last_name"
                 className="register__container--form--input"
                 type="text"
                 placeholder="Apellido"
@@ -88,7 +88,7 @@ const Register = (props) => {
             </div>
             <div className="login__container--form-group form-group mb-3 wrap-input">
               <input
-                name="phoneNumber"
+                name="phone_number"
                 className="register__container--form--input"
                 type="tel"
                 placeholder="Número de celular"
