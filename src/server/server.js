@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import chalk from 'chalk';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
-import getManifest from './getManifest';
+// import getManifest from './getManifest';
 import api from './proxy';
 import { config } from './config';
 import main from './routes/main';
@@ -49,8 +49,9 @@ if (config.dev === true) {
   //   if (!req.hashManifest) req.hashManifest = getManifest();
   //   next();
   // });
-  // app.use(express.static(`${__dirname}/public`));
   // ---------------------------------------
+
+  app.use(express.static(`${__dirname}/public`));
 
   app.use(helmet());
   app.use(helmet.permittedCrossDomainPolicies());
@@ -62,6 +63,7 @@ if (config.dev === true) {
 // app.get('*', main);
 app.get('/login', main);
 app.get('/', main);
+app.get('/productos', main);
 api(app);
 
 app.listen(config.port, (err) => {

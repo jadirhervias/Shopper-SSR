@@ -78,7 +78,7 @@ const Login = (props) => {
                   Recuérdame
                 </label>
               </div>
-              <a href="/">Olvidé mi contraseña</a>
+              <a href="/productos">Olvidé mi contraseña</a>
             </div>
           </form>
           <section className="login__container--social-media">

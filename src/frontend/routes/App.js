@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from '../containers/Home';
+import Shopping from '../containers/Shopping';
 import Login from '../containers/auth/Login';
 import Register from '../containers/Register';
 import NotFound from '../containers/NotFound';
@@ -17,6 +18,8 @@ const App = ({ isLogged }) => (
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/registrar" component={Register} />
+        {/* <Route exact path="/comprar" component={Form} /> */}
+        <Route exact path="/productos" component={Shopping} />
         {/* <Route exact path="/comprar" component={isLogged ? Compra : Login} /> */}
         <Route component={NotFound} />
       </Switch>

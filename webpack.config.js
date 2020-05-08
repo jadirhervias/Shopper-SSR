@@ -26,7 +26,7 @@ module.exports = {
   //   fs: 'empty',
   // },
   output: {
-    path: path.resolve(__dirname, 'src/server/public'),
+    path: isProd ? path.resolve(__dirname, 'src/server/public') : '/',
     // isProd ?
     // path.join(process.cwd(), './src/server/public')
     // : '/',
@@ -99,11 +99,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|gif|jpg|ico)$/,
+        // test: /\.(png|gif|jpg|ico)$/,
+        test: /\.(png|gif|jpe?g|ico)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
+              // nuevo
+              context: path.resolve(__dirname, 'assets'),
               name: 'assets/[hash].[ext]',
             },
           },
@@ -131,7 +134,20 @@ module.exports = {
         filename: '[path].gz',
       }) :
       () => {},
-    isProd ? new ManifestPlugin() : () => {},
+    isProd ?
+      new ManifestPlugin() :
+    // {
+    // // Solución a las hashed keys del manifest.json
+    //   map: (file) => {
+    //     if (isProd) {
+    //     // Remove hashes from keys created in CopyWebpackPlugin which does not correctly support manifest files
+    //     // eslint-disable-next-line no-param-reassign
+    //       file.name = file.name.replace(/(\.[a-f0-9]{32})(\..*)$/, '$2');
+    //     }
+    //     return file;
+    //   },
+    // }
+      () => {},
     new MiniCssExtractPlugin({
       filename: isProd ? 'assets/app-[hash].css' : 'assets/app.css',
     }),
