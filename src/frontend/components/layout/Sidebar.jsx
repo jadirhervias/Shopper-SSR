@@ -13,9 +13,49 @@ const SideBar = (props) => {
         <FiX className="filter__close" />
       </label>
       <aside className="sidebar">
-        <section className="categories">
+        <section className="categoriesList">
           <div className="sidebar__title">Filtros</div>
           <ul>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
+            <li>
+              <a href="/productos">
+                <span>Categoría</span>
+              </a>
+            </li>
             <li>
               <a href="/productos">
                 <span>Categoría</span>

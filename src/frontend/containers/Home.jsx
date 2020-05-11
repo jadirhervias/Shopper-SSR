@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Search from '../components/main/Search';
-// import Features from '../components/home/Features';
+import Features from '../components/home/Features';
 import Categories from '../components/home/Categories';
 import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';

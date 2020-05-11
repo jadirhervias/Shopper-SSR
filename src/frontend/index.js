@@ -1,5 +1,6 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
+// import { rehydrateMarks } from 'react-imported-component';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -28,6 +29,7 @@ if (typeof window !== 'undefined') {
   // para no exponer los datos de la app al usuario
   delete window.__PRELOADED_STATE__;
 
+  // rehydrateMarks().then(() => {
   hydrate(
     <Provider store={store}>
       <Router history={history}>
@@ -36,4 +38,5 @@ if (typeof window !== 'undefined') {
     </Provider>,
     document.getElementById('root')
   );
+  // });
 }

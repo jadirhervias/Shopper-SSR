@@ -1,5 +1,6 @@
 @import './Vars.scss';
 @import './Media.scss';
+
 body {
   margin: 0;
   font-family: $theme-font;
@@ -10,6 +11,8 @@ body {
   box-sizing: border-box;
 }
 
-// *, *:before, *:after {
-//   box-sizing: inherit;
-// }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

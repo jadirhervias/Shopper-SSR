@@ -1,6 +1,8 @@
 @import '../Vars.scss';
 @import '../Media.scss';
 
+@import '~bootstrap/scss/bootstrap.scss';
+
 .sidebar {
   // position: relative;
   -webkit-flex: 1;
@@ -17,6 +19,7 @@
   text-decoration: none;
   list-style: none;
   padding: 16px;
+  margin-right: 2em;
   // ----------
   z-index: 11;
 }
@@ -28,11 +31,11 @@
   user-select: none;
 }
 
-.categories {
+.categoriesList {
   margin: 0;
 }
 
-.categories ul {
+.categoriesList ul {
   text-decoration: none;
   list-style: none;
   padding-inline-start: unset;
@@ -82,16 +85,13 @@
     transition: all 0.5s ease;
   }
 
-  // .sidebar__title {
-  // }
-
   .sidebar__show {
     // margin-top: calc(224px + 5px);
     display: initial;
   }
 
-  label .filter__open,
-  label .filter__close {
+  .sidebar__show .filter__open,
+  .sidebar__show .filter__close {
     position: absolute;
     // margin-top: calc(224px + 5px);
     cursor: pointer;
@@ -108,7 +108,7 @@
     transition: all 0.4s ease;
   }
 
-  label .filter__open {
+  .sidebar__show .filter__open {
     opacity: 0;
     visibility: hidden;
     // margin-top: calc(224px + 5px);
@@ -119,14 +119,14 @@
     visibility: hidden;
   }
 
-  #show-filter:checked ~ label .filter__close {
+  #show-filter:checked ~ .sidebar__show .filter__close {
     margin-left: calc(85% + 5px);
     opacity: 0;
     visibility: hidden;
     // margin-top: 224px;
   }
 
-  #show-filter:checked ~ label .filter__open {
+  #show-filter:checked ~ .sidebar__show .filter__open {
     margin-left: 5px;
     opacity: 1;
     visibility: visible;
