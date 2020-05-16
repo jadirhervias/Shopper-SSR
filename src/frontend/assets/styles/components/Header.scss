@@ -1,100 +1,143 @@
 @import '../Vars.scss';
 @import '../Media.scss';
 
-.header {
-  align-items: center;
-  background: #f7ba48;
-  color: whitesmoke;
-  display: flex;
-  height: 64px;
-  // justify-content: flex-start;
-  justify-content: space-between;
-  top: 0px;
-  width: 100%;
-  // ---------
-  // position: fixed;
-  // z-index: 1111;
+.header__navBar {
+  background-color: $primary-color;
+  height: 80px;
 }
 
-// .header nav {
-//   width: 100%;
-//   align-items: center;
-//   background: #f7ba48 !important;
-// }
-
-.header__img {
-  width: 50px;
-  margin-left: 32px;
-}
-
-.header__menu {
-  margin-right: 32px;
-}
-
-// .header__menu--profile-name {
-//   list-style: none;
-// }
-
-// .header__menu:hover ul,
-// .header__menu--profile-options:hover {
-//   display: block;
-// }
-
-.header__menu:hover ul,
-ul:hover {
-  display: block;
-  position: relative;
-  // display: flex;
-}
-
-.header__menu--profile {
-  align-items: center;
-  display: flex;
+#logo-shopper {
   width: auto;
-  cursor: pointer;
+  height: 60px;
 }
 
-.header__menu--profile img {
-  width: auto;
-  margin-right: 8px;
-  border-radius: 100%;
-  object-fit: cover;
+// links directos - No dropdown
+.header__navBar--menu > a {
+  color: white !important;
+  margin-left: 16px;
+  padding: 8px;
+  text-decoration: none !important;
 }
 
-.header__menu--profile p {
-  margin: 0;
-  color: white;
+.header__navBar--collapse {
+  background-color: $primary-color;
+  padding: 0px 16px;
+  border-radius: 8px;
+  z-index: 1111;
 }
 
-.header__menu--profile-options {
-  position: absolute;
-  padding-left: 48px;
-  justify-content: flex-end;
-  width: 128px;
-  display: block;
+.header__navBar--menu-dropdown > a {
+  margin-left: 16px;
 }
 
-.header__menu--profile-options ul {
-  display: none;
-  list-style: none;
-  margin: 0px 0px 0px -14px;
-  padding: 0px;
-  position: absolute;
-  width: 100px;
-  text-align: right;
+// COVID-19
+.header__navBar--menu-dropdown > a {
+  color: white !important;
 }
 
-.header__menu--profile-options ul li {
-  margin: 10px 0px;
+// COVID-19 Dropdown
+.header__navBar--menu-dropdown > div {
+  min-width: 9rem;
 }
 
-.header__menu--profile-options li a {
-  color: $gray-scale-4;
+// COVID-19 Dropdown links
+.header__navBar--menu-dropdown > div > a {
+  color: black;
   text-decoration: none;
+  padding: 0.25rem 0.5rem !important;
 }
 
-.header__menu--profile-options li a:hover {
-  color: $secondary-color-3;
+// Profile container
+.header__navBar--profile a {
+  color: black !important;
+}
+
+// Profile container
+.header__navBar--profile > div {
+  vertical-align: middle !important;
+  align-items: center !important;
+  margin-top: 8px;
+}
+
+// user fullname
+.header__navBar--profile > div > a {
+  // color: $secondary-color-1 !important;
+  // font-weight: bold;
+  margin-left: 0;
+}
+
+// Profile Dropdown block
+.header__navBar--profile > div > div {
+  min-width: 9rem;
+}
+
+// Profile Dropdown links
+.header__navBar--profile > div > div > a {
   text-decoration: none;
-  font-weight: bolder;
+  padding: 0.25rem 0.5rem !important;
+}
+
+.header__navBar--profile-photo {
+  width: 40px;
+  height: 40px;
+  margin-top: 8px;
+}
+
+.header__navBar--auth-login {
+  color: $secondary-color-1 !important;
+  margin-top: 8px;
+}
+
+.header__navBar--auth--register-button {
+  color: white !important;
+  background-color: $secondary-color-1 !important;
+  border-color: $secondary-color-1 !important;
+  font-weight: bold !important;
+  margin-top: 8px;
+  margin-left: 16px;
+}
+
+// Cuando se activa el collapse del navBar
+@media only screen and (max-width: 767px) {
+  .header__navBar--collapse {
+    background-color: white;
+  }
+
+  // links directos - No dropdown
+  .header__navBar--menu > a {
+    color: black !important;
+    padding: 8px 0px 8px 0px;
+  }
+
+  // COVID-19
+  .header__navBar--menu-dropdown > a {
+    color: black !important;
+  }
+
+  // user fullname
+  .header__navBar--profile > div > a {
+    color: $secondary-color-1 !important;
+    font-weight: bold;
+    margin-left: 16px;
+    border-top: thin solid rgba(0, 0, 0, 0.2);
+  }
+
+  .header__navBar--profile-photo {
+    display: none;
+  }
+
+  .header__navBar--auth-login {
+    margin-top: 0;
+    color: $secondary-color-1 !important;
+    margin-left: 16px;
+    border-top: thin solid rgba(0, 0, 0, 0.2);
+  }
+
+  .header__navBar--auth--register-button {
+    width: auto;
+    color: white !important;
+    background-color: $secondary-color-1 !important;
+    margin: 0px 0px 8px 0px !important;
+    margin-left: 16px !important;
+  }
 }

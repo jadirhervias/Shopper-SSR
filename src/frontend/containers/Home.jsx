@@ -4,8 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import Search from '../components/main/Search';
+import Search from '../components/home/Search';
 import Features from '../components/home/Features';
+import DeliveryInfo from '../components/home/DeliveryInfo';
 import Categories from '../components/home/Categories';
 import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';
@@ -16,7 +17,6 @@ const Home = ({ myList, shops, searchResults }) => {
     <>
       <Header />
       <Search />
-      {/* <Features /> */}
 
       {searchResults.length > 0 && (
         <Categories title="Resultados de búsqueda">
@@ -27,6 +27,9 @@ const Home = ({ myList, shops, searchResults }) => {
           </Carousel>
         </Categories>
       )}
+
+      <DeliveryInfo />
+      {/* <Features /> */}
 
       {/* 'isFav' es una prop usada para habilitar el botón eliminar y deshabilitar el boton agregar */}
       {myList.length > 0 && (

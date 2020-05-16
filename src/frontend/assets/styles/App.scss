@@ -1,6 +1,14 @@
 @import './Vars.scss';
 @import './Media.scss';
 
+// $theme-colors: (
+//   'warning': $primary-color,
+//   'danger': $secondary-color-1,
+//   'info': $secondary-color-2,
+// );
+
+// @import '~bootstrap/scss/bootstrap.scss';
+
 body {
   margin: 0;
   font-family: $theme-font;

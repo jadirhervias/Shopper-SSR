@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { logoutRequest } from '../../actions';
+
 import '../../assets/styles/components/Header.scss';
-import logo from '../../assets/static/shopper-icon.png';
+import logo from '../../assets/static/shopper-logo.png';
 import profile from '../../assets/static/user-icon.png';
 
 const Header = (props) => {
@@ -19,54 +21,72 @@ const Header = (props) => {
     document.cookie = 'fullName=';
     document.cookie = 'token=';
     props.logoutRequest({});
-    // window.location.href = '/login';
     window.location.href = '/';
   };
 
   return (
     <header className="header">
-      {/* HEADER ANTERIOR */}
-
       {/* Link evita refrescarse y no se nota al recargar la página, lo cual no pasa si usamos <a>...</a> */}
-      <Link to="/">
-        <img src={logo} alt="Shopper" className="header__img" />
-      </Link>
-      <div className="header__menu">
-        <div className="header__menu--profile">
+      <Navbar collapseOnSelect expand="md" className="header__navBar">
+        <Link to="/">
+          <img
+            src={logo}
+            height="50"
+            className="d-inline-block align-top"
+            id="logo-shopper"
+            alt="shopper"
+          />
+        </Link>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="header__navBar--collapse"
+        >
+          <Nav className="header__navBar--menu mr-auto">
+            <Link to="/">Ayuda</Link>
+            <Link to="/">Premium</Link>
+            <NavDropdown
+              title="COVID-19"
+              id="collasible-nav-dropdown"
+              className="header__navBar--menu-dropdown"
+            >
+              <Link to="/">Abastecimiento</Link>
+              <NavDropdown.Divider />
+              <Link to="/">Separated link</Link>
+            </NavDropdown>
+          </Nav>
           {hasUser ? (
-            <img src={profile} alt={user.email} />
-          ) : (
-            <img src={profile} alt="profile" />
-          )}
-          {hasUser ? <p>{user.fullName}</p> : <p>Perfil</p>}
-        </div>
-        <div className="header__menu--profile-options">
-          <ul>
-            {hasUser && (
-              <li>
-                <Link to="/">Mi cuenta</Link>
-              </li>
-            )}
-            {hasUser && (
-              <li>
+            <Nav className="header__navBar--profile">
+              <img
+                src={profile}
+                alt={user.email}
+                className="header__navBar--profile-photo"
+              />
+              <NavDropdown title={user.fullName} id="collasible-nav-dropdown">
+                <Link to="/">Mi Cuenta</Link>
+                <NavDropdown.Divider />
                 <Link to="/">Preferencias</Link>
-              </li>
-            )}
-            {hasUser ? (
-              <li>
-                <a href="/" onClick={handleLogout}>
-                  Cerrar sesión
-                </a>
-              </li>
-            ) : (
-              <li>
-                <Link to="/login">Iniciar sesión</Link>
-              </li>
-            )}
-          </ul>
-        </div>
-      </div>
-      {/* FIN */}
+                <NavDropdown.Divider />
+                <Link to="/" onClick={handleLogout}>
+                  Cerrar Sesión
+                </Link>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Nav className="header__navBar--auth">
+              <Nav.Link href="/login" className="header__navBar--auth-login">
+                Iniciar Sesión
+              </Nav.Link>
+              <Link
+                to="/registrar"
+                className="header__navBar--auth--register-button btn btn-md"
+              >
+                Regístrate
+              </Link>
+            </Nav>
+          )}
+        </Navbar.Collapse>
+      </Navbar>
     </header>
   );
 };

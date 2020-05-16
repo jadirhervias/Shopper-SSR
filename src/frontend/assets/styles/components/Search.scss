@@ -1,47 +1,154 @@
 @import '../Vars.scss';
 @import '../Media.scss';
 
-.main {
-  display: flex;
-  // align-items: center;
-  // justify-content: center;
-  flex-direction: column;
-  height: 360px;
-  background-image: url('../../static/background.png');
-  background-attachment: fixed;
+// $theme-colors: (
+//   'info': $secondary-color-2,
+// );
+
+// @import '~bootstrap/scss/bootstrap.scss';
+
+.main__container {
+  text-align: center !important;
+  background-color: $primary-color !important;
 }
 
-.search__container {
-  text-align: center;
-  margin: 128px 32px 0px 32px;
-  padding: 0px 32px;
+.main__container--title h1 {
+  font-size: 56px;
 }
 
-.search__container--title {
-  color: $gray-scale-4;
-  font-size: 32px;
-  font-weight: bold;
-  cursor: default;
+.main__container--subtitle {
+  font-size: $content-size;
 }
 
-.search__container--form--input-search {
+.main__container--input-search {
+  border: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  outline-offset: 0 !important;
+  height: 56px !important;
+}
+
+.main__container--input-search {
   background-color: white;
-  border: 2px solid $gray-scale-3;
-  border-radius: 25px;
-  color: $gray-scale-3;
-  font-family: 'Muli', sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  height: 48px;
-  width: 80%;
-  margin-bottom: 20px;
-  outline: none;
-  padding: 0px 20px;
+  border: none !important;
+  color: $gray-scale-3 !important;
+  font-family: 'Muli', sans-serif !important;
+  font-size: $normal-size !important;
+  font-weight: bold !important;
+  outline: none !important;
 }
 
-.search__container input::placeholder {
+.main__container input::placeholder {
   color: $gray-scale-2;
   text-align: center;
   font-weight: lighter;
   font-style: italic;
+}
+
+.main__container--search-form button,
+.main__container--search-form button:focus,
+.main__container--search-form button:hover,
+.main__container--search-form button:active {
+  border-color: $secondary-color-2;
+  background-color: $secondary-color-2;
+}
+
+@media screen and (max-width: 767px) {
+  .search-decoration-image {
+    display: none;
+  }
+  .main__container--title h1 {
+    font-size: 36px !important;
+  }
+  .main__container--subtitle {
+    font-size: 20px !important;
+  }
+  .main__container--input-search {
+    height: 48px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .main__container--title h1 {
+    font-size: 34px !important;
+  }
+  .main__container--subtitle {
+    font-size: 20px !important;
+  }
+  .main__container--input-search {
+    height: 48px !important;
+  }
+}
+
+@media only screen and (min-width: 910px) {
+  .main__container--title h1 {
+    font-size: 36px !important;
+  }
+  .main__container--subtitle {
+    font-size: 22px !important;
+  }
+  .main__container--input-search {
+    height: 48px !important;
+  }
+}
+
+@media only screen and (min-width: 972px) {
+  .main__container--title h1 {
+    font-size: 40px !important;
+  }
+  .main__container--subtitle {
+    font-size: $content-size !important;
+  }
+  .main__container--input-search {
+    height: 56px !important;
+  }
+}
+
+@media only screen and (min-width: 1054px) {
+  .main__container--title h1 {
+    font-size: 48px !important;
+  }
+  .main__container--subtitle {
+    font-size: $content-size !important;
+  }
+  .main__container--title {
+    margin-bottom: 12px !important;
+  }
+}
+
+@media only screen and (min-width: 1111px) {
+  .main__container--title h1 {
+    font-size: 56px !important;
+  }
+  .main__container--subtitle {
+    font-size: $content-size !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .main__container--title h1 {
+    font-size: 60px !important;
+  }
+  .main__container--subtitle {
+    font-size: 28px !important;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .main__container--title h1 {
+    font-size: 64px !important;
+  }
+  .main__container--subtitle {
+    font-size: 32px !important;
+  }
+}
+
+@media only screen and (min-width: 1890px) {
+  .main__container--title h1 {
+    font-size: 64px !important;
+  }
+  .main__container--subtitle {
+    font-size: 32px !important;
+  }
 }

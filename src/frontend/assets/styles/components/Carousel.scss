@@ -2,11 +2,9 @@
 @import '../Media.scss';
 
 .carousel {
-  overflow: hidden;
-  // padding-top: 64px;
+  overflow-y: hidden;
+  overflow-x: auto;
   margin: 0px 32px;
-  // padding-left: 30px;
-  // padding-bottom: 60px;
   width: 100%;
   position: relative;
 
@@ -15,20 +13,22 @@
 }
 
 .carousel__container {
-  transition: 450ms -webkit-transform;
-  transition: 450ms transform;
-  transition: 450ms transform, 450ms -webkit-transform;
+  transition: 450ms -webkit-transform !important;
+  transition: 450ms transform !important;
+  transition: 450ms transform, 450ms -webkit-transform !important;
   font-size: 0;
   white-space: nowrap;
-  // margin: 16px 0px;
-  // padding-bottom: 10px;
+
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
   padding-bottom: 64px;
   padding-top: 64px;
 
-  ///////////77777
+  ///////////
   // background-color: hotpink;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  // overflow-x: scroll;
+  overflow: hidden;
+  padding-right: 90px;
 }
 
 .carousel__container:hover .carousel-item {

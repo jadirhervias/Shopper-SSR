@@ -134,8 +134,7 @@ module.exports = {
         filename: '[path].gz',
       }) :
       () => {},
-    isProd ?
-      new ManifestPlugin() :
+    isProd ? new ManifestPlugin() : () => {},
     // {
     // // Solución a las hashed keys del manifest.json
     //   map: (file) => {
@@ -147,7 +146,6 @@ module.exports = {
     //     return file;
     //   },
     // }
-      () => {},
     new MiniCssExtractPlugin({
       filename: isProd ? 'assets/app-[hash].css' : 'assets/app.css',
     }),

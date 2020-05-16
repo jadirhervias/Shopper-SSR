@@ -1,0 +1,9 @@
+@import '../Vars.scss';
+@import '../Media.scss';
+
+.deliveryInfo__content--button {
+  background-color: $secondary-color-1 !important;
+  border-color: $secondary-color-1 !important;
+  color: white !important;
+  font-weight: bold !important;
+}
