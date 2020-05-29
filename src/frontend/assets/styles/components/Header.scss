@@ -1,5 +1,4 @@
 @import '../Vars.scss';
-@import '../Media.scss';
 
 .header__navBar {
   background-color: $primary-color;
@@ -23,7 +22,7 @@
   background-color: $primary-color;
   padding: 0px 16px;
   border-radius: 8px;
-  z-index: 1111;
+  z-index: 950;
 }
 
 .header__navBar--menu-dropdown > a {

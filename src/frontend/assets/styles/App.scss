@@ -1,26 +1,18 @@
 @import './Vars.scss';
-@import './Media.scss';
 
-// $theme-colors: (
-//   'warning': $primary-color,
-//   'danger': $secondary-color-1,
-//   'info': $secondary-color-2,
-// );
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  // box-sizing: border-box;
+}
 
-// @import '~bootstrap/scss/bootstrap.scss';
+html {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   font-family: $theme-font;
   background: $main-color;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
 }

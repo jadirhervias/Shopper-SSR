@@ -1,8 +1,7 @@
 @import '../Vars.scss';
-@import '../Media.scss';
 
 .login {
-  background-image: linear-gradient(#f7ba48, #ff5608);
+  background-image: linear-gradient(#fcb022, $primary-color);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -14,11 +13,13 @@
 }
 
 .login__container {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
+  // background-color: rgba(255, 255, 255, 0.13);
+  background-color: white;
+  // border: 2px solid white;
+  border: none;
   border-radius: 40px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  color: white;
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -26,9 +27,9 @@
 }
 
 .login__container--title {
-  color: white;
+  color: black;
   font-size: 24px;
-  text-align: center;
+  // text-align: center;
   margin-bottom: 8px;
   h2 {
     font-weight: bold;
@@ -42,8 +43,10 @@
     font-size: 14px;
   }
   button {
-    background-color: white;
-    color: $gray-scale-4;
+    // background-color: white;
+    background-color: $primary-color;
+    // color: $gray-scale-4;
+    color: black;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 0px;
@@ -52,8 +55,8 @@
     border-radius: 31px;
   }
   button:hover {
-    color: $secondary-color-3;
-    background-color: $gray-scale-1;
+    color: white;
+    background-color: $secondary-color-1;
   }
 }
 
@@ -63,21 +66,21 @@
 
 .login__container--form--textInput {
   background-color: transparent;
+  // background-color: gray;
   border: none;
   outline: none;
-  color: white;
+  color: black;
   font-family: 'Muli', sans-serif;
   font-size: 16px;
   height: 48px;
-  width: 100%;
-  margin-bottom: 4px;
-  padding: 0px 32px;
+  // justify-self: center !important;
+  // width: 100% !important;;
   position: relative;
   display: block;
 }
 
-::placeholder {
-  color: white;
+.login__container--form-group input::placeholder {
+  color: black;
   text-align: center;
 }
 
@@ -102,7 +105,7 @@
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
   border-radius: 31px;
-  border: 2px solid white;
+  border: 2px solid $gray-scale-3 !important;
   pointer-events: none;
 
   -webkit-transition: all 0.4s;
@@ -118,14 +121,14 @@
 // FIN - Para la animación del input
 
 .login__container--remember-me {
-  color: white;
+  color: black;
   display: flex;
   justify-content: space-between;
   margin-top: 8px;
 }
 
 .login__container--remember-me--switch {
-  color: white;
+  color: black;
 }
 
 // .login__container--remember-me--switch > label {
@@ -133,7 +136,7 @@
 // }
 
 .login__container--remember-me a {
-  color: white;
+  color: black;
   font-size: 14px;
   text-decoration: none;
 }
@@ -161,7 +164,7 @@
 }
 
 .login__container--register a {
-  color: white;
+  color: black;
   margin-left: 0.5rem;
   font-weight: bold;
   font-size: 1rem;

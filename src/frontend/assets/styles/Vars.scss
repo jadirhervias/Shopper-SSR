@@ -1,11 +1,17 @@
-@import url(https://fonts.googleapis.com/css?family=Muli&display=swap);
+// @import url(https://fonts.googleapis.com/css?family=Muli&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
-$theme-font: 'Muli', sans-serif;
+// $theme-font: 'Muli', sans-serif;
+$theme-font: 'Titillium Web', sans-serif;
+// $theme-font: 'Bree Serif', serif;}
+// $theme-font: 'DM Sans', sans-serif;
+// $theme-font: 'Patua One', cursive;
+
 $main-color: whitesmoke;
 $background-color: white;
-// $primary-color: #f7ba48;
-// $primary-color: #ffe1a1;
-// $primary-color: #f5c263;
 $primary-color: #f6c363;
 $secondary-color-1: #fc5455;
 $secondary-color-2: #3bc08b;

@@ -28,9 +28,9 @@ const main = async (req, res, next) => {
         // }
       });
 
-      // array
+      // Datos iniciales obtenidos de la API
       const shops = data;
-      // const shops = data.data;
+      const myList = data;
 
       if (!email || !fullName || !id) {
         initialState = {
@@ -47,7 +47,7 @@ const main = async (req, res, next) => {
             fullName,
           },
           searchResults: [],
-          myList: [],
+          myList,
           shops,
         };
       }

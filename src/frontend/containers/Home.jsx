@@ -43,18 +43,20 @@ const Home = ({ myList, shops, searchResults }) => {
       )}
 
       {/* 'isList' es una prop usada para deshabilitar el botón de agregar a favs si ya lo está */}
-      <Categories title="Tiendas afiliadas">
-        <Carousel>
-          {shops.map((item) => (
-            <CarouselItem
-              key={item.id}
-              {...item}
-              isFav={false}
-              parent="shops"
-            />
-          ))}
-        </Carousel>
-      </Categories>
+      {shops.length > 0 && (
+        <Categories title="Tiendas afiliadas">
+          <Carousel>
+            {shops.map((item) => (
+              <CarouselItem
+                key={item.id}
+                {...item}
+                isFav={false}
+                parent="shops"
+              />
+            ))}
+          </Carousel>
+        </Categories>
+      )}
 
       {/* TODO: Categoría de Tiendas y Supermercados Asociados */}
       <Footer />

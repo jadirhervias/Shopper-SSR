@@ -24,7 +24,7 @@ const serverRoutes = (isLogged) => {
     {
       exact: true,
       path: '/productos',
-      component: Shopping,
+      component: isLogged ? Shopping : Login,
     },
     {
       name: 'NotFound',

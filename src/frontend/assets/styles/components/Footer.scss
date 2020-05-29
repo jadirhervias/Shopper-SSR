@@ -1,62 +1,19 @@
-// .footer__container--content {
-//   height: 400px;
-// }
+@import '../Vars.scss';
 
-.footer img {
-  padding: 0;
+.letras-footer {
+  font-family: 'Titillium Web', sans-serif;
+  color: #636363 !important;
+}
+
+.bg-footer {
+  background-color: #f5e3c2 !important;
+}
+
+.bg-footer a {
+  text-decoration: none !important;
+  color: #636363 !important;
 }
 
 .footer__container--list-tittle {
-  font-size: 18px;
-}
-
-.footer ul {
-  list-style: none;
-  margin: 1rem 0;
-  padding-left: 0;
-}
-
-.footer ul li a {
-  text-decoration: none;
-  color: black;
-}
-
-// social network icons
-.social-network-icon {
-  color: #b3b1af;
-}
-
-.copyRighRow {
-  bottom: 0 !important;
-  // align-self: flex-end !important;
-  border-top: 0.05rem solid rgba(0, 0, 0, 0.2);
-}
-
-.logo-shopper {
-  height: auto;
-  max-width: 132px !important;
-}
-
-@media only screen and (max-width: 575px) {
-  #footer__container--left {
-    padding-left: 0 !important;
-  }
-  #footer__container--middle {
-    padding-top: 8px !important;
-  }
-  #footer__container--right {
-    padding-top: 8px !important;
-  }
-  .footer__container--col {
-    text-align: center !important;
-  }
-  // .footer__container--content {
-  //   height: 200px;
-  // }
-}
-
-@media only screen and (max-width: 1590px) {
-  .footer__container--col-empty {
-    display: none;
-  }
+  font-size: 20px;
 }

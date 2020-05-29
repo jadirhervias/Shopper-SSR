@@ -50,10 +50,10 @@ const Register = (props) => {
             <h2>Regístrate</h2>
           </div>
           <form className="register__container--form" onSubmit={handleSubmit}>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="first_name"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="text"
                 placeholder="Nombre"
                 autoComplete="off"
@@ -62,10 +62,10 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="last_name"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="text"
                 placeholder="Apellido"
                 autoComplete="off"
@@ -74,10 +74,10 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="email"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="text"
                 placeholder="Correo"
                 autoComplete="off"
@@ -86,10 +86,10 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="phone_number"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="tel"
                 placeholder="Número de celular"
                 autoComplete="off"
@@ -98,10 +98,10 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="address"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="text"
                 placeholder="Dirección"
                 autoComplete="off"
@@ -110,10 +110,10 @@ const Register = (props) => {
               />
               <span className="focus-input" />
             </div>
-            <div className="login__container--form-group form-group mb-3 wrap-input">
+            <div className="register__container--form-group form-group mb-3 wrap-input">
               <input
                 name="password"
-                className="register__container--form--input"
+                className="register__container--form--input px-4"
                 type="password"
                 placeholder="Contraseña"
                 autoComplete="off"

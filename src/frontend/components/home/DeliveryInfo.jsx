@@ -8,8 +8,8 @@ import deliveryInfo from '../../assets/static/delivery-info.png';
 const DeliveryInfo = () => (
   <section className="deliveryInfo">
     <div className="container">
-      <div className="row justify-content-md-center align-items-center">
-        <div className="col-md-4 deliveryInfo__content text-center">
+      <div className="row justify-content-md-center align-items-center m-0">
+        <div className="col-md-4 deliveryInfo__content text-center p-0">
           <h4>Entregas rápidas, seguras e higiénicas</h4>
           <Link
             to="/productos"

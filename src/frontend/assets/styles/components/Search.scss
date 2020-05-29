@@ -1,19 +1,18 @@
 @import '../Vars.scss';
-@import '../Media.scss';
-
-// $theme-colors: (
-//   'info': $secondary-color-2,
-// );
-
-// @import '~bootstrap/scss/bootstrap.scss';
 
 .main__container {
   text-align: center !important;
   background-color: $primary-color !important;
 }
 
+.main__container div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .main__container--title h1 {
   font-size: 56px;
+  font-family: 'Patua One', cursive;
 }
 
 .main__container--subtitle {

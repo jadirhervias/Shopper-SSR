@@ -2,6 +2,7 @@
 /* eslint-disable prefer-const */
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setFavoriteShop, removeFavoriteShop } from '../../actions';
 import '../../assets/styles/components/CarouselItem.scss';
@@ -12,14 +13,11 @@ import removeIcon from '../../assets/static/remove-icon.png';
 const CarouselItem = (props) => {
   let { id, name, categories, last_update, isFav, parent } = props;
 
-  console.log('PROPS: ', props);
-
   // Función Handle para guardar el nuevo estado
   const handleSetFavoriteShop = () => {
     isFav = true;
     parent = 'myList';
-    console.log(`ISFAV: ${isFav}`);
-    console.log(`PARENT: ${parent}`);
+
     // Payload: objeto de propiedades para el componente
     props.setFavoriteShop({
       id,
@@ -32,8 +30,7 @@ const CarouselItem = (props) => {
   const handleRemoveFavoriteShop = (id) => {
     isFav = false;
     parent = 'shops';
-    console.log(`ISFAV: ${isFav}`);
-    console.log(`PARENT: ${parent}`);
+
     props.removeFavoriteShop(id);
   };
 
@@ -46,11 +43,13 @@ const CarouselItem = (props) => {
       />
       <div className="carousel-item__details">
         <div>
-          <img
-            className="carousel-item__details--img"
-            src={enterIcon}
-            alt="Play Icon"
-          />
+          <Link to="/productos">
+            <img
+              className="carousel-item__details--img"
+              src={enterIcon}
+              alt="Enter Icon"
+            />
+          </Link>
           {isFav && parent === 'myList' ? (
             <img
               className="carousel-item__details--img"

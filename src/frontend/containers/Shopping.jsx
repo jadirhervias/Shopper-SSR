@@ -4,24 +4,21 @@ import React from 'react';
 // import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import ShoppingCar from '../components/ShoppingCar';
-import SideBar from '../components/layout/Sidebar';
-import '../assets/styles/App.scss';
+import SearchShoppingCar from '../components/SearchShoppingCar';
+import CatalogCategories from '../components/layout/CatalogCategories';
 import Products from '../components/Products';
+import '../assets/styles/App.scss';
 
 const Shopping = (props) => {
   return (
     <>
       <Header />
-      <ShoppingCar />
-      {/* <div className='row'> */}
-      {/* <div className='col-md-3'> */}
-      <SideBar />
-      {/* </div> */}
-      {/* <div className='col-md-9'> */}
-      <Products />
-      {/* </div> */}
-      {/* </div> */}
+      <main>
+        <SearchShoppingCar />
+        <CatalogCategories>
+          <Products />
+        </CatalogCategories>
+      </main>
       <Footer />
     </>
   );
