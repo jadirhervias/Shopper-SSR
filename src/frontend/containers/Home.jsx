@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Search from '../components/home/Search';
-import Features from '../components/home/Features';
 import DeliveryInfo from '../components/home/DeliveryInfo';
-import Categories from '../components/home/Categories';
+import Shops from '../components/home/Shops';
 import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';
 import '../assets/styles/App.scss';
@@ -19,13 +18,13 @@ const Home = ({ myList, shops, searchResults }) => {
       <Search />
 
       {searchResults.length > 0 && (
-        <Categories title="Resultados de búsqueda">
+        <Shops title="Resultados de búsqueda">
           <Carousel>
             {searchResults.map((item) => (
               <CarouselItem key={item.id} {...item} parent="searchResults" />
             ))}
           </Carousel>
-        </Categories>
+        </Shops>
       )}
 
       <DeliveryInfo />
@@ -33,18 +32,18 @@ const Home = ({ myList, shops, searchResults }) => {
 
       {/* 'isFav' es una prop usada para habilitar el botón eliminar y deshabilitar el boton agregar */}
       {myList.length > 0 && (
-        <Categories title="Mis Tiendas preferidas">
+        <Shops title="Mis Tiendas preferidas">
           <Carousel>
             {myList.map((item) => (
               <CarouselItem key={item.id} {...item} isFav parent="myList" />
             ))}
           </Carousel>
-        </Categories>
+        </Shops>
       )}
 
       {/* 'isList' es una prop usada para deshabilitar el botón de agregar a favs si ya lo está */}
       {shops.length > 0 && (
-        <Categories title="Tiendas afiliadas">
+        <Shops title="Tiendas afiliadas">
           <Carousel>
             {shops.map((item) => (
               <CarouselItem
@@ -55,7 +54,7 @@ const Home = ({ myList, shops, searchResults }) => {
               />
             ))}
           </Carousel>
-        </Categories>
+        </Shops>
       )}
 
       {/* TODO: Categoría de Tiendas y Supermercados Asociados */}
