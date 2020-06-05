@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable indent */
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -128,12 +130,12 @@ module.exports = {
     // }),
     // para refrescar en caliente la app
     !isProd ? new webpack.HotModuleReplacementPlugin() : () => {},
-    isProd ?
-      new CompressionWebpackPlugin({
-        test: /\.js$|\.css$/,
-        filename: '[path].gz',
-      }) :
-      () => {},
+    isProd
+      ? new CompressionWebpackPlugin({
+          test: /\.js$|\.css$/,
+          filename: '[path].gz',
+        })
+      : () => {},
     isProd ? new ManifestPlugin() : () => {},
     // {
     // // Solución a las hashed keys del manifest.json

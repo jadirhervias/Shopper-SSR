@@ -1,0 +1,10 @@
+@import '../Vars.scss';
+
+.backToHome {
+  color: black;
+}
+
+.backToHome:hover {
+  text-decoration: none;
+  color: $secondary-color-1;
+}

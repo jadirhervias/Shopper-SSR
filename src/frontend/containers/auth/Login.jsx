@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loginUser } from '../../actions/users';
+import { loginUser } from '../../actions/authActions';
 import googleIconColors from '../../assets/static/google-icon-colors.png';
 import '../../assets/styles/components/Login.scss';
 

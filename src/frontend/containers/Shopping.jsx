@@ -13,6 +13,7 @@ const Shopping = (props) => {
   return (
     <>
       <Header />
+      {/* TODO: No mostrar card de categorias si no hay */}
       <main>
         <SearchShoppingCar />
         <CatalogCategories>

@@ -8,14 +8,12 @@ import { config } from './config';
 import './utils/auth/strategies/basic';
 
 function api(app) {
-  // app.post('/auth/sign-in', async function (req, res, next) {
   app.post('/login', async function (req, res, next) {
     passport.authenticate('basic', function (error, data) {
       try {
         if (error || !data) {
           console.log(`DATA DEL LOGIN (POR ESO EL ERROR): ${data}`);
           console.log(`EL ERROR: ${error}`);
-          // data es undefined
           next(boom.unauthorized());
           // return res.status(401).json({
           //   statusCode: 401,
@@ -52,10 +50,6 @@ function api(app) {
     })(req, res, next);
   });
 
-  // ---------------------------------------------------------------
-
-  // app.post('/auth/sign-up', async function (req, res, next) {
-
   app.post('/sign-up', async function (req, res, next) {
     try {
       const { data } = await axios({
@@ -76,8 +70,9 @@ function api(app) {
     }
   });
 
+  // ---------------------------------------------------------------
+
   // Agregar tiendas favoritas del usuario en sesión
-  // app.post('/user/shops', async (req, res, next) => {
   app.post('/shops', async (req, res, next) => {
     try {
       const { token } = req.cookies;
@@ -93,17 +88,122 @@ function api(app) {
         data: req.body,
       });
 
-      const {
-        data: { shopExist },
-      } = data;
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      delete data.links;
+      delete data.page;
+
+      return res.status(status).json(data.content);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Obtener contenido de una tienda
+  app.get('/shops/:id', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { id } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/shops/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.unauthorized);
+      }
+
+      delete data.links;
+      data.page && delete data.page;
+
+      // JSON + HAL
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Categorías de la tienda
+  app.get('/shops/:id/categories', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { id } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/api/${config.apiVersion}/shops/${id}/categories`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+      });
 
       if (status !== 200 && status !== 201) {
         return next(boom.badImplementation());
       }
 
-      const statusCode = shopExist ? 200 : 201;
+      delete data.links;
+      data.page && delete data.page;
 
-      return res.status(statusCode).json(data);
+      // JSON + HAL
+      return res.status(200).json(data._embedded);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Productos de la tienda por categoría
+  app.get('/categories/:id/products', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { id } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/api/${config.apiVersion}/categories/${id}/products`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      delete data.links;
+
+      // JSON + HAL
+      return res.status(200).json(data.content.value);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Productos de la tienda por sub-categoría
+  app.get('/subcategories/:id', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { id } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/subcategories/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      // JSON + HAL
+      return res.status(200).json(data.products);
     } catch (error) {
       next(error);
     }
@@ -142,25 +242,6 @@ function api(app) {
   //     } else {
   //       next(error);
   //     }
-  //   }
-  // });
-
-  // Para listar productos
-  // app.get('/products', async function (req, res, next) {
-  //   try {
-  //     const { data, status } = await axios({
-  //       url: `${config.apiUrl}/${config.apiVersion}/products`,
-  //       // headers: { Authorization: `Bearer ${token}` },
-  //       method: 'get',
-  //     });
-
-  //     if (status !== 200) {
-  //       return next(boom.badImplementation());
-  //     }
-
-  //     res.status(200).json(data);
-  //   } catch (error) {
-  //     next(error);
   //   }
   // });
 }

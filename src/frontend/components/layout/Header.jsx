@@ -62,10 +62,14 @@ const Header = (props) => {
                 alt={user.email}
                 className="header__navBar--profile-photo"
               />
-              <NavDropdown title={user.fullName} id="collasible-nav-dropdown">
+              <NavDropdown
+                // title={user.fullName}
+                title={user.email}
+                id="collasible-nav-dropdown"
+              >
                 <Link to="/">Mi Cuenta</Link>
                 <NavDropdown.Divider />
-                <Link to="/">Preferencias</Link>
+                <Link to="/wwww">Preferencias</Link>
                 <NavDropdown.Divider />
                 <Link to="/" onClick={handleLogout}>
                   Cerrar Sesión
