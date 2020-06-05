@@ -1,10 +1,17 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { setFavoriteShop, removeFavoriteShop } from '../../actions';
+import {
+  setFavoriteShop,
+  removeFavoriteShop,
+  showProductsByShop,
+} from '../../actions';
+import { showShop } from '../../actions/shoppingActions';
 import '../../assets/styles/components/CarouselItem.scss';
 import enterIcon from '../../assets/static/enter-icon.png';
 import favoriteIcon from '../../assets/static/favorite-icon.png';
@@ -34,6 +41,8 @@ const CarouselItem = (props) => {
     props.removeFavoriteShop(id);
   };
 
+  const dispatch = useDispatch();
+
   return (
     <div className="carousel-item">
       <img
@@ -43,7 +52,7 @@ const CarouselItem = (props) => {
       />
       <div className="carousel-item__details">
         <div>
-          <Link to="/productos">
+          <Link to="/productos" onClick={() => dispatch(showShop(id))}>
             <img
               className="carousel-item__details--img"
               src={enterIcon}
@@ -77,10 +86,10 @@ const CarouselItem = (props) => {
           )}
         </div>
         <p className="carousel-item__details--title">{name}</p>
-        <p className="carousel-item__details--subtitle">
+        {/* <p className="carousel-item__details--subtitle">
           N° Categorias:
           {categories.length}
-        </p>
+        </p> */}
         <p className="carousel-item__details--subtitle">{last_update}</p>
       </div>
     </div>
@@ -100,5 +109,4 @@ const mapDispatchToProps = {
   removeFavoriteShop,
 };
 
-// export default CarouselItem;
 export default connect(null, mapDispatchToProps)(CarouselItem);

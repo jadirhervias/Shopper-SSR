@@ -1,9 +1,64 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
+import ProductsFilter from './shopping/ProductsFilter';
+import ProductDetailsModal from './shopping/ProductDetailsModal';
+import ProductItem from './shopping/ProductItem';
 // import { connect } from 'react-redux';
 import '../assets/styles/components/Products.scss';
 
-const Products = (props) => {
+const Products = () => {
+  const products = useSelector((state) => state.products);
+
+  const sortIndexState = products.sortIndex;
+
+  // SORT INDEX:
+  // 1: Sort by higher cost
+  const sortByHigherCost = (item1, item2) => {
+    return item2.cost - item1.cost;
+  };
+
+  // 2: Sort by lower cost
+  const sortByLowerCost = (item1, item2) => {
+    return item1.cost - item2.cost;
+  };
+
+  // 3: Sort by product name
+  const sortByName = (item1, item2) => {
+    return item1.name.toString().localeCompare(item2.name);
+  };
+
+  // 4: Sort by product stock
+  const sortByStock = (item1, item2) => {
+    return item2.stock - item1.stock;
+  };
+
+  const sortList = (list, sort) => {
+    // return list.map((filterItem) => {
+    switch (sort) {
+      case 0:
+        return list;
+
+      case 1:
+        return list.sort(sortByHigherCost);
+
+      case 2:
+        return list.sort(sortByLowerCost);
+
+      case 3:
+        return list.sort(sortByName);
+
+      case 4:
+        return list.sort(sortByStock);
+
+      default:
+        return list;
+    }
+    // })
+  };
+
   return (
     <section className="products">
       <div className="container">
@@ -43,394 +98,93 @@ const Products = (props) => {
         </div>
 
         {/* products__container--filters */}
-        <div className="d-flex flex-md-row flex-wrap align-content-center px-4 pb-4 pt-2">
-          {/* Filtros */}
-          <div className="p-2 bd-highlight">
-            <div className="btn-group mr-1">
-              <button
-                className="btn btn-danger btn-sm dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Marca
-              </button>
-              <div className="dropdown-menu">
-                <a className="dropdown-item" href="/productos">
-                  Nestle
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Gloria
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Angel
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Campomar
-                </a>
-              </div>
-            </div>
-            : Nestle
-          </div>
-          <div className="p-2 bd-highlight">
-            <div className="btn-group mr-1">
-              <button
-                className="btn btn-danger btn-sm dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Formato
-              </button>
-              <div className="dropdown-menu">
-                <a className="dropdown-item" href="/productos">
-                  Envase
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Pote
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Caja
-                </a>
-              </div>
-            </div>
-            : Envase
-          </div>
-          <div className="p-2 flex-grow-1 bd-highlight" />
-          <div className="p-2 bd-highlight">
-            <div className="btn-group">
-              <button
-                className="btn btn-danger btn-sm dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Ordenar por
-              </button>
-              <div className="dropdown-menu">
-                <a className="dropdown-item" href="/productos">
-                  Mayor precio
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Menor precio
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Producto
-                </a>
-                <a className="dropdown-item" href="/productos">
-                  Stock
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Modal de detalles de producto */}
-        <div
-          className="modal fade"
-          id="exampleModalCenter"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div
-            className="modal-dialog modal-lg modal-dialog-centered"
-            role="document"
-          >
-            <div className="modal-content">
-              <div className="modal-body">
-                <div className="container-fluid">
-                  <div className="row justify-content-end">
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div className="row justify-content-center align-items-center">
-                    <div className="col-md-6 text-center">
-                      <figure className="m-0 p-0">
-                        <img src="http://placehold.it/250x350" alt="producto" />
-                      </figure>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="row py-2">
-                        <div className="col-md-12">Rating Stars</div>
-                      </div>
-                      <div className="row py-2">
-                        <div className="col-md-12">
-                          <h2 className="font-weight-bold">
-                            Nombre del Producto
-                          </h2>
-                        </div>
-                      </div>
-                      <div className="row py-2">
-                        <div className="col-md-6 text-left">
-                          <h5>S/. 12.00</h5>
-                        </div>
-                        <div className="col-md-6 text-right">
-                          <small>Formato/volúmen</small>
-                        </div>
-                      </div>
-                      <div className="row py-2">
-                        <div className="col-md-12 text-center">
-                          <button
-                            type="button"
-                            className="btn btn-lg btn-danger modal__add-to-car-button"
-                          >
-                            Agregar al carrito
-                          </button>
-                        </div>
-                      </div>
-                      <div className="row py-2">
-                        <div className="col-md-12">
-                          <p className="text-left text-break">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and
-                            scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap
-                            into electronic typesetting, remaining essentially
-                            unchanged.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <div className="container-fluid">
-                  <div className="row justify-content-center">
-                    <small className="text-muted">Más detalles</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProductsFilter />
 
         <hr className="my-1 mx-4" />
 
-        <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0">
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link
-                    to="/productos"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                  >
-                    Ver detalles
-                  </Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
+        {products.productsList.length === 0 ? (
+          <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-center">
+            <div className="text-center p-4">
+              Lo sentimos, no hay productos que mostrar
             </div>
           </div>
-
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link to="/productos">Ver detalles</Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
+        ) : (
+          <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-start">
+            {
+              // No filter No sort
+              !products.filterIndex && !products.sortIndex ?
+                products.productsList.map((product) => (
+                  <ProductItem key={product.id} {...product} />
+                )) : // Filter and sort
+                products.filterIndex && products.sortIndex ?
+                  sortList(
+                    products.productsList.filter((item) =>
+                      item.brand
+                        .toLowerCase()
+                        .includes(products.filterIndex.toLowerCase())
+                    ),
+                    sortIndexState
+                  ).map((product) => (
+                    <ProductItem key={product.id} {...product} />
+                  )) : // Only filter
+                  products.filterIndex && !products.sortIndex ?
+                    products.productsList
+                      .filter((item) =>
+                        item.brand
+                          .toLowerCase()
+                          .includes(products.filterIndex.toLowerCase())
+                      )
+                      .map((product) => (
+                        <ProductItem key={product.id} {...product} />
+                      )) : // Only sort
+                    products.sortIndex &&
+                  !products.filterIndex &&
+                  sortList(
+                    products.productsList,
+                    sortIndexState
+                  ).map((product) => (
+                    <ProductItem key={product.id} {...product} />
+                  ))
+            }
           </div>
+        )}
+        {/* ) :
+          <div>Cargando...</div> */}
 
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link to="/productos">Ver detalles</Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link to="/productos">Ver detalles</Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link to="/productos">Ver detalles</Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-2 m-0">
-            <div className="col products__container--product p-0">
-              <div
-                className="card h-80 product-content-scalable p-0 m-0"
-                key={{}}
-                id="idProduct"
-              >
-                <figure className="m-0">
-                  <img
-                    src="http://placehold.it/200x150"
-                    className="card-img-top"
-                    alt="wwww"
-                  />
-                </figure>
-                <div className="card-body text-center products__container--product-info m-0">
-                  <h5 className="card-title">Producto</h5>
-                  <Link to="/productos">Ver detalles</Link>
-                </div>
-                <div className="card-footer text-center m-0">
-                  <small className="product-cost">S/.12.00</small>
-                </div>
-              </div>
-
-              <div
-                className="text-center products__container--add-to-cart bg-danger m-0 p-1"
-                id="idProductButton"
-              >
-                <button className="btn" type="button" onClick={() => {}}>
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Modals de detalles de producto */}
+        {
+          // No filter No sort
+          !products.filterIndex && !products.sortIndex ?
+            products.productsList.map((product) => (
+              <ProductDetailsModal key={product.id} {...product} />
+            )) : // Filter and sort
+            products.filterIndex && products.sortIndex ?
+              sortList(
+                products.productsList.filter((item) =>
+                  item.brand
+                    .toLowerCase()
+                    .includes(products.filterIndex.toLowerCase())
+                ),
+                sortIndexState
+              ).map((product) => (
+                <ProductDetailsModal key={product.id} {...product} />
+              )) : // Only filter
+              products.filterIndex && !products.sortIndex ?
+                products.productsList
+                  .filter((item) =>
+                    item.brand
+                      .toLowerCase()
+                      .includes(products.filterIndex.toLowerCase())
+                  )
+                  .map((product) => (
+                    <ProductDetailsModal key={product.id} {...product} />
+                  )) : // Only sort
+                products.sortIndex &&
+              !products.filterIndex &&
+              sortList(products.productsList, sortIndexState).map((product) => (
+                <ProductDetailsModal key={product.id} {...product} />
+              ))
+        }
       </div>
     </section>
   );

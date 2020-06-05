@@ -1,9 +1,17 @@
 {
   "presets": [
     // Para trabajar con EnmaScript 5 y 6
-    "@babel/preset-env",
+    [
+      "@babel/preset-env",
+      // Permite usar async-await
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ],
     // Para transpilar el código y poder usar React .jsx
-    "@babel/preset-react"
+    ["@babel/preset-react"]
   ],
   // "env": {
   //   "development": {

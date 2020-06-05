@@ -1,0 +1,13 @@
+@import '../Vars.scss';
+
+.searchShoppingCar__container--button-shoppingCar {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  // vertical-align: middle !important;
+  color: white;
+  background-color: $secondary-color-2;
+}
+
+.shopping-car-counter {
+  background-color: #289e6f;
+}

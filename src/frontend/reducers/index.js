@@ -7,6 +7,13 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SHOW_PRODUCTS_BY_SHOP,
+  SHOW_PRODUCTS_BY_CATEGORY,
+  SHOW_PRODUCTS_BY_SUBCATEGORY,
+  ADD_TO_CAR,
+  REMOVE_OF_CAR,
+  FILTER_BRANDS,
+  SORT_PRODUCTS,
 } from '../types';
 
 const reducer = (state, action) => {
@@ -31,7 +38,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        myList: action.payload.myList,
+        // myList: action.payload.myList,
       };
 
     case LOGOUT_REQUEST:
@@ -47,9 +54,6 @@ const reducer = (state, action) => {
       };
 
     case SEARCH_REQUEST:
-      console.log(
-        `PAYLOAD EN EL REDUCER DE SEARCH: ${JSON.stringify(action.payload)}`
-      );
       return {
         ...state,
         // searchResults: action.payload && action.payload.searching.length - 1 !== 0 ?
@@ -61,6 +65,51 @@ const reducer = (state, action) => {
                 .includes(action.payload.searching.toLowerCase())
             )
             : [],
+      };
+
+    case SHOW_PRODUCTS_BY_SHOP:
+      return {
+        ...state,
+        currentShop: action.payload,
+      };
+
+    case SHOW_PRODUCTS_BY_SUBCATEGORY:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          productsList: action.payload,
+        },
+      };
+
+    case FILTER_BRANDS:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          filterIndex: action.payload,
+        },
+      };
+
+    case ADD_TO_CAR:
+      return {
+        ...state,
+        shoppingCar: action.payload,
+      };
+
+    case REMOVE_OF_CAR:
+      return {
+        ...state,
+        shoppingCar: action.payload,
+      };
+
+    case SORT_PRODUCTS:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          sortIndex: action.payload,
+        },
       };
 
     default:

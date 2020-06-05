@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { registerRequest, setError, loginRequest } from '..';
+import { registerRequest, setError, loginRequest } from '.';
 
 // funcion para el llamado a la API (en actions con funciones dentro es donde actúa redux thunk)
 export const registerUser = (payload, redirectUrl) => {
@@ -28,20 +28,20 @@ export const loginUser = ({ email, password }, redirectUrl) => {
       },
     })
       .then(({ data }) => {
-        const fullName = `${data.user['first_name']} ${data.user['last_name']}`;
-        const { myList } = data.user;
+        // const fullName = `${data.user['first_name']} ${data.user['last_name']}`;
+        // const { myList } = data.user;
 
-        document.cookie = `id=${data.user.id}`;
+        // document.cookie = `id=${data.user.id}`;
         document.cookie = `email=${data.user.email}`;
         // document.cookie = `fullName=${data.user.full_name}`;
-        document.cookie = `fullName=${fullName}`;
+        // document.cookie = `fullName=${fullName}`;
 
-        delete data.user['first_name'];
-        delete data.user['last_name'];
-        delete data.user['myList'];
+        // delete data.user['first_name'];
+        // delete data.user['last_name'];
+        // delete data.user['myList'];
 
-        data.user['fullName'] = fullName;
-        data['myList'] = myList;
+        // data.user['fullName'] = fullName;
+        // data['myList'] = myList;
 
         // data.user y data.myList
         dispatch(loginRequest(data));

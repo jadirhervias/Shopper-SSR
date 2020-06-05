@@ -10,18 +10,17 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SHOW_PRODUCTS_BY_SHOP,
+  SHOW_PRODUCTS_BY_CATEGORY,
+  SHOW_PRODUCTS_BY_SUBCATEGORY,
+  FILTER_BRANDS,
   SET_ERROR,
+  ADD_TO_CAR,
+  REMOVE_OF_CAR,
+  SORT_PRODUCTS,
 } from '../types';
 
-export const setFavoriteShop = (payload) => ({
-  type: SET_FAVORITE_SHOP,
-  payload,
-});
-
-export const removeFavoriteShop = (payload) => ({
-  type: REMOVE_FAVORITE_SHOP,
-  payload,
-});
+// AUTH
 
 export const loginRequest = (payload) => ({
   type: LOGIN_REQUEST,
@@ -38,11 +37,63 @@ export const registerRequest = (payload) => ({
   payload,
 });
 
+// HOME
+
+export const setFavoriteShop = (payload) => ({
+  type: SET_FAVORITE_SHOP,
+  payload,
+});
+
+export const removeFavoriteShop = (payload) => ({
+  type: REMOVE_FAVORITE_SHOP,
+  payload,
+});
+
+// SEARCH
+
 export const searchRequest = (payload) => ({
   type: SEARCH_REQUEST,
   payload,
 });
 
+// SHOPPING
+
+export const showProductsByShop = (payload) => ({
+  type: SHOW_PRODUCTS_BY_SHOP,
+  payload,
+});
+
+export const showProductsByCategory = (payload) => ({
+  type: SHOW_PRODUCTS_BY_CATEGORY,
+  payload,
+});
+
+export const showProductsBySubcategory = (payload) => ({
+  type: SHOW_PRODUCTS_BY_SUBCATEGORY,
+  payload,
+});
+
+export const addToCar = (payload) => ({
+  type: ADD_TO_CAR,
+  payload,
+});
+
+export const removeOfCar = (payload) => ({
+  type: REMOVE_OF_CAR,
+  payload,
+});
+
+export const filterProductsByBrand = (payload) => ({
+  type: FILTER_BRANDS,
+  payload,
+});
+
+export const sortProducts = (payload) => ({
+  type: SORT_PRODUCTS,
+  payload,
+});
+
+// ERROR
 export const setError = (payload) => ({
   type: SET_ERROR,
   payload,

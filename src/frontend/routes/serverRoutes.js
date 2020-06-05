@@ -3,6 +3,7 @@ import Login from '../containers/auth/Login';
 import Register from '../containers/Register';
 import NotFound from '../containers/NotFound';
 import Shopping from '../containers/Shopping';
+import PersonalPanel from '../containers/PersonalPanel';
 
 const serverRoutes = (isLogged) => {
   return [
@@ -14,17 +15,22 @@ const serverRoutes = (isLogged) => {
     {
       exact: true,
       path: '/login',
-      component: Login,
+      component: !isLogged ? Login : Home,
     },
     {
       exact: true,
       path: '/registrar',
-      component: Register,
+      component: !isLogged ? Register : Home,
     },
     {
       exact: true,
       path: '/productos',
       component: isLogged ? Shopping : Login,
+    },
+    {
+      exact: true,
+      path: '/personal',
+      component: isLogged ? PersonalPanel : Login,
     },
     {
       name: 'NotFound',

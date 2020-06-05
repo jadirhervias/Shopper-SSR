@@ -17,38 +17,79 @@ const main = async (req, res, next) => {
     console.log(req.cookies);
 
     let initialState;
-    const { email, fullName, id, token } = req.cookies;
+    // const { email, fullName, id, token } = req.cookies;
+    const { email, token } = req.cookies;
 
     try {
       const { data } = await axios({
-        url: `${config.apiUrl}/shops`,
+        url: `${config.apiUrl}/api/${config.apiVersion}/shops`,
         method: 'GET',
-        // headers: {
-        //   Authorization: token
-        // }
       });
 
-      // Datos iniciales obtenidos de la API
-      const shops = data;
-      const myList = data;
+      console.log('SHOPS');
+      console.log(data.content);
 
-      if (!email || !fullName || !id) {
+      // Datos iniciales obtenidos de la API
+      const shops = data.content;
+      // const myList = data;
+
+      // if (!email || !fullName || !id) {
+      if (!email) {
         initialState = {
           user: {},
           searchResults: [],
           myList: [],
           shops,
+          shoppingCar: {
+            count: 0,
+            total: 0,
+            shop: '',
+            products: [],
+          },
+          savedShoppingCars: [],
+          favoriteProducts: [],
+          currentShop: {},
+          products: {
+            filterIndex: null,
+            sortIndex: 0,
+            productsList: [],
+          },
+          order: {},
+          orderHistory: [],
+          pagination: {},
+          loading: false,
+          error: null,
         };
       } else {
         initialState = {
           user: {
-            id,
+            // id,
             email,
-            fullName,
+            // fullName,
           },
           searchResults: [],
-          myList,
+          myList: [],
+          // myList,
           shops,
+          shoppingCar: {
+            count: 0,
+            total: 0,
+            shop: '',
+            products: [],
+          },
+          savedShoppingCars: [],
+          favoriteProducts: [],
+          products: {
+            filterIndex: null,
+            sortIndex: 0,
+            productsList: [],
+          },
+          currentShop: {},
+          order: {},
+          orderHistory: [],
+          pagination: {},
+          loading: false,
+          error: null,
         };
       }
     } catch (error) {
@@ -57,6 +98,25 @@ const main = async (req, res, next) => {
         searchResults: [],
         myList: [],
         shops: [],
+        shoppingCar: {
+          count: 0,
+          total: 0,
+          shop: '',
+          products: [],
+        },
+        savedShoppingCars: [],
+        favoriteProducts: [],
+        products: {
+          filterIndex: null,
+          sortIndex: 0,
+          productsList: [],
+        },
+        currentShop: {},
+        order: {},
+        orderHistory: [],
+        pagination: {},
+        loading: false,
+        error: null,
       };
       console.log(
         `ERROR CON EL INITIAL STATE (NO HAY USUARIO LOGEADO):\n${error}`
@@ -65,7 +125,8 @@ const main = async (req, res, next) => {
 
     const store = createStore(reducer, initialState);
     const preloadedState = store.getState();
-    const isLogged = initialState.user.id;
+    const isLogged = initialState.user.email;
+    // const isLogged = initialState.user.id;
 
     const html = renderToString(
       <Provider store={store}>

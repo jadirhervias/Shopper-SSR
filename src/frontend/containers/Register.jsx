@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../actions/users';
+import { registerUser } from '../actions/authActions';
 import '../assets/styles/components/Register.scss';
 
 const Register = (props) => {
