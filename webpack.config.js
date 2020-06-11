@@ -23,10 +23,6 @@ module.exports = {
   entry,
   // devtool: isProd ? 'hidden-source-map' : 'cheap-source-map',
   mode: isProd ? 'production' : 'development',
-  // Si hay problema con dotenv
-  // node: {
-  //   fs: 'empty',
-  // },
   output: {
     path: isProd ? path.resolve(__dirname, 'src/server/public') : '/',
     // isProd ?
@@ -115,6 +111,11 @@ module.exports = {
         ],
       },
     ],
+  },
+  // target: 'node',
+  // Si hay problema con dotenv
+  node: {
+    fs: 'empty',
   },
   devServer: {
     historyApiFallback: true,

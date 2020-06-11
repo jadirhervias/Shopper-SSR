@@ -1,12 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addProductToCar,
-  removeProductOfCar,
-} from '../../actions/productsActions';
+import { addProductToCar } from '../../actions/productsActions';
 
 const ProductDetailsModal = (currentProduct) => {
+  const [quantityValue, setQuantity] = useState(0);
+
+  const handleInput = (event) => {
+    setQuantity(event.target.value);
+  };
+
   const dispatch = useDispatch();
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
@@ -16,29 +20,42 @@ const ProductDetailsModal = (currentProduct) => {
   );
 
   const handleAddToCar = (product) => {
-    const newContent = {
-      ...shoppingCar,
-      count: alreadyAdded ? shoppingCar.count : shoppingCar.count + 1,
-      products: alreadyAdded ?
-        [...shoppingCar.products] :
-        [...shoppingCar.products, product],
-    };
+    // Get the products in the shopping car
+    let productsList = [...shoppingCar.products];
 
-    dispatch(addProductToCar(newContent));
-  };
+    let index;
 
-  const handleRemoveOfCar = (product) => {
-    const remainingProducts = shoppingCar.products.filter(
-      (items) => items.id !== product.id
+    if (!alreadyAdded) {
+      // Once the product is added by first time, set the quantity
+      const thisProduct = {
+        ...product,
+        quantity: 0,
+      };
+
+      // Set the new products list for the shopping car
+      productsList = [...productsList, thisProduct];
+
+      index = productsList.findIndex((item) => item.id === thisProduct.id);
+    } else {
+      // Find the index product in the shopping car products list
+      index = productsList.findIndex((item) => item.id === product.id);
+    }
+
+    productsList[index]['quantity'] = parseInt(quantityValue, 10);
+
+    const quantityList = productsList.map((item) => item.quantity);
+
+    const totalQuantity = quantityList.reduce(
+      (accumulator, productQuantity) => accumulator + productQuantity
     );
 
     const newContent = {
       ...shoppingCar,
-      count: alreadyAdded ? shoppingCar.count - 1 : shoppingCar.count,
-      products: remainingProducts,
+      count: totalQuantity,
+      products: productsList,
     };
 
-    dispatch(removeProductOfCar(newContent));
+    dispatch(addProductToCar(newContent));
   };
 
   // Modal de detalles de producto
@@ -93,25 +110,39 @@ const ProductDetailsModal = (currentProduct) => {
                       <small>{currentProduct.format}</small>
                     </div>
                   </div>
-                  <div className="row py-2">
-                    <div className="col-md-12 text-center">
-                      {alreadyAdded ? (
-                        <button
-                          type="button"
-                          className="btn btn-lg btn-danger modal__add-to-car-button"
-                          onClick={() => handleRemoveOfCar(currentProduct)}
+                  <div className="row justify-content-center align-items-center py-2">
+                    <div className="col-md-9 text-center">
+                      <button
+                        type="button"
+                        className="btn btn-lg btn-danger modal__add-to-car-button"
+                        onClick={() => handleAddToCar(currentProduct)}
+                        data-dismiss="modal"
+                      >
+                        Agregar al carrito
+                      </button>
+                    </div>
+                    <div className="col-md-3 text-center">
+                      <div className="form-group">
+                        <label>Cantidad</label>
+                        <input
+                          className="form-control"
+                          type="number"
+                          value={quantityValue}
+                          onChange={handleInput}
+                        />
+                        {/* <select
+                          className='form-control'
+                          type='number'
+                          value={quantityValue}
+                          onChange={handleSelect}
                         >
-                          Quitar del carrito
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="btn btn-lg btn-danger modal__add-to-car-button"
-                          onClick={() => handleAddToCar(currentProduct)}
-                        >
-                          Agregar al carrito
-                        </button>
-                      )}
+                          <option value={1}>1</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                        </select> */}
+                      </div>
                     </div>
                   </div>
                   <div className="row py-2">

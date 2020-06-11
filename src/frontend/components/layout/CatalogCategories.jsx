@@ -17,7 +17,7 @@ const CatalogCategories = ({ children }) => {
           <div className="row px-5 m-0">
             <div className="col-lg-3 catalogCategories__categoriesCard px-0 my-4">
               <div className="accordion" id="accordionCategories">
-                <div className="card catalogCategories__categoriesCard--card shadow">
+                <div className="card catalogCategories__categoriesCard--card shadow-sm">
                   <div className="card-body text-center">
                     <small className="card-title all-categories-tittle">
                       TODAS LAS CATEGORÍAS

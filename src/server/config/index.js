@@ -7,6 +7,7 @@ const config = {
   apiUrl: process.env.API_URL,
   apiVersion: process.env.API_VERSION,
   apiKeyToken: process.env.API_KEY_TOKEN,
+  googleApiKey: process.env.GOOGLE_API_KEY,
 };
 
 module.exports = { config };
