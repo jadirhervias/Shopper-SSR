@@ -36,7 +36,6 @@ const Products = () => {
   };
 
   const sortList = (list, sort) => {
-    // return list.map((filterItem) => {
     switch (sort) {
       case 0:
         return list;
@@ -56,7 +55,6 @@ const Products = () => {
       default:
         return list;
     }
-    // })
   };
 
   return (

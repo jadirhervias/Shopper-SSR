@@ -1,0 +1,10 @@
+@import '../Vars.scss';
+
+.product-detail--link {
+  color: $secondary-color-1;
+  cursor: pointer;
+}
+
+.product-detail--link:hover {
+  text-decoration: underline;
+}

@@ -5,7 +5,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   filterProducts,
   sortProductsAction,
@@ -49,19 +48,25 @@ const ProductsFilter = () => {
             <div className="dropdown-menu">
               {products.filterIndex && (
                 <button
-                  className="dropdown-item display-options"
+                  className="dropdown-item"
                   onClick={() => handleFilter(null)}
                 >
                   Quitar filtro
                 </button>
               )}
-              {products.productsList.map((item) => (
+              {Object.keys(
+                products.productsList.reduce((accumulator, productItem) => {
+                  accumulator[productItem.brand] =
+                    (accumulator[productItem.brand] || 0) + 1;
+                  return accumulator;
+                }, {})
+              ).map((item) => (
                 <button
-                  key={item.id}
-                  className="dropdown-item display-options"
-                  onClick={() => handleFilter(item.brand)}
+                  key={item}
+                  className="dropdown-item"
+                  onClick={() => handleFilter(item)}
                 >
-                  {item.brand}
+                  {item}
                 </button>
               ))}
             </div>
@@ -84,28 +89,16 @@ const ProductsFilter = () => {
               Ordenar por
             </button>
             <div className="dropdown-menu">
-              <button
-                className="dropdown-item display-options"
-                onClick={() => handleSort(1)}
-              >
+              <button className="dropdown-item" onClick={() => handleSort(1)}>
                 Mayor precio
               </button>
-              <button
-                className="dropdown-item display-options"
-                onClick={() => handleSort(2)}
-              >
+              <button className="dropdown-item" onClick={() => handleSort(2)}>
                 Menor precio
               </button>
-              <button
-                className="dropdown-item display-options"
-                onClick={() => handleSort(3)}
-              >
+              <button className="dropdown-item" onClick={() => handleSort(3)}>
                 Producto
               </button>
-              <button
-                className="dropdown-item display-options"
-                onClick={() => handleSort(4)}
-              >
+              <button className="dropdown-item" onClick={() => handleSort(4)}>
                 Stock
               </button>
             </div>

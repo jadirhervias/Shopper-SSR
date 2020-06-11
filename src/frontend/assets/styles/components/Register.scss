@@ -48,21 +48,12 @@
     font-weight: bold;
     border: none;
     height: 48px;
-    border-radius: 31px;
+    border-radius: 24px;
   }
   button:hover {
     color: white;
     background-color: $secondary-color-1;
   }
-}
-
-.register__container--form-group {
-  margin-bottom: 12px;
-}
-
-.register__container--form-group input::placeholder {
-  color: black;
-  text-align: center;
 }
 
 .register__container--form--input {
@@ -73,19 +64,19 @@
   font-family: 'Muli', sans-serif;
   font-size: 16px;
   height: 48px;
-  // width: 100%;
+  width: 100%;
   position: relative;
   display: block;
 }
 
 // Para la animación del input
-.wrap-input {
+.register--wrap-input {
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
-.focus-input {
+.register--focus-input {
   display: block;
   position: absolute;
   z-index: -1;
@@ -98,17 +89,16 @@
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  border-radius: 31px;
-  border: 2px solid $gray-scale-3 !important;
+  border-radius: 24px;
+  border: 1px solid $gray-scale-3;
   pointer-events: none;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
 
-.register__container--form input:focus + .focus-input {
+.register__container--form input:focus + .register--focus-input {
   width: calc(100% + 20px);
 }
 
@@ -116,7 +106,7 @@
 
 // Link se interpreta como el tag 'a'
 .register__container a {
-  color: $gray-scale-3;
+  color: black;
   font-size: 16px;
   text-align: center;
   text-decoration: none;
