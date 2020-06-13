@@ -1,10 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Category from '../shopping/Category';
+import Category from './Category';
 import '../../assets/styles/components/SearchShoppingCar.scss';
 
 const CatalogCategories = ({ children }) => {
@@ -46,11 +43,4 @@ const CatalogCategories = ({ children }) => {
   );
 };
 
-// Solo traigo los datos que necesito del state
-// const mapStateToProps = (state) => {
-//   return {
-//   };
-// };
-
 export default CatalogCategories;
-// export default connect(null, null)(ShoppingCar);

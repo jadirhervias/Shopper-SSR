@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -67,9 +65,9 @@ const Header = (props) => {
                 title={user.email}
                 id="collasible-nav-dropdown"
               >
-                <Link to="/">Mi Cuenta</Link>
+                <Link to="/user">Mi Cuenta</Link>
                 <NavDropdown.Divider />
-                <Link to="/wwww">Preferencias</Link>
+                <Link to="/">Preferencias</Link>
                 <NavDropdown.Divider />
                 <Link to="/" onClick={handleLogout}>
                   Cerrar Sesión

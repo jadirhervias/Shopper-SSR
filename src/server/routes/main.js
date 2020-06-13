@@ -32,11 +32,100 @@ const main = async (req, res, next) => {
       // Datos iniciales obtenidos de la API
       const shops = data.content;
       // const myList = data;
+      const userCards = [
+        {
+          id: 'f2in329fjf91fn9jr1',
+          card_number: '4111111111111111',
+          cvv: '123',
+          expiration_month: '09',
+          expiration_year: '2020',
+          email: 'jadir@gmail.com',
+        },
+        {
+          id: 'f2in329fjf91fn9ko1',
+          card_number: '5111111111111118',
+          cvv: '039',
+          expiration_month: '09',
+          expiration_year: '2025',
+          email: 'jadir@gmail.com',
+        },
+      ].map((item) => ({
+        ...item,
+        card_number: '************'.concat(item.card_number.substring(7, 11)),
+      }));
+
+      const savedShoppingCars = [
+        {
+          id: 'dnn1nd90723fn8f0193f',
+          name: 'Fiesta',
+          count: 2,
+          total: 5.5,
+          // Unicachi
+          shop: '5ed96b57f0a4636596224a28',
+          products: [
+            {
+              id: '5ea63708c97be35753f9d934',
+              name: 'Pinguinos de Marinela',
+              details: 'panecillos de chocolate con relleno de merengue',
+              cost: 5,
+              format: '2 unidades por paquete',
+              brand: 'Marinela',
+              stock: 88,
+              last_update: '2020-04-26T20:00:00.000+00:00',
+              quantity: 1,
+            },
+            {
+              id: '5ea639a2820f2d4fb97a619a',
+              name: 'cua cua',
+              details: 'wafer bañado en chocolate',
+              cost: 0.5,
+              format: '1 barra por unidad',
+              brand: 'Field',
+              stock: 88,
+              last_update: '2020-04-26T20:45:00.000+00:00',
+              quantity: 1,
+            },
+          ],
+        },
+        {
+          id: 'dmvp1390723fn8f0193f',
+          name: 'Domingo familiar',
+          count: 2,
+          total: 5.5,
+          // Unicachi
+          shop: '5ed96b57f0a4636596224a28',
+          products: [
+            {
+              id: '5ea63708c97be35753f9d934',
+              name: 'Pinguinos de Marinela',
+              details: 'panecillos de chocolate con relleno de merengue',
+              cost: 5,
+              format: '2 unidades por paquete',
+              brand: 'Marinela',
+              stock: 88,
+              last_update: '2020-04-26T20:00:00.000+00:00',
+              quantity: 1,
+            },
+            {
+              id: '5ea639a2820f2d4fb97a619a',
+              name: 'cua cua',
+              details: 'wafer bañado en chocolate',
+              cost: 0.5,
+              format: '1 barra por unidad',
+              brand: 'Field',
+              stock: 88,
+              last_update: '2020-04-26T20:45:00.000+00:00',
+              quantity: 1,
+            },
+          ],
+        },
+      ];
 
       // if (!email || !fullName || !id) {
       if (!email) {
         initialState = {
           user: {},
+          userCards: [],
           searchResults: [],
           myList: [],
           shops,
@@ -59,6 +148,10 @@ const main = async (req, res, next) => {
           pagination: {},
           loading: false,
           error: null,
+          showUserCards: false,
+          showUserOrders: false,
+          showUserShoppingCars: false,
+          showUserAccount: false,
         };
       } else {
         initialState = {
@@ -67,8 +160,9 @@ const main = async (req, res, next) => {
             email,
             // fullName,
           },
+          userCards,
           searchResults: [],
-          myList: [],
+          myList: [shops[0], shops[2]],
           // myList,
           shops,
           shoppingCar: {
@@ -77,7 +171,7 @@ const main = async (req, res, next) => {
             shop: '',
             products: [],
           },
-          savedShoppingCars: [],
+          savedShoppingCars,
           favoriteProducts: [],
           products: {
             filterIndex: null,
@@ -90,11 +184,16 @@ const main = async (req, res, next) => {
           pagination: {},
           loading: false,
           error: null,
+          showUserCards: false,
+          showUserOrders: false,
+          showUserShoppingCars: false,
+          showUserAccount: false,
         };
       }
     } catch (error) {
       initialState = {
         user: {},
+        userCards: [],
         searchResults: [],
         myList: [],
         shops: [],
@@ -117,6 +216,10 @@ const main = async (req, res, next) => {
         pagination: {},
         loading: false,
         error: null,
+        showUserCards: false,
+        showUserOrders: false,
+        showUserShoppingCars: false,
+        showUserAccount: false,
       };
       console.log(
         `ERROR CON EL INITIAL STATE (NO HAY USUARIO LOGEADO):\n${error}`

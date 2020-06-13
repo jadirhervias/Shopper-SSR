@@ -209,6 +209,59 @@ function api(app) {
     }
   });
 
+  // Guardar tarjeta del usuario
+  app.post('/newcard/:id', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { id } = req.params;
+      const card = req.body;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/users/cards/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        data: card,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      // JSON + HAL
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Validar token de la tarjeta
+  app.post('/tokencard', async (req, res, next) => {
+    try {
+      console.log(req.body);
+
+      const { data, status } = await axios({
+        url: 'https://secure.culqi.com/v2/tokens',
+        headers: {
+          // Authorization: `Bearer ${token}`,
+          Authorization: 'Bearer pk_test_mAGswgRzosSOMT87',
+        },
+        method: 'POST',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      // JSON + HAL
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // // Para verificar si el token expiró
   // app.get('/verify/:user', async function (req, res, next) {
   //   try {

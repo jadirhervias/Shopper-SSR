@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import ShoppingCarDetail from '../components/personalPanel/ShoppingCarDetail';
+import ShoppingCar from '../components/shoppingCarOrder/ShoppingCar';
 
-const PersonalPanel = () => (
+const ShoppingCarOrder = () => (
   <>
     <Header />
     <main>
-      <ShoppingCarDetail />
+      <ShoppingCar />
     </main>
     <Footer />
   </>
 );
 
-export default PersonalPanel;
+export default ShoppingCarOrder;

@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-// import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 // import Search from './home/Search'
-import ShoppingCar from './shopping/ShoppingCar';
-import '../assets/styles/components/SearchShoppingCar.scss';
+import ShoppingCarCounter from './ShoppingCarCounter';
+import '../../assets/styles/components/SearchShoppingCar.scss';
 
-const SearchShoppingCar = (props) => {
+const SearchShoppingCar = () => {
   return (
     <section className="searchShoppingCar">
       <div className="container px-0">
@@ -21,7 +18,7 @@ const SearchShoppingCar = (props) => {
                 aria-describedby="button-addon2"
                 className="form-control mr-5 searchShoppingCar__container--input-search"
               />
-              <ShoppingCar />
+              <ShoppingCarCounter />
             </div>
           </div>
         </div>
@@ -30,11 +27,4 @@ const SearchShoppingCar = (props) => {
   );
 };
 
-// Solo traigo los datos que necesito del state
-// const mapStateToProps = (state) => {
-//   return {
-//   };
-// };
-
 export default SearchShoppingCar;
-// export default connect(null, null)(ShoppingCar);

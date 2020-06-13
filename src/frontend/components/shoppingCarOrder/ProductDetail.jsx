@@ -123,19 +123,19 @@ const ProductDetail = (product) => {
             alt="producto"
           />
         </div>
-        <div className="col-md-4">
-          <div className="card-body">
-            <h4 className="card-title">{product.name}</h4>
-            <h6 className="card-title">{product.brand}</h6>
-            <p className="card-text">{product.details}</p>
-            <p className="card-text">
-              <small className="text-muted">{product.format}</small>
-            </p>
-            <h3 className="card-title">
-              S/.
-              {product.cost}
-            </h3>
-          </div>
+        <div className="col-md-4 p-2">
+          {/* <div className="card-body"> */}
+          <h4 className="card-title">{product.name}</h4>
+          <h6 className="card-text">{product.brand}</h6>
+          <p className="card-text">{product.details}</p>
+          <p className="card-text">
+            <small className="text-muted">{product.format}</small>
+          </p>
+          <h3 className="card-title">
+            S/.
+            {product.cost}
+          </h3>
+          {/* </div> */}
         </div>
         <div className="col-md-4">
           <div className="card-body">

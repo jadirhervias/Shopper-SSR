@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
-import ProductsFilter from './shopping/ProductsFilter';
-import ProductDetailsModal from './shopping/ProductDetailsModal';
-import ProductItem from './shopping/ProductItem';
-// import { connect } from 'react-redux';
-import '../assets/styles/components/Products.scss';
+import ProductsFilter from './ProductsFilter';
+import ProductDetailsModal from './ProductDetailsModal';
+import ProductItem from './ProductItem';
+import '../../assets/styles/components/Products.scss';
 
 const Products = () => {
   const products = useSelector((state) => state.products);

@@ -4,9 +4,9 @@ import React from 'react';
 // import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import SearchShoppingCar from '../components/SearchShoppingCar';
-import CatalogCategories from '../components/layout/CatalogCategories';
-import Products from '../components/Products';
+import SearchShoppingCar from '../components/shopping/SearchShoppingCar';
+import CatalogCategories from '../components/shopping/CatalogCategories';
+import Products from '../components/shopping/Products';
 import '../assets/styles/App.scss';
 
 const Shopping = (props) => {

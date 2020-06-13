@@ -2,7 +2,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import SubCategory from './SubCategory';
-// import { connect } from 'react-redux';
 
 const Category = ({ id, name, sub_categories }) => {
   return (

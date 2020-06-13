@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -65,7 +63,7 @@ const Footer = () => (
         {/* <div className="col-1 d-none d-xl-block " /> */}
       </div>
       <div className="row justify-content-center text-center m-0">
-        <div className="col-md-12 px-0">2020 ©Shopper</div>
+        <div className="col-md-12 px-0">2020 &copy;Shopper</div>
       </div>
     </div>
   </footer>

@@ -14,6 +14,12 @@ import {
   REMOVE_OF_CAR,
   FILTER_BRANDS,
   SORT_PRODUCTS,
+  SET_ORDER,
+  SAVE_CARD,
+  SHOW_USER_ORDERS,
+  SHOW_USER_SHOPPING_CARS,
+  SHOW_USER_CARDS,
+  SHOW_USER_ACCOUNT,
 } from '../types';
 
 const reducer = (state, action) => {
@@ -110,6 +116,42 @@ const reducer = (state, action) => {
           ...state.products,
           sortIndex: action.payload,
         },
+      };
+
+    case SET_ORDER:
+      return {
+        ...state,
+        orderHistory: action.payload,
+      };
+
+    case SAVE_CARD:
+      return {
+        ...state,
+        userCards: action.payload,
+      };
+
+    case SHOW_USER_ORDERS:
+      return {
+        ...state,
+        showUserOrders: action.payload,
+      };
+
+    case SHOW_USER_SHOPPING_CARS:
+      return {
+        ...state,
+        showUserShoppingCars: action.payload,
+      };
+
+    case SHOW_USER_CARDS:
+      return {
+        ...state,
+        showUserCards: action.payload,
+      };
+
+    case SHOW_USER_ACCOUNT:
+      return {
+        ...state,
+        showUserAccount: action.payload,
       };
 
     default:

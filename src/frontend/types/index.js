@@ -29,5 +29,15 @@ export const SORT_PRODUCTS = 'SORT_PRODUCTS';
 export const ADD_TO_CAR = 'ADD_TO_CAR';
 export const REMOVE_OF_CAR = 'REMOVE_OF_CAR';
 
+// PAY
+export const SET_ORDER = 'SET_ORDER';
+export const SAVE_CARD = 'SAVE_CARD';
+
+// SHOW
+export const SHOW_USER_ORDERS = 'SHOW_USER_ORDERS';
+export const SHOW_USER_SHOPPING_CARS = 'SHOW_USER_SHOPPING_CARS';
+export const SHOW_USER_CARDS = 'SHOW_USER_CARDS';
+export const SHOW_USER_ACCOUNT = 'SHOW_USER_ACCOUNT';
+
 // ERROR
 export const SET_ERROR = 'SET_ERROR';

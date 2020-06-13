@@ -6,7 +6,8 @@ import Login from '../containers/Login';
 import Register from '../containers/Register';
 import NotFound from '../containers/NotFound';
 import Layout from '../components/layout/Layout';
-import PersonalPanel from '../containers/PersonalPanel';
+import ShoppingCarOrder from '../containers/ShoppingCarOrder';
+import UserPanel from '../containers/UserPanel';
 
 // Provider: Permite encapsular nuestros componente por medio de un connect,
 // para poder transmitir toda la informacion del STORE(estado) a todos los componentes dentro
@@ -31,9 +32,10 @@ const App = ({ isLogged }) => (
         />
         <Route
           exact
-          path="/personal"
-          component={isLogged ? PersonalPanel : Login}
+          path="/carrito"
+          component={isLogged ? ShoppingCarOrder : Login}
         />
+        <Route exact path="/user" component={isLogged ? UserPanel : Login} />
         {/* <Route exact path="/comprar" component={isLogged ? Compra : Login} /> */}
         <Route component={NotFound} />
       </Switch>

@@ -1,0 +1,10 @@
+@import '../Vars.scss';
+
+.userPanel--option {
+  color: black;
+  cursor: pointer;
+}
+
+.userPanel--option:hover {
+  font-weight: bold;
+}

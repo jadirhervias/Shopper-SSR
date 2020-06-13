@@ -3,7 +3,8 @@ import Login from '../containers/Login';
 import Register from '../containers/Register';
 import NotFound from '../containers/NotFound';
 import Shopping from '../containers/Shopping';
-import PersonalPanel from '../containers/PersonalPanel';
+import ShoppingCarOrder from '../containers/ShoppingCarOrder';
+import UserPanel from '../containers/UserPanel';
 
 const serverRoutes = (isLogged) => {
   return [
@@ -29,8 +30,13 @@ const serverRoutes = (isLogged) => {
     },
     {
       exact: true,
-      path: '/personal',
-      component: isLogged ? PersonalPanel : Login,
+      path: '/carrito',
+      component: isLogged ? ShoppingCarOrder : Login,
+    },
+    {
+      exact: true,
+      path: '/user',
+      component: isLogged ? UserPanel : Login,
     },
     {
       name: 'NotFound',

@@ -69,7 +69,8 @@ app.get('/', main);
 app.get('/login', main);
 app.get('/registrar', main);
 app.get('/productos', main);
-app.get('/personal', main);
+app.get('/carrito', main);
+app.get('/user', main);
 
 api(app);
 

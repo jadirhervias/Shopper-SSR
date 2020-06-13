@@ -1,16 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-import React, { useState, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  setFavoriteShop,
-  removeFavoriteShop,
-  showProductsByShop,
-} from '../../actions';
+import { setFavoriteShop, removeFavoriteShop } from '../../actions';
 import { showShop } from '../../actions/shoppingActions';
 import '../../assets/styles/components/CarouselItem.scss';
 import enterIcon from '../../assets/static/enter-icon.png';

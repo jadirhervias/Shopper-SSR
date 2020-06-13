@@ -1,0 +1,13 @@
+@import '../Vars.scss';
+
+.order-delivered-text {
+  color: $util-color-1;
+}
+
+.order-in-progress-text {
+  color: $secondary-color-2;
+}
+
+.order-canceled-text {
+  color: $util-color-2;
+}

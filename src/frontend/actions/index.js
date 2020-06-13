@@ -18,6 +18,12 @@ import {
   ADD_TO_CAR,
   REMOVE_OF_CAR,
   SORT_PRODUCTS,
+  SET_ORDER,
+  SAVE_CARD,
+  SHOW_USER_ORDERS,
+  SHOW_USER_SHOPPING_CARS,
+  SHOW_USER_CARDS,
+  SHOW_USER_ACCOUNT,
 } from '../types';
 
 // AUTH
@@ -90,6 +96,38 @@ export const filterProductsByBrand = (payload) => ({
 
 export const sortProducts = (payload) => ({
   type: SORT_PRODUCTS,
+  payload,
+});
+
+// PAY
+export const setHistoryOrder = (payload) => ({
+  type: SET_ORDER,
+  payload,
+});
+
+export const saveCard = (payload) => ({
+  type: SAVE_CARD,
+  payload,
+});
+
+// SHOW
+export const showUserOrders = (payload) => ({
+  type: SHOW_USER_ORDERS,
+  payload,
+});
+
+export const showUserShoppingCars = (payload) => ({
+  type: SHOW_USER_SHOPPING_CARS,
+  payload,
+});
+
+export const showUserCards = (payload) => ({
+  type: SHOW_USER_CARDS,
+  payload,
+});
+
+export const showUserAccount = (payload) => ({
+  type: SHOW_USER_ACCOUNT,
   payload,
 });
 

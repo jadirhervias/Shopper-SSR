@@ -9,9 +9,6 @@ const SubCategory = ({ id, name }) => {
   const dispatch = useDispatch();
 
   const handleShowProducts = (id) => {
-    console.log(
-      'Se modificará el state de productos, se borraran los filtros, y por ende cambiará las vista'
-    );
     dispatch(showProducts(id));
   };
 
