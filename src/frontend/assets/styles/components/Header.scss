@@ -11,7 +11,7 @@
 }
 
 // links directos - No dropdown
-.header__navBar--menu > a {
+.header__navBar--menu-link {
   color: white !important;
   margin-left: 16px;
   padding: 8px;
@@ -46,34 +46,18 @@
   padding: 0.25rem 0.5rem !important;
 }
 
-// Profile container
-.header__navBar--profile a {
-  color: black !important;
+.shopping-car-link-2 {
+  display: none !important;
+}
+
+.shopping-car-counter {
+  background-color: $secondary-color-2;
+  color: white;
 }
 
 // Profile container
-.header__navBar--profile > div {
-  vertical-align: middle !important;
-  align-items: center !important;
-  margin-top: 8px;
-}
-
-// user fullname
-.header__navBar--profile > div > a {
-  // color: $secondary-color-1 !important;
-  // font-weight: bold;
-  margin-left: 0;
-}
-
-// Profile Dropdown block
-.header__navBar--profile > div > div {
-  min-width: 9rem;
-}
-
-// Profile Dropdown links
-.header__navBar--profile > div > div > a {
-  text-decoration: none;
-  padding: 0.25rem 0.5rem !important;
+.header__navBar--profile-link {
+  color: white !important;
 }
 
 .header__navBar--profile-photo {
@@ -98,12 +82,20 @@
 
 // Cuando se activa el collapse del navBar
 @media only screen and (max-width: 767px) {
+  .shopping-car-link-2 {
+    display: block !important;
+  }
+
+  .shopping-car-link-1 {
+    display: none !important;
+  }
+
   .header__navBar--collapse {
     background-color: white;
   }
 
   // links directos - No dropdown
-  .header__navBar--menu > a {
+  .header__navBar--menu-link {
     color: black !important;
     padding: 8px 0px 8px 0px;
   }
@@ -114,7 +106,7 @@
   }
 
   // user fullname
-  .header__navBar--profile > div > a {
+  .header__navBar--profile-link {
     color: $secondary-color-1 !important;
     font-weight: bold;
     margin-left: 16px;
@@ -126,7 +118,7 @@
   }
 
   .header__navBar--auth-login {
-    margin-top: 0;
+    margin-top: 8px;
     color: $secondary-color-1 !important;
     margin-left: 16px;
     border-top: thin solid rgba(0, 0, 0, 0.2);

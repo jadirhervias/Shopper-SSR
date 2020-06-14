@@ -1,16 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { connect, useSelector } from 'react-redux';
 import { logoutRequest } from '../../actions';
-
-import '../../assets/styles/components/Header.scss';
 import logo from '../../assets/static/shopper-logo.png';
 import profile from '../../assets/static/user-icon.png';
+import shoppingCarIcon from '../../assets/static/shopping-car.png';
+import '../../assets/styles/components/Header.scss';
 
 const Header = (props) => {
   const { user } = props;
   const hasUser = Object.keys(user).length > 0;
+
+  const shoppingCar = useSelector((state) => state.shoppingCar);
 
   const handleLogout = () => {
     // vaciar los datos del usuario
@@ -24,8 +26,7 @@ const Header = (props) => {
 
   return (
     <header className="header">
-      {/* Link evita refrescarse y no se nota al recargar la página, lo cual no pasa si usamos <a>...</a> */}
-      <Navbar collapseOnSelect expand="md" className="header__navBar">
+      <nav className="header__navBar navbar navbar-expand-md navbar-light">
         <Link to="/">
           <img
             src={logo}
@@ -35,60 +36,175 @@ const Header = (props) => {
             alt="shopper"
           />
         </Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse
-          id="responsive-navbar-nav"
-          className="header__navBar--collapse"
+
+        <Link to="/carrito" className="shopping-car-link-2">
+          <span className="icon-container">
+            <img
+              height="22"
+              src={shoppingCarIcon}
+              alt="shopping-car"
+              className="mr-2"
+            />
+          </span>
+          <span className="badge shopping-car-counter">
+            {shoppingCar.count}
+          </span>
+        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <Nav className="header__navBar--menu mr-auto">
-            <Link to="/">Ayuda</Link>
-            <Link to="/">Premium</Link>
-            <NavDropdown
-              title="COVID-19"
-              id="collasible-nav-dropdown"
-              className="header__navBar--menu-dropdown"
-            >
-              <Link to="/">Abastecimiento</Link>
-              <NavDropdown.Divider />
-              <Link to="/">Separated link</Link>
-            </NavDropdown>
-          </Nav>
-          {hasUser ? (
-            <Nav className="header__navBar--profile">
-              <img
-                src={profile}
-                alt={user.email}
-                className="header__navBar--profile-photo"
-              />
-              <NavDropdown
-                // title={user.fullName}
-                title={user.email}
-                id="collasible-nav-dropdown"
-              >
-                <Link to="/user">Mi Cuenta</Link>
-                <NavDropdown.Divider />
-                <Link to="/">Preferencias</Link>
-                <NavDropdown.Divider />
-                <Link to="/" onClick={handleLogout}>
-                  Cerrar Sesión
-                </Link>
-              </NavDropdown>
-            </Nav>
-          ) : (
-            <Nav className="header__navBar--auth">
-              <Nav.Link href="/login" className="header__navBar--auth-login">
-                Iniciar Sesión
-              </Nav.Link>
-              <Link
-                to="/registrar"
-                className="header__navBar--auth--register-button btn btn-md"
-              >
-                Regístrate
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        <div
+          className="collapse navbar-collapse header__navBar--collapse"
+          id="navbarTogglerDemo02"
+        >
+          {/* Menu links */}
+          <ul className="navbar-nav header__navBar--menu mr-auto">
+            <li className="nav-item">
+              <Link to="/" class="nav-link header__navBar--menu-link">
+                Ayuda
               </Link>
-            </Nav>
+            </li>
+            <li className="nav-item">
+              <Link to="/" class="nav-link header__navBar--menu-link">
+                Premium
+              </Link>
+            </li>
+            <li className="nav-item dropdown">
+              <Link
+                to="/"
+                className="nav-link dropdown-toggle header__navBar--menu-link"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                COVID-19
+              </Link>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <Link to="/" class="dropdown-item">
+                  Abastecimiento
+                </Link>
+                <div className="dropdown-divider" />
+                <Link to="/" class="dropdown-item">
+                  Separated link
+                </Link>
+              </div>
+            </li>
+          </ul>
+
+          {hasUser ? (
+            <>
+              {/* Shopping car */}
+              <Link to="/carrito" className="shopping-car-link-1 mr-4">
+                <span className="icon-container">
+                  <img
+                    height="22"
+                    src={shoppingCarIcon}
+                    alt="shopping-car"
+                    className="mr-2"
+                  />
+                </span>
+                <span className="badge shopping-car-counter">
+                  {shoppingCar.count}
+                </span>
+              </Link>
+
+              {/* Profile */}
+              <ul className="navbar-nav header__navBar--profile">
+                <img
+                  src={profile}
+                  alt={user.email}
+                  className="header__navBar--profile-photo"
+                />
+                <li className="nav-item dropdown">
+                  <Link
+                    to="/"
+                    className="nav-link dropdown-toggle header__navBar--profile-link mt-2"
+                    id="navbarDropdownMenuLink2"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {user.email}
+                  </Link>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink2"
+                  >
+                    <Link to="/user" className="dropdown-item user-options">
+                      Mi Cuenta
+                    </Link>
+                    <div className="dropdown-divider" role="separator" />
+                    <Link to="/" className="dropdown-item user-options">
+                      Preferencias
+                    </Link>
+                    <div className="dropdown-divider" role="separator" />
+                    <Link
+                      className="dropdown-item user-options"
+                      onClick={handleLogout}
+                    >
+                      Cerrar Sesión
+                    </Link>
+                  </div>
+                </li>
+              </ul>
+            </>
+          ) : (
+            <>
+              {/* Shopping car */}
+              <Link to="/carrito" className="shopping-car-link-1 mr-4">
+                <span className="icon-container">
+                  <img
+                    height="22"
+                    src={shoppingCarIcon}
+                    alt="shopping-car"
+                    className="mr-2"
+                  />
+                </span>
+                <span className="badge shopping-car-counter">
+                  {shoppingCar.count}
+                </span>
+              </Link>
+
+              {/* auth */}
+              <ul className="navbar-nav header__navBar--auth text-center">
+                <li className="nav-item">
+                  <Link
+                    to="/login"
+                    data-rb-event-key="/login"
+                    className="header__navBar--auth-login nav-link"
+                  >
+                    Iniciar Sesi&oacute;n
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="header__navBar--auth--register-button btn btn-md"
+                    to="/registrar"
+                  >
+                    Reg&iacute;strate
+                  </Link>
+                </li>
+              </ul>
+            </>
           )}
-        </Navbar.Collapse>
-      </Navbar>
+        </div>
+      </nav>
     </header>
   );
 };

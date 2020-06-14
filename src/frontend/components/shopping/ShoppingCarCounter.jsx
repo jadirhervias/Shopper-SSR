@@ -18,7 +18,7 @@ const ShoppingCarCounter = () => {
         >
           <span>
             <img
-              height={24}
+              height={22}
               src={ShoppingCarIcon}
               alt="carrito de compras"
               className="mr-2"

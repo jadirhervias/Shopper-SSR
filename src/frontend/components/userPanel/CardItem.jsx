@@ -2,7 +2,7 @@ import React from 'react';
 
 const CardItem = (card) => {
   return (
-    <div className="card mb-3 p-3">
+    <div className="card shadow-sm mb-3 p-3">
       <div className="row no-gutters">
         <div className="col-5">Tarjeta de crédito</div>
         <div className="col-5">{card.card_number}</div>

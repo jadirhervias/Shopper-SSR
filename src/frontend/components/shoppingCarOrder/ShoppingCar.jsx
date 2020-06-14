@@ -99,7 +99,7 @@ const ShoppingCar = () => {
                         data-target="#modalGoogleMaps"
                         disabled={!(shoppingCar.products.length > 0)}
                       >
-                        Ubicación y dirección
+                        Ubicación y direcci&oacute;n
                       </button>
                     </div>
                   </div>

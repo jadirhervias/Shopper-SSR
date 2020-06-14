@@ -11,7 +11,7 @@ const OrderItem = (order) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="card h-80 mb-3">
+    <div className="card shadow-sm h-80 mb-3">
       <div className="row no-gutters">
         <div className="col-md-5 col-sm-6">
           <div className="card-body">

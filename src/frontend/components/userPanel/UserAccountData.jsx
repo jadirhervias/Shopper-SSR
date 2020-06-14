@@ -7,7 +7,23 @@ const UserAccountData = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12">{`Email: ${userData.email}`}</div>
+        <div className="col-12">
+          <div className="card shadow-sm h-80 mb-3">
+            <div className="row no-gutters">
+              <div className="col-12">
+                <div className="card-body">
+                  <p className="card-title">{`Email: ${userData.email}`}</p>
+                  <p className="card-title">Nombre de usuario: Jadir Hervias</p>
+                  <p className="card-title">Tel&eacute;fono: </p>
+                  <input type="tel" />
+                  <p className="card-text">
+                    <small className="text-muted">Cuenta b&aacute;sica</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

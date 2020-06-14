@@ -65,7 +65,7 @@ const OrdersHistory = () => {
             </span>
           </div>
           <div className="row justify-content-center p-4 m-0">
-            <h2>No haz realizado compras aún</h2>
+            <h2>No haz realizado compras a&uacute;n</h2>
             <h4>
               ¡Encuentra los productos de tus tiendas favoritas cerca de ti!
             </h4>
