@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,7 +88,14 @@ const ProductDetailsModal = (currentProduct) => {
               <div className="row justify-content-center align-items-center">
                 <div className="col-md-6 text-center">
                   <figure className="m-0 p-0">
-                    <img src={currentProduct.photo} alt={currentProduct.name} />
+                    <img
+                      src={
+                        currentProduct.image ?
+                          `data:image/jpeg;base64,${currentProduct.image.image}` :
+                          'http://placehold.it/200x250'
+                      }
+                      alt={currentProduct.name}
+                    />
                   </figure>
                 </div>
                 <div className="col-md-6">

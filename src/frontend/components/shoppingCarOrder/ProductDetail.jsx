@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -117,11 +118,17 @@ const ProductDetail = (product) => {
     <div className="card mb-3">
       <div className="row no-gutters">
         <div className="col-md-4">
-          <img
-            src="http://placehold.it/150x150"
-            className="card-img"
-            alt="producto"
-          />
+          <figure className="m-0">
+            <img
+              src={
+                product.image ?
+                  `data:image/jpeg;base64,${product.image.image}` :
+                  'http://placehold.it/200x250'
+              }
+              className="card-img"
+              alt="producto"
+            />
+          </figure>
         </div>
         <div className="col-md-4 p-2">
           {/* <div className="card-body"> */}
@@ -153,12 +160,12 @@ const ProductDetail = (product) => {
                 </div>
               </div>
               <div className="col-sm-12 text-center">
-                <p
+                {/* <p
                   className="card-text product-detail--link"
                   onClick={() => {}}
                 >
                   Guardar para despu&eacute;s
-                </p>
+                </p> */}
                 <p
                   className="card-text product-detail--link"
                   onClick={() => handleRemoveCompletely(product)}

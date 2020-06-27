@@ -1,0 +1,12 @@
+@import '../Vars.scss';
+
+.notification__container {
+  position: fixed;
+  min-height: 200px;
+}
+
+.notification__container--stack {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

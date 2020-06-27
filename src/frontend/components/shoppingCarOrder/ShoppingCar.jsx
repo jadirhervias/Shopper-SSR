@@ -18,7 +18,10 @@ const ShoppingCar = () => {
               <div className="row justify-content-between p-2 m-0">
                 <h2>Carrito de Compras</h2>
                 <button type="button" className="btn btn-danger">
-                  Agregar un producto no encontrado
+                  Agregar un producto manualmente
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Guardar carrito
                 </button>
               </div>
               <hr className="mt-3 mb-4 mx-1" />

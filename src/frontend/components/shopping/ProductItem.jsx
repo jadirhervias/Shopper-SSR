@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
@@ -59,7 +60,11 @@ const ProductItem = (currentProduct) => {
       <div className="card h-100 product-content-scalable">
         <figure className="m-0">
           <img
-            src={currentProduct.photo}
+            src={
+              currentProduct.image ?
+                `data:image/jpeg;base64,${currentProduct.image.image}` :
+                'http://placehold.it/200x250'
+            }
             className="card-img-top"
             alt={currentProduct.name}
           />

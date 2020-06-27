@@ -1,5 +1,7 @@
 # Shopper
 src/server/public
+src/server/firebase
+src/frontend/firebase/firebaseConfig.js
 
 # Logs
 logs

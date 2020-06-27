@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 import reducer from './reducers';
 import App from './routes/App';
+// import './firebase/app';
 
 if (typeof window !== 'undefined') {
   const history = createBrowserHistory();
@@ -31,6 +32,8 @@ if (typeof window !== 'undefined') {
 
   // rehydrateMarks().then(() => {
   hydrate(
+    // Provider: Permite encapsular nuestros componente por medio de un connect,
+    // para poder transmitir toda la informacion del STORE(estado) a todos los componentes dentro
     <Provider store={store}>
       <Router history={history}>
         <App isLogged={preloadedState.user.email} />

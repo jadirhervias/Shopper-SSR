@@ -1,0 +1,113 @@
+@import '../Vars.scss';
+
+.notif,
+.notif-n {
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+  -moz-box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+  box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+  padding-top: 1.8rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 3rem;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  height: 80px;
+  z-index: 101000;
+  // margin-top: -10px;
+  transition: all 0.3s ease;
+  opacity: 0;
+
+  display: grid;
+  grid-template-columns: 30px 1fr 16px;
+
+  &.normalize {
+    position: relative !important;
+    -webkit-box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+    -moz-box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+    box-shadow: 0px 0px 32px -16px rgba(128, 128, 128, 1);
+    right: auto;
+    left: auto;
+    top: auto;
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .icon {
+    border-radius: 80px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px !important;
+  }
+
+  // &.without-icon {
+  //   display: grid;
+  //   grid-template-columns: 1fr 16px;
+  // }
+
+  // .close {
+  //   cursor: pointer;
+  // }
+
+  &.notif-front {
+    margin-top: 0px;
+    opacity: 1;
+  }
+
+  &.notif-middle {
+    transform: perspective(700px) translate3d(0, 0, -45px);
+    opacity: 0.7;
+    margin-top: 10px;
+  }
+  &.notif-last {
+    transform: perspective(700px) translate3d(0, 0, -90px);
+    opacity: 0.5;
+    margin-top: 20px;
+  }
+  &.notif-out {
+    transform: perspective(700px) translate3d(0, 0, -200px);
+    opacity: 0;
+  }
+}
+
+.icon-success {
+  background-color: lighten($util-color-1, 40%);
+  color: $util-color-1;
+}
+
+.icon-danger {
+  background-color: lighten($secondary-color-1, 30%);
+  color: $secondary-color-1;
+}
+
+.icon-warning {
+  background-color: lighten(rgb(255, 196, 0), 35%);
+  color: darken(rgb(255, 196, 0), 15%);
+}
+
+.icon-info {
+  background-color: lighten($secondary-color-2, 20%);
+  color: darken($secondary-color-2, 20%);
+}
+
+@media (max-width: 420px) {
+  .notif {
+    left: 50%;
+    transform: translateX(-50%);
+
+    &.notif-middle {
+      transform: perspective(700px) translate3d(-53%, 0, -50px);
+    }
+
+    &.notif-last {
+      transform: perspective(700px) translate3d(-54%, 0, -90px);
+    }
+  }
+}

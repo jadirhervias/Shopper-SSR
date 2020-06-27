@@ -136,7 +136,7 @@ const main = async (req, res, next) => {
             products: [],
           },
           savedShoppingCars: [],
-          favoriteProducts: [],
+          // favoriteProducts: [],
           currentShop: {},
           products: {
             filterIndex: null,
@@ -172,7 +172,7 @@ const main = async (req, res, next) => {
             products: [],
           },
           savedShoppingCars,
-          favoriteProducts: [],
+          // favoriteProducts: [],
           products: {
             filterIndex: null,
             sortIndex: 0,
@@ -204,7 +204,7 @@ const main = async (req, res, next) => {
           products: [],
         },
         savedShoppingCars: [],
-        favoriteProducts: [],
+        // favoriteProducts: [],
         products: {
           filterIndex: null,
           sortIndex: 0,

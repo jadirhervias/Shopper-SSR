@@ -70,12 +70,12 @@ const Header = (props) => {
           {/* Menu links */}
           <ul className="navbar-nav header__navBar--menu mr-auto">
             <li className="nav-item">
-              <Link to="/" class="nav-link header__navBar--menu-link">
+              <Link to="/" className="nav-link header__navBar--menu-link">
                 Ayuda
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" class="nav-link header__navBar--menu-link">
+              <Link to="/" className="nav-link header__navBar--menu-link">
                 Premium
               </Link>
             </li>
@@ -95,11 +95,11 @@ const Header = (props) => {
                 className="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <Link to="/" class="dropdown-item">
+                <Link to="/" className="dropdown-item">
                   Abastecimiento
                 </Link>
                 <div className="dropdown-divider" />
-                <Link to="/" class="dropdown-item">
+                <Link to="/" className="dropdown-item">
                   Separated link
                 </Link>
               </div>
@@ -155,6 +155,7 @@ const Header = (props) => {
                     </Link>
                     <div className="dropdown-divider" role="separator" />
                     <Link
+                      to={{}}
                       className="dropdown-item user-options"
                       onClick={handleLogout}
                     >

@@ -13,7 +13,6 @@ import passport from 'passport';
 import api from './proxy';
 import { config } from './config';
 import main from './routes/main';
-import serverRoutes from '../frontend/routes/serverRoutes';
 
 const app = express();
 
