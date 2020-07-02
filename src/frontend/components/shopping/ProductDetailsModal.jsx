@@ -127,6 +127,8 @@ const ProductDetailsModal = (currentProduct) => {
                           'http://placehold.it/200x250'
                       }
                       alt={currentProduct.name}
+                      height={200}
+                      width={200}
                     />
                   </figure>
                 </div>

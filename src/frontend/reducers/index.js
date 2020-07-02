@@ -195,13 +195,13 @@ const reducer = (state, action) => {
     case ENABLE_LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loading: true,
       };
 
     case DISABLE_LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loading: false,
       };
 
     default:

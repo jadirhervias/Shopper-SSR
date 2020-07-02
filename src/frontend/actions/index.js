@@ -27,6 +27,8 @@ import {
   SHOW_USER_ACCOUNT,
   SET_NOTIFICATION_DEVICE_ID,
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
+  ENABLE_LOADING,
+  DISABLE_LOADING,
 } from '../types';
 
 // AUTH
@@ -149,6 +151,17 @@ export const setNotificationDeviceId = (payload) => ({
 export const setNotificationKeyAndKeyName = (payload) => ({
   type: SET_NOTIFICATION_KEY_AND_KEY_NAME,
   payload,
+});
+
+// LOADING
+export const showLoading = () => ({
+  type: ENABLE_LOADING,
+  payload: true,
+});
+
+export const hideLoading = () => ({
+  type: DISABLE_LOADING,
+  payload: false,
 });
 
 // ERROR

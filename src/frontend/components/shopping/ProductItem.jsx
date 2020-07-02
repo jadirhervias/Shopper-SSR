@@ -73,6 +73,8 @@ const ProductItem = (currentProduct) => {
                 'http://placehold.it/200x250'
             }
             className="card-img-top"
+            height={200}
+            width={200}
             alt={currentProduct.name}
           />
         </figure>

@@ -4,7 +4,12 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { setOrder, saveCard, setHistoryOrder, setError } from './index';
 
-export const verifyAndPayOrder = (card, orderDetails, shoppingCar) => {
+export const verifyAndPayOrder = (
+  card,
+  orderDetails,
+  shoppingCar,
+  comissionCost
+) => {
   return async (dispatch) => {
     try {
       const { data, status } = await axios({
@@ -16,6 +21,8 @@ export const verifyAndPayOrder = (card, orderDetails, shoppingCar) => {
       const cardAuthorizationId = data;
 
       if ((status === 200 || status === 201) && cardAuthorizationId) {
+        $('#modalProcessPayment').modal('hide');
+
         const validCustomer = {
           id: orderDetails.customer.id,
           email: orderDetails.customer.email,
@@ -34,7 +41,7 @@ export const verifyAndPayOrder = (card, orderDetails, shoppingCar) => {
         const validOrder = {
           ...orderDetails,
           customer: validCustomer,
-          total_cost: shoppingCar.totalCost * 100,
+          total_cost: (shoppingCar.totalCost + comissionCost) * 100,
         };
 
         delete validOrder.customer.notificationDeviceId;
@@ -50,17 +57,11 @@ export const verifyAndPayOrder = (card, orderDetails, shoppingCar) => {
         validOrder.source_id = cardAuthorizationId;
         validOrder.fecha_compra = new Date().toISOString().slice(0, 10);
 
-        console.log('VALID ORDER');
-        console.log(validOrder);
-
-        console.log('VALID ORDER JSON');
-        console.log(JSON.stringify(validOrder));
-
         let timerInterval;
         Swal.fire({
           title: 'Procesando orden',
           // html: 'I will close in <b></b> milliseconds.',
-          timer: 3500,
+          // timer: 3500,
           timerProgressBar: true,
           onBeforeOpen: () => {
             Swal.showLoading();
@@ -89,8 +90,6 @@ export const verifyAndPayOrder = (card, orderDetails, shoppingCar) => {
           method: 'post',
           data: validOrder,
         });
-
-        console.log(`ORDER API STATUS RESPONSE: ${status}`);
 
         Swal.fire(
           'Pedido realizado correctamente',

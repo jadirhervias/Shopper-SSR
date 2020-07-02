@@ -144,6 +144,8 @@ const ProductDetail = (product) => {
               }
               className="card-img"
               alt="producto"
+              height={200}
+              width={200}
             />
           </figure>
         </div>

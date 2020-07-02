@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreditCardIcon from '../../assets/static/credit-card.png';
+import { emailValidator, trimFilter } from '../../utils/inputValidators';
 import {
   validateTokenCard,
   saveUserCard,
@@ -12,8 +14,7 @@ import {
 const ProcessPayment = () => {
   const dispatch = useDispatch();
 
-  // Order details
-  const order = useSelector((state) => state.order);
+  const commissionCost = 5;
   const shop = useSelector((state) => state.currentShop);
   const user = useSelector((state) => state.user);
   const shoppingCar = useSelector((state) => state.shoppingCar);
@@ -68,7 +69,20 @@ const ProcessPayment = () => {
     //   dispatch(saveUserCard(form, userId));
     // }
 
-    dispatch(verifyAndPayOrder(payForm, orderForm, currentShoppingCar));
+    const payFormValidated = trimFilter(payForm);
+
+    if (emailValidator(payFormValidated.email)) {
+      dispatch(
+        verifyAndPayOrder(
+          payFormValidated,
+          orderForm,
+          currentShoppingCar,
+          commissionCost
+        )
+      );
+    } else {
+      console.log('VERIFIQUE EMAIL INGRESADO');
+    }
   };
 
   return (

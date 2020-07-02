@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux';
 import ProductsFilter from './ProductsFilter';
 import ProductDetailsModal from './ProductDetailsModal';
 import ProductItem from './ProductItem';
+import Spinner from '../layout/Spinner';
 import '../../assets/styles/components/Products.scss';
 
 const Products = () => {
   const products = useSelector((state) => state.products);
+  const loading = useSelector((state) => state.loading);
 
   const sortIndexState = products.sortIndex;
 
@@ -97,19 +99,61 @@ const Products = () => {
 
         <hr className="my-1 mx-4" />
 
-        {products.productsList.length === 0 ? (
-          <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-center">
-            <div className="text-center p-4">
-              Lo sentimos, no hay productos que mostrar
-            </div>
-          </div>
+        {loading ? (
+          <Spinner />
         ) : (
-          <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-start">
+          <>
+            {products.productsList.length === 0 ? (
+              <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-center">
+                <div className="text-center p-4">
+                  Lo sentimos, no hay productos que mostrar
+                </div>
+              </div>
+            ) : (
+              <div className="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 p-4 m-0 justify-content-start">
+                {
+                  // No filter No sort
+                  !products.filterIndex && !products.sortIndex ?
+                    products.productsList.map((product) => (
+                      <ProductItem key={product.id} {...product} />
+                    )) : // Filter and sort
+                    products.filterIndex && products.sortIndex ?
+                      sortList(
+                        products.productsList.filter((item) =>
+                          item.brand
+                            .toLowerCase()
+                            .includes(products.filterIndex.toLowerCase())
+                        ),
+                        sortIndexState
+                      ).map((product) => (
+                        <ProductItem key={product.id} {...product} />
+                      )) : // Only filter
+                      products.filterIndex && !products.sortIndex ?
+                        products.productsList
+                          .filter((item) =>
+                            item.brand
+                              .toLowerCase()
+                              .includes(products.filterIndex.toLowerCase())
+                          )
+                          .map((product) => (
+                            <ProductItem key={product.id} {...product} />
+                          )) : // Only sort
+                        products.sortIndex &&
+                      !products.filterIndex &&
+                      sortList(
+                        products.productsList,
+                        sortIndexState
+                      ).map((product) => (
+                        <ProductItem key={product.id} {...product} />
+                      ))
+                }
+              </div>
+            )}
             {
               // No filter No sort
               !products.filterIndex && !products.sortIndex ?
                 products.productsList.map((product) => (
-                  <ProductItem key={product.id} {...product} />
+                  <ProductDetailsModal key={product.id} {...product} />
                 )) : // Filter and sort
                 products.filterIndex && products.sortIndex ?
                   sortList(
@@ -120,7 +164,7 @@ const Products = () => {
                     ),
                     sortIndexState
                   ).map((product) => (
-                    <ProductItem key={product.id} {...product} />
+                    <ProductDetailsModal key={product.id} {...product} />
                   )) : // Only filter
                   products.filterIndex && !products.sortIndex ?
                     products.productsList
@@ -130,7 +174,7 @@ const Products = () => {
                           .includes(products.filterIndex.toLowerCase())
                       )
                       .map((product) => (
-                        <ProductItem key={product.id} {...product} />
+                        <ProductDetailsModal key={product.id} {...product} />
                       )) : // Only sort
                     products.sortIndex &&
                   !products.filterIndex &&
@@ -138,48 +182,11 @@ const Products = () => {
                     products.productsList,
                     sortIndexState
                   ).map((product) => (
-                    <ProductItem key={product.id} {...product} />
+                    <ProductDetailsModal key={product.id} {...product} />
                   ))
             }
-          </div>
+          </>
         )}
-        {/* ) :
-          <div>Cargando...</div> */}
-
-        {/* Modals de detalles de producto */}
-        {
-          // No filter No sort
-          !products.filterIndex && !products.sortIndex ?
-            products.productsList.map((product) => (
-              <ProductDetailsModal key={product.id} {...product} />
-            )) : // Filter and sort
-            products.filterIndex && products.sortIndex ?
-              sortList(
-                products.productsList.filter((item) =>
-                  item.brand
-                    .toLowerCase()
-                    .includes(products.filterIndex.toLowerCase())
-                ),
-                sortIndexState
-              ).map((product) => (
-                <ProductDetailsModal key={product.id} {...product} />
-              )) : // Only filter
-              products.filterIndex && !products.sortIndex ?
-                products.productsList
-                  .filter((item) =>
-                    item.brand
-                      .toLowerCase()
-                      .includes(products.filterIndex.toLowerCase())
-                  )
-                  .map((product) => (
-                    <ProductDetailsModal key={product.id} {...product} />
-                  )) : // Only sort
-                products.sortIndex &&
-              !products.filterIndex &&
-              sortList(products.productsList, sortIndexState).map((product) => (
-                <ProductDetailsModal key={product.id} {...product} />
-              ))
-        }
       </div>
     </section>
   );

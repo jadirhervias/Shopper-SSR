@@ -6,16 +6,21 @@ import {
   showProductsByShop,
   showProductsBySubcategory,
   filterProductsByBrand,
+  showLoading,
+  hideLoading,
   setError,
 } from './index';
 
 export const showShop = (id) => {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const { data, status } = await axios({
         url: `/shops/${id}`,
         method: 'GET',
       });
+
+      dispatch(hideLoading());
 
       // state setup
       dispatch(showProductsByShop(data));
@@ -39,11 +44,14 @@ export const showShop = (id) => {
 
 export const showProducts = (idSubCategoria) => {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const { data, status } = await axios({
         url: `/subcategories/${idSubCategoria}`,
         method: 'GET',
       });
+
+      dispatch(hideLoading());
 
       // Clean filters
       dispatch(filterProductsByBrand(null));
