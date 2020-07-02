@@ -46,10 +46,17 @@ const ProductItem = (currentProduct) => {
       (accumulator, productQuantity) => accumulator + productQuantity
     );
 
+    const costList = productsList.map((item) => item.cost * item.quantity);
+
+    const totalCost = costList.reduce(
+      (accumulator, productCost) => accumulator + productCost
+    );
+
     const newContent = {
       ...shoppingCar,
       count: totalQuantity,
       products: productsList,
+      totalCost,
     };
 
     dispatch(addProductToCar(newContent));
@@ -82,7 +89,11 @@ const ProductItem = (currentProduct) => {
           </a>
         </div>
         <div className="card-footer text-center m-0">
-          <small className="product-cost">{currentProduct.cost}</small>
+          <small className="product-cost">
+            {`S/. ${currentProduct.cost}${
+              currentProduct.cost % 1 === 0 ? '.00' : ''
+            }`}
+          </small>
         </div>
       </div>
       <div className="text-center products__container--add-to-cart bg-danger m-0 p-1">

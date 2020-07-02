@@ -7,6 +7,7 @@ import ProcessPayment from './ProcessPayment';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
 
 const ShoppingCar = () => {
+  const commissionCost = 5;
   const shoppingCar = useSelector((state) => state.shoppingCar);
 
   return (
@@ -66,31 +67,47 @@ const ShoppingCar = () => {
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <div className="row justify-content-between m-0">
-                    <div className="col-8">
+                    <div className="col-7">
                       <h5>{`Subtotal (${shoppingCar.count})`}</h5>
                     </div>
-                    <div className="col-4 text-right">
-                      {`S/. ${shoppingCar.total}.00`}
+                    <div className="col-5 text-right">
+                      {`S/. ${shoppingCar.totalCost}${
+                        shoppingCar.totalCost % 1 === 0 ? '.00' : ''
+                      }`}
                     </div>
                   </div>
                 </li>
                 <li className="list-group-item">
                   <div className="row justify-content-between m-0">
-                    <div className="col-8">
+                    <div className="col-7">
                       <h5>Env&iacute;o</h5>
                     </div>
-                    <div className="col-4 text-right">{`S/. ${5}.00`}</div>
+                    <div
+                      className={`col-5 text-right ${
+                        shoppingCar.totalCost >= 3 ? '' : 'text-muted'
+                      }`}
+                    >
+                      &#43;
+                      {`S/. ${commissionCost}${
+                        commissionCost % 1 === 0 ? '.00' : ''
+                      }`}
+                    </div>
                   </div>
                 </li>
                 <li className="list-group-item">
                   <div className="row justify-content-between mx-0 my-4">
-                    <div className="col-8">
+                    <div className="col-7">
                       <h4>
                         <strong>TOTAL</strong>
                       </h4>
                     </div>
-                    <div className="col-4 text-right">
-                      {`S/. ${shoppingCar.total + 5}.00`}
+                    <div className="col-5 text-right">
+                      {`S/. ${
+                        shoppingCar.totalCost >= 3 ?
+                          shoppingCar.totalCost + commissionCost :
+                          shoppingCar.totalCost
+                      }`}
+                      {`${shoppingCar.totalCost % 1 === 0 ? '.00' : ''}`}
                     </div>
                   </div>
                   <div className="row justify-content-center m-0 py-2">
@@ -113,10 +130,26 @@ const ShoppingCar = () => {
                         className="btn btn-danger btn-lg"
                         data-toggle="modal"
                         data-target="#modalProcessPayment"
-                        disabled={!(shoppingCar.products.length > 0)}
+                        aria-describedby="processOrderHelpBlock"
+                        disabled={
+                          !(
+                            shoppingCar.products.length > 0 &&
+                            shoppingCar.totalCost >= 3
+                          )
+                        }
                       >
                         Procesar compra
                       </button>
+                      <small
+                        id="processOrderHelpBlock"
+                        className="form-text text-muted"
+                      >
+                        Solo se procesan compras mayores o iguales a 3 soles
+                      </small>
+                      {/* <button className="btn btn-danger btn-lg" type="button" disabled>
+                        <span className="mb-2 mr-3 spinner-border spinner-border-sm" role="status" aria-hidden="true" />
+                        Procesando...
+                      </button> */}
                     </div>
                   </div>
                 </li>

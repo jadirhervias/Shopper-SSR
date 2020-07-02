@@ -14,16 +14,22 @@ import {
   REMOVE_OF_CAR,
   FILTER_BRANDS,
   SORT_PRODUCTS,
-  SET_ORDER,
+  SET_HISTORY_ORDER,
   SAVE_CARD,
+  SET_ORDER,
   SHOW_USER_ORDERS,
   SHOW_USER_SHOPPING_CARS,
   SHOW_USER_CARDS,
   SHOW_USER_ACCOUNT,
+  SET_NOTIFICATION_DEVICE_ID,
+  SET_NOTIFICATION_KEY_AND_KEY_NAME,
+  ENABLE_LOADING,
+  DISABLE_LOADING,
 } from '../types';
 
 const reducer = (state, action) => {
   switch (action.type) {
+    // SHOPS
     case SET_FAVORITE_SHOP:
       return {
         ...state,
@@ -39,6 +45,7 @@ const reducer = (state, action) => {
         myList: state.myList.filter((items) => items.id !== action.payload),
       };
 
+    // AUTH
     // aprovechar el login para setear las listas preferidas del usuario en sesión
     case LOGIN_REQUEST:
       return {
@@ -59,6 +66,7 @@ const reducer = (state, action) => {
         user: action.payload,
       };
 
+    // SEARCH
     case SEARCH_REQUEST:
       return {
         ...state,
@@ -73,6 +81,7 @@ const reducer = (state, action) => {
             : [],
       };
 
+    // SHOPPING
     case SHOW_PRODUCTS_BY_SHOP:
       return {
         ...state,
@@ -118,7 +127,8 @@ const reducer = (state, action) => {
         },
       };
 
-    case SET_ORDER:
+    // PAY
+    case SET_HISTORY_ORDER:
       return {
         ...state,
         orderHistory: action.payload,
@@ -130,6 +140,7 @@ const reducer = (state, action) => {
         userCards: action.payload,
       };
 
+    // SHOW
     case SHOW_USER_ORDERS:
       return {
         ...state,
@@ -152,6 +163,45 @@ const reducer = (state, action) => {
       return {
         ...state,
         showUserAccount: action.payload,
+      };
+
+    // DO ORDER
+    case SET_ORDER:
+      return {
+        ...state,
+        order: action.payload,
+      };
+
+    // FIREBASE NOTIFICATIONS
+    case SET_NOTIFICATION_DEVICE_ID:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          notificationDeviceId: action.payload,
+        },
+      };
+
+    case SET_NOTIFICATION_KEY_AND_KEY_NAME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          notificationKey: action.payload.notificationKey,
+          notificationKeyName: action.payload.notificationKeyName,
+        },
+      };
+
+    case ENABLE_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+
+    case DISABLE_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
 
     default:

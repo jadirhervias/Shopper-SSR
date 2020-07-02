@@ -1,16 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCar } from '../../actions/productsActions';
 
 const ProductDetailsModal = (currentProduct) => {
-  const [quantityValue, setQuantity] = useState(0);
-
-  const handleInput = (event) => {
-    setQuantity(event.target.value);
-  };
-
   const dispatch = useDispatch();
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
@@ -18,6 +13,36 @@ const ProductDetailsModal = (currentProduct) => {
   const alreadyAdded = shoppingCar.products.some(
     (items) => items.id === currentProduct.id
   );
+
+  const shoppingCarIndex = shoppingCar.products.findIndex(
+    (product) => product.id === currentProduct.id
+  );
+
+  // const [quantityValue, setQuantity] = useState(shoppingCar.products[shoppingCarIndex] !== undefined ? shoppingCar.products[shoppingCarIndex].quantity : 0);
+  // const [quantityValue, setQuantity] = useState(shoppingCar.products[shoppingCarIndex] ? shoppingCar.products[shoppingCarIndex].quantity : 0);
+
+  const [quantityValue, setQuantity] = useState(
+    alreadyAdded ? shoppingCar.products[shoppingCarIndex].quantity : 0
+  );
+
+  useEffect(() => {
+    console.log(`modal - YA ESTA EL PROD?: ${alreadyAdded}`);
+    console.log(`INDEX: ${shoppingCarIndex}`);
+
+    if (alreadyAdded) {
+      setQuantity([
+        shoppingCar.products[shoppingCarIndex] ?
+          shoppingCar.products[shoppingCarIndex].quantity :
+          [],
+      ]);
+    }
+
+    console.log(quantityValue);
+  }, shoppingCar.products[shoppingCarIndex]);
+
+  const handleInput = (event) => {
+    setQuantity(event.target.value);
+  };
 
   const handleAddToCar = (product) => {
     // Get the products in the shopping car
@@ -49,10 +74,17 @@ const ProductDetailsModal = (currentProduct) => {
       (accumulator, productQuantity) => accumulator + productQuantity
     );
 
+    const costList = productsList.map((item) => item.cost * item.quantity);
+
+    const totalCost = costList.reduce(
+      (accumulator, productCost) => accumulator + productCost
+    );
+
     const newContent = {
       ...shoppingCar,
       count: totalQuantity,
       products: productsList,
+      totalCost,
     };
 
     dispatch(addProductToCar(newContent));
@@ -111,7 +143,11 @@ const ProductDetailsModal = (currentProduct) => {
                   </div>
                   <div className="row py-2">
                     <div className="col-md-6 text-left">
-                      <h5>{currentProduct.cost}</h5>
+                      <h5>
+                        {`S/. ${currentProduct.cost}${
+                          currentProduct.cost % 1 === 0 ? '.00' : ''
+                        }`}
+                      </h5>
                     </div>
                     <div className="col-md-6 text-right">
                       <small>{currentProduct.format}</small>

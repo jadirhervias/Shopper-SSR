@@ -17,8 +17,20 @@ const main = async (req, res, next) => {
     console.log(req.cookies);
 
     let initialState;
-    // const { email, fullName, id, token } = req.cookies;
-    const { email, token } = req.cookies;
+    const {
+      email,
+      id,
+      notificationKey,
+      notificationKeyName,
+      notificationDeviceId,
+      firstName,
+      lastName,
+      address,
+      phoneNumber,
+      lat,
+      lng,
+      token,
+    } = req.cookies;
 
     try {
       const { data } = await axios({
@@ -121,19 +133,21 @@ const main = async (req, res, next) => {
         },
       ];
 
-      // if (!email || !fullName || !id) {
-      if (!email) {
+      if (!email || !id) {
         initialState = {
-          user: {},
+          user: {
+            notificationDeviceId: null,
+            notificationKey: null,
+            notificationKeyName: null,
+          },
           userCards: [],
           searchResults: [],
           myList: [],
           shops,
           shoppingCar: {
             count: 0,
-            total: 0,
-            shop: '',
             products: [],
+            totalCost: 0,
           },
           savedShoppingCars: [],
           // favoriteProducts: [],
@@ -156,9 +170,17 @@ const main = async (req, res, next) => {
       } else {
         initialState = {
           user: {
-            // id,
+            id,
             email,
-            // fullName,
+            firstName,
+            lastName,
+            address,
+            phoneNumber,
+            lat,
+            lng,
+            notificationKey,
+            notificationKeyName,
+            notificationDeviceId,
           },
           userCards,
           searchResults: [],
@@ -167,9 +189,8 @@ const main = async (req, res, next) => {
           shops,
           shoppingCar: {
             count: 0,
-            total: 0,
-            shop: '',
             products: [],
+            totalCost: 0,
           },
           savedShoppingCars,
           // favoriteProducts: [],
@@ -192,16 +213,19 @@ const main = async (req, res, next) => {
       }
     } catch (error) {
       initialState = {
-        user: {},
+        user: {
+          notificationDeviceId: null,
+          notificationKey: null,
+          notificationKeyName: null,
+        },
         userCards: [],
         searchResults: [],
         myList: [],
         shops: [],
         shoppingCar: {
           count: 0,
-          total: 0,
-          shop: '',
           products: [],
+          totalCost: 0,
         },
         savedShoppingCars: [],
         // favoriteProducts: [],
@@ -228,8 +252,7 @@ const main = async (req, res, next) => {
 
     const store = createStore(reducer, initialState);
     const preloadedState = store.getState();
-    const isLogged = initialState.user.email;
-    // const isLogged = initialState.user.id;
+    const isLogged = initialState.user.email && initialState.user.id;
 
     const html = renderToString(
       <Provider store={store}>

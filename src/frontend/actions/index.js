@@ -18,12 +18,15 @@ import {
   ADD_TO_CAR,
   REMOVE_OF_CAR,
   SORT_PRODUCTS,
-  SET_ORDER,
+  SET_HISTORY_ORDER,
   SAVE_CARD,
+  SET_ORDER,
   SHOW_USER_ORDERS,
   SHOW_USER_SHOPPING_CARS,
   SHOW_USER_CARDS,
   SHOW_USER_ACCOUNT,
+  SET_NOTIFICATION_DEVICE_ID,
+  SET_NOTIFICATION_KEY_AND_KEY_NAME,
 } from '../types';
 
 // AUTH
@@ -101,7 +104,7 @@ export const sortProducts = (payload) => ({
 
 // PAY
 export const setHistoryOrder = (payload) => ({
-  type: SET_ORDER,
+  type: SET_HISTORY_ORDER,
   payload,
 });
 
@@ -128,6 +131,23 @@ export const showUserCards = (payload) => ({
 
 export const showUserAccount = (payload) => ({
   type: SHOW_USER_ACCOUNT,
+  payload,
+});
+
+// ORDER PROCESS
+export const setOrder = (payload) => ({
+  type: SET_ORDER,
+  payload,
+});
+
+// FIREBASE NOTIFICATIONS
+export const setNotificationDeviceId = (payload) => ({
+  type: SET_NOTIFICATION_DEVICE_ID,
+  payload,
+});
+
+export const setNotificationKeyAndKeyName = (payload) => ({
+  type: SET_NOTIFICATION_KEY_AND_KEY_NAME,
   payload,
 });
 

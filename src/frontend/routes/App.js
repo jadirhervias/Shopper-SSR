@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Home from '../containers/Home';
 import Shopping from '../containers/Shopping';
 import Login from '../containers/Login';
@@ -10,15 +11,25 @@ import NotFound from '../containers/NotFound';
 import Layout from '../components/layout/Layout';
 import ShoppingCarOrder from '../containers/ShoppingCarOrder';
 import UserPanel from '../containers/UserPanel';
+import Admin from '../containers/Admin';
 import { messaging } from '../firebase/cloudMessaging';
 import {
   pushNotification,
   dismissNotification,
 } from '../components/notifications/pushNotification';
+import {
+  createUserDeviceGroup,
+  setDeviceRegistrationId,
+  setUserNotificationKeyAndKeyName,
+} from '../actions/notificationActions';
 // import logo from '../assets/static/shopper-logo.png';
 import '../assets/styles/components/Notification.scss';
+import { setNotificationDeviceId } from '../actions';
 
 const App = ({ isLogged }) => {
+  const dispatch = useDispatch();
+  const userLogged = useSelector((state) => state.user);
+
   // Firebase Cloud Notification
   useEffect(() => {
     // Initialize notification container
@@ -55,12 +66,22 @@ const App = ({ isLogged }) => {
         .requestPermission()
         .then(() => {
           console.log('Have permission');
-          return messaging.getToken();
+          const deviceToken = messaging.getToken();
+          return deviceToken;
         })
         .then((token) => {
           if (token) {
             console.log(token);
-            // sendTokenToServer(currentToken);
+            dispatch(setDeviceRegistrationId(token));
+
+            if (
+              isLogged &&
+              !userLogged.notificationKeyName &&
+              !userLogged.notificationKey
+            ) {
+              dispatch(createUserDeviceGroup(token, userLogged.id));
+            }
+
             // guardar token
           } else {
             console.log('No hay token');
@@ -113,6 +134,7 @@ const App = ({ isLogged }) => {
             component={isLogged ? ShoppingCarOrder : Login}
           />
           <Route exact path="/user" component={isLogged ? UserPanel : Login} />
+          <Route exact path="/admin" component={isLogged ? Admin : Login} />
           {/* <Route exact path="/comprar" component={isLogged ? Compra : Login} /> */}
           <Route component={NotFound} />
         </Switch>

@@ -5,6 +5,7 @@ import NotFound from '../containers/NotFound';
 import Shopping from '../containers/Shopping';
 import ShoppingCarOrder from '../containers/ShoppingCarOrder';
 import UserPanel from '../containers/UserPanel';
+import Admin from '../containers/Admin';
 
 const serverRoutes = (isLogged) => {
   return [
@@ -37,6 +38,11 @@ const serverRoutes = (isLogged) => {
       exact: true,
       path: '/user',
       component: isLogged ? UserPanel : Login,
+    },
+    {
+      exact: true,
+      path: '/admin',
+      component: isLogged ? Admin : Login,
     },
     {
       name: 'NotFound',

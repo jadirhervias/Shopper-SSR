@@ -28,10 +28,17 @@ const ProductDetail = (product) => {
       (accumulator, productQuantity) => accumulator + productQuantity
     );
 
+    const costList = productsList.map((item) => item.cost * item.quantity);
+
+    const totalCost = costList.reduce(
+      (accumulator, productCost) => accumulator + productCost
+    );
+
     const newContent = {
       ...shoppingCar,
       count: totalQuantity,
       products: productsList,
+      totalCost,
     };
 
     dispatch(addProductToCar(newContent));
@@ -56,6 +63,7 @@ const ProductDetail = (product) => {
         // count: totalQuantity,
         count: shoppingCar.count - 1,
         products: remainingProducts,
+        totalCost: shoppingCar.totalCost - product.cost,
       };
     } else {
       productsList[index]['quantity'] = productsList[index]['quantity'] - 1;
@@ -64,6 +72,7 @@ const ProductDetail = (product) => {
         ...shoppingCar,
         count: shoppingCar.count - 1,
         products: productsList,
+        totalCost: shoppingCar.totalCost - product.cost,
       };
     }
 
@@ -96,6 +105,7 @@ const ProductDetail = (product) => {
         ...shoppingCar,
         count: 0,
         products: [],
+        totalCost: 0,
       };
     } else {
       const quantityList = remainingProducts.map((item) => item.quantity);
@@ -103,10 +113,17 @@ const ProductDetail = (product) => {
         (accumulator, productQuantity) => accumulator + productQuantity
       );
 
+      const costList = remainingProducts.map((item) => item.cost);
+
+      const totalCost = costList.reduce(
+        (accumulator, productCost) => accumulator + productCost
+      );
+
       newContent = {
         ...shoppingCar,
         count: totalQuantity,
         products: remainingProducts,
+        totalCost,
       };
     }
 
@@ -139,8 +156,7 @@ const ProductDetail = (product) => {
             <small className="text-muted">{product.format}</small>
           </p>
           <h3 className="card-title">
-            S/.
-            {product.cost}
+            {`S/. ${product.cost}${product.cost % 1 === 0 ? '.00' : ''}`}
           </h3>
           {/* </div> */}
         </div>

@@ -209,17 +209,15 @@ function api(app) {
     }
   });
 
-  // Guardar tarjeta del usuario
-  app.post('/newcard/:id', async (req, res, next) => {
+  // Obtener autorizacion para cargo con tarjeta del usuario
+  app.post('/verify-card', async (req, res, next) => {
     try {
-      const { token } = req.cookies;
-      const { id } = req.params;
       const card = req.body;
 
       const { data, status } = await axios({
-        url: `${config.apiUrl}/users/cards/${id}`,
+        url: config.culquiApi,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${config.culquiPublicKey}`,
         },
         method: 'POST',
         data: card,
@@ -229,23 +227,23 @@ function api(app) {
         return next(boom.badImplementation());
       }
 
-      // JSON + HAL
-      return res.status(200).json(data);
+      // data.id -> token
+      return res.status(200).json(data.id);
     } catch (error) {
       next(error);
     }
   });
 
-  // Validar token de la tarjeta
-  app.post('/tokencard', async (req, res, next) => {
+  // Hacer el pedido
+  app.post('/order', async (req, res, next) => {
     try {
       console.log(req.body);
+      const { token } = req.cookies;
 
       const { data, status } = await axios({
-        url: 'https://secure.culqi.com/v2/tokens',
+        url: `${config.apiUrl}/orders`,
         headers: {
-          // Authorization: `Bearer ${token}`,
-          Authorization: 'Bearer pk_test_mAGswgRzosSOMT87',
+          Authorization: `Bearer ${token}`,
         },
         method: 'POST',
         data: req.body,
@@ -255,8 +253,81 @@ function api(app) {
         return next(boom.badImplementation());
       }
 
-      // JSON + HAL
-      return res.status(200).json(data);
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Crear grupo de dispositivos del usuario para recibir notificaciones
+  app.post('/create-device-group', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/user-notification`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Agregar token de dispositivo del usuario para recibir notificaciones
+  app.post('/add-device/:userId', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/user-notification/${userId}/add`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Remover token de dispositivo del usuario para ya no recibir notificaciones
+  app.post('/remove-device/:userId', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/user-notification/${userId}/remove`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
     } catch (error) {
       next(error);
     }

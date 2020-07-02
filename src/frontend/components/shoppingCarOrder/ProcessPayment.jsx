@@ -3,84 +3,72 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreditCardIcon from '../../assets/static/credit-card.png';
-import { validateTokenCard, saveUserCard } from '../../actions/orderAction';
+import {
+  validateTokenCard,
+  saveUserCard,
+  verifyAndPayOrder,
+} from '../../actions/orderAction';
 
 const ProcessPayment = () => {
-  const apiResponse = {
-    object: 'token',
-    id: 'tkn_test_PZhq7Fsge17oi7YB',
-    type: 'card',
-    creation_date: 1591917198000,
-    email: 'jadir@gmail.com',
-    card_number: '411111******1111',
-    last_four: '1111',
-    active: true,
-    iin: {
-      object: 'iin',
-      bin: '411111',
-      card_brand: 'Visa',
-      card_type: 'credito',
-      card_category: 'Clásica',
-      issuer: {
-        name: 'BBVA',
-        country: 'PERU',
-        country_code: 'PE',
-        website: null,
-        phone_number: null,
-      },
-      installments_allowed: [2, 4, 6, 8, 10, 12, 3, 5, 7, 9, 24, 48],
-    },
-    client: {
-      ip: '190.237.151.232',
-      ip_country: 'Peru',
-      ip_country_code: 'PE',
-      browser: 'UNKNOWN',
-      device_fingerprint: null,
-      device_type: 'Escritorio',
-    },
-    metadata: {},
-  };
-
   const dispatch = useDispatch();
 
-  // const user = useSelector(state => state.user);
-  const userId = '5eb2444263a89e5437c8da95';
+  // Order details
+  const order = useSelector((state) => state.order);
+  const shop = useSelector((state) => state.currentShop);
+  const user = useSelector((state) => state.user);
+  const shoppingCar = useSelector((state) => state.shoppingCar);
 
-  const [payForm, setValues] = useState({
+  const [payForm, setPayform] = useState({
     card_number: '',
     cvv: '',
     expiration_month: '',
     expiration_year: '',
     email: '',
-    saveCard: false,
+    // saveCard: false,
+  });
+
+  const [orderForm, setOrderForm] = useState({
+    customer: user,
+    shopper: null,
+    shop_id: shop.id,
+    coordenates: {
+      lat: user.lat,
+      lng: user.lng,
+    },
+    firebase_db_reference_key: null,
+    shopping_car: null,
+    state: 0,
+    fecha_compra: null,
+    fecha_entrega: null,
+    description: null,
+    total_cost: null,
+    source_id: null,
+    // No pay verification ID yet
   });
 
   console.log(payForm);
 
   const handleInput = (event) => {
-    setValues({
+    setPayform({
       ...payForm,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (e, currentShoppingCar) => {
     // para evitar recargas de página, cambios en la URL, comportamientos típicos de html
-    event.preventDefault();
+    e.preventDefault();
 
-    const form = {
-      ...payForm,
-    };
+    // const form = {
+    //   ...payForm,
+    // };
 
-    if (payForm.saveCard) {
-      delete form.saveCard;
-      dispatch(saveUserCard(form, userId));
-    }
+    // if (payForm.saveCard) {
+    //   delete form.saveCard;
+    //   dispatch(saveUserCard(form, userId));
+    // }
 
-    console.log('FORM TO VALIDATE CARD');
-    console.log(form);
-
-    dispatch(validateTokenCard(form));
+    dispatch(verifyAndPayOrder(payForm, orderForm, currentShoppingCar));
   };
 
   return (
@@ -110,7 +98,10 @@ const ProcessPayment = () => {
                 <h3>Pago</h3>
               </div>
               <div className="row justify-content-center align-items-center p-4">
-                <form action="POST" onSubmit={handleSubmit}>
+                <form
+                  action="POST"
+                  onSubmit={(e) => handleSubmit(e, shoppingCar)}
+                >
                   <div className="row justify-content-center align-items-center mb-2">
                     <div className="col-md-12">
                       <input
@@ -119,6 +110,7 @@ const ProcessPayment = () => {
                         className="form-control"
                         placeholder="Número de la tarjeta"
                         onChange={handleInput}
+                        required
                       />
                     </div>
                   </div>
@@ -130,6 +122,7 @@ const ProcessPayment = () => {
                         className="form-control"
                         placeholder="MM"
                         onChange={handleInput}
+                        required
                       />
                     </div>
                     <div className="col-md-3 col-sm-3 col-xs-3">
@@ -139,6 +132,7 @@ const ProcessPayment = () => {
                         className="form-control"
                         placeholder="AA"
                         onChange={handleInput}
+                        required
                       />
                     </div>
                     <div className="col-md-3 col-sm-3 col-xs-3">
@@ -148,6 +142,7 @@ const ProcessPayment = () => {
                         className="form-control"
                         placeholder="CVV"
                         onChange={handleInput}
+                        required
                       />
                     </div>
                     <div className="col-md-3 col-sm-3 col-xs-3">
@@ -171,6 +166,7 @@ const ProcessPayment = () => {
                         className="form-control"
                         placeholder="Email"
                         onChange={handleInput}
+                        required
                       />
                     </div>
                   </div>
@@ -212,6 +208,8 @@ const ProcessPayment = () => {
                       <input
                         type="submit"
                         className="btn btn-danger btn-block"
+                        // data-dismiss="modal"
+                        // aria-label="Close"
                         value="Pagar ahora"
                       />
                     </div>

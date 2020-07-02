@@ -10,16 +10,25 @@ import '../../assets/styles/components/Header.scss';
 
 const Header = (props) => {
   const { user } = props;
-  const hasUser = Object.keys(user).length > 0;
+  const hasUser = user.id && user.email;
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
 
   const handleLogout = () => {
     // vaciar los datos del usuario
     document.cookie = 'id=';
+    document.cookie = 'token=';
     document.cookie = 'email=';
     document.cookie = 'fullName=';
-    document.cookie = 'token=';
+    document.cookie = 'firstName=';
+    document.cookie = 'lastName=';
+    document.cookie = 'phoneNumber=';
+    document.cookie = 'address=';
+    document.cookie = 'lat=';
+    document.cookie = 'lng=';
+    document.cookie = 'notificationKeyName=';
+    document.cookie = 'notificationKey=';
+
     props.logoutRequest({});
     window.location.href = '/';
   };
@@ -150,7 +159,7 @@ const Header = (props) => {
                       Mi Cuenta
                     </Link>
                     <div className="dropdown-divider" role="separator" />
-                    <Link to="/" className="dropdown-item user-options">
+                    <Link to="/admin" className="dropdown-item user-options">
                       Preferencias
                     </Link>
                     <div className="dropdown-divider" role="separator" />

@@ -1,7 +1,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { registerRequest, setError, loginRequest } from '.';
+import {
+  registerRequest,
+  setError,
+  loginRequest,
+  setNotificationKeyAndKeyName,
+} from '.';
 
 // funcion para el llamado a la API (en actions con funciones dentro es donde actúa redux thunk)
 export const registerUser = (payload, redirectUrl) => {
@@ -28,23 +33,22 @@ export const loginUser = ({ email, password }, redirectUrl) => {
       },
     })
       .then(({ data }) => {
-        // const fullName = `${data.user['first_name']} ${data.user['last_name']}`;
-        // const { myList } = data.user;
+        console.log('LOGIN DATA:');
+        console.log(data);
 
-        // document.cookie = `id=${data.user.id}`;
+        document.cookie = `id=${data.user.id}`;
+        document.cookie = `firstName=${data.user.first_name}`;
+        document.cookie = `lastName=${data.user.last_name}`;
+        document.cookie = `phoneNumber=${data.user.phone_number}`;
+        document.cookie = `address=${data.user.addres}`;
+        document.cookie = `lat=${data.user.user_lat}`;
+        document.cookie = `lng=${data.user.user_lng}`;
+        document.cookie = `notificationKeyName=${data.user.notification.notification_key_name}`;
+        document.cookie = `notificationKey=${data.user.notification.notification_key}`;
         document.cookie = `email=${data.user.email}`;
-        // document.cookie = `fullName=${data.user.full_name}`;
-        // document.cookie = `fullName=${fullName}`;
 
-        // delete data.user['first_name'];
-        // delete data.user['last_name'];
-        // delete data.user['myList'];
-
-        // data.user['fullName'] = fullName;
-        // data['myList'] = myList;
-
-        // data.user y data.myList
         dispatch(loginRequest(data));
+        dispatch(setNotificationKeyAndKeyName(data.user.notification));
 
         console.log('LOGIN EXITOSO');
       })
