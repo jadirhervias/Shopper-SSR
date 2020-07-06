@@ -35,10 +35,10 @@ function api(app) {
 
           // Setear la nueva cookie
           res.cookie('token', token, {
-            // httpOnly: config.dev,
-            httpOnly: !config.dev,
-            // secure: config.dev,
-            secure: !config.dev,
+            httpOnly: config.dev,
+            // httpOnly: !config.dev,
+            secure: config.dev,
+            // secure: !config.dev,
             // domain: 'shopper-demo.com'
           });
 
@@ -53,16 +53,23 @@ function api(app) {
   app.post('/sign-up', async function (req, res, next) {
     try {
       const { data } = await axios({
-        // url: `${config.apiUrl}/${config.apiVersion}/auth/sign-up`,
-        url: `${config.apiUrl}/sign-up`,
+        url: `${config.apiUrl}/users/sign-up`,
         method: 'post',
         data: req.body,
       });
 
       res.status(201).json({
-        id: data.user.id,
-        email: data.user.email,
-        fullName: `${data.user.first_name} ${data.user.last_name}`,
+        id: data.id,
+        email: data.email,
+        role: data.role,
+        address: data.address,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        phoneNumber: data.phone_number,
+        userLat: data.user_lat,
+        userLng: data.user_lng,
+        notificationDeviceGroup: data.notification_device_group,
+        fullName: `${data.first_name} ${data.last_name}`,
       });
     } catch (error) {
       console.log(error);

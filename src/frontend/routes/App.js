@@ -12,7 +12,7 @@ import Layout from '../components/layout/Layout';
 import ShoppingCarOrder from '../containers/ShoppingCarOrder';
 import UserPanel from '../containers/UserPanel';
 import Admin from '../containers/Admin';
-import { messaging } from '../firebase/cloudMessaging';
+import { messaging, database } from '../firebase/cloudMessaging';
 import {
   pushNotification,
   dismissNotification,
@@ -22,6 +22,7 @@ import {
   setDeviceRegistrationId,
   setUserNotificationKeyAndKeyName,
 } from '../actions/notificationActions';
+import { setCurrentOrder } from '../actions/orderAction';
 // import logo from '../assets/static/shopper-logo.png';
 import '../assets/styles/components/Notification.scss';
 import { setNotificationDeviceId } from '../actions';
@@ -29,6 +30,7 @@ import { setNotificationDeviceId } from '../actions';
 const App = ({ isLogged }) => {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.user);
+  // const currentOrder = useSelector((state) => state.order);
 
   // Firebase Cloud Notification
   useEffect(() => {
@@ -96,6 +98,7 @@ const App = ({ isLogged }) => {
 
       messaging.onMessage((payload) => {
         console.log('onMessage: ', payload);
+        console.log(payload.data.order);
         pushNotification({
           text: payload.notification.body,
           icon: 'information-circle',
@@ -103,6 +106,15 @@ const App = ({ isLogged }) => {
           type: 'info',
         });
       });
+
+      // const ordersRef = database.ref('orders');
+
+      // console.log('DATABASE INIT');
+
+      // ordersRef.on('value', function (snapshot) {
+      //   console.log('VALUE EVENT');
+      //   console.log(snapshot.val());
+      // });
     };
 
     window.initFirebaseMessaging();

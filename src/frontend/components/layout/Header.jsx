@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { renderToString } from 'react-dom/server';
 import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { logoutRequest } from '../../actions';
@@ -7,12 +8,27 @@ import logo from '../../assets/static/shopper-logo.png';
 import profile from '../../assets/static/user-icon.png';
 import shoppingCarIcon from '../../assets/static/shopping-car.png';
 import '../../assets/styles/components/Header.scss';
+import OrderStatus from '../orders/OrderStatusPopover';
 
 const Header = (props) => {
   const { user } = props;
   const hasUser = user.id && user.email;
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
+
+  const htmlPopover = renderToString(<OrderStatus />);
+
+  useEffect(() => {
+    // Enable all popovers
+    $(function () {
+      $('[data-toggle="popover"]').popover();
+    });
+
+    $('#pendingOrders').popover({
+      html: true,
+      content: htmlPopover,
+    });
+  }, []);
 
   const handleLogout = () => {
     // vaciar los datos del usuario
@@ -117,6 +133,24 @@ const Header = (props) => {
 
           {hasUser ? (
             <>
+              {/* Current order status */}
+              {/* <a
+                id='pendingOrders'
+                tabIndex="0"
+                className="btn btn-danger"
+                role="button"
+                data-container="body"
+                data-toggle="popover"
+                data-trigger="focus"
+                data-placement="bottom"
+                title="Pedidos"
+                // data-content={
+                //   renderToString(<OrderStatus />)
+                // }
+              >
+                Popover current order
+              </a> */}
+
               {/* Shopping car */}
               <Link to="/carrito" className="shopping-car-link-1 mr-4">
                 <span className="icon-container">

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,17 +16,11 @@ const ProductDetailsModal = (currentProduct) => {
     (product) => product.id === currentProduct.id
   );
 
-  // const [quantityValue, setQuantity] = useState(shoppingCar.products[shoppingCarIndex] !== undefined ? shoppingCar.products[shoppingCarIndex].quantity : 0);
-  // const [quantityValue, setQuantity] = useState(shoppingCar.products[shoppingCarIndex] ? shoppingCar.products[shoppingCarIndex].quantity : 0);
-
   const [quantityValue, setQuantity] = useState(
     alreadyAdded ? shoppingCar.products[shoppingCarIndex].quantity : 0
   );
 
   useEffect(() => {
-    console.log(`modal - YA ESTA EL PROD?: ${alreadyAdded}`);
-    console.log(`INDEX: ${shoppingCarIndex}`);
-
     if (alreadyAdded) {
       setQuantity([
         shoppingCar.products[shoppingCarIndex] ?
@@ -36,9 +28,7 @@ const ProductDetailsModal = (currentProduct) => {
           [],
       ]);
     }
-
-    console.log(quantityValue);
-  }, shoppingCar.products[shoppingCarIndex]);
+  }, [shoppingCar.products[shoppingCarIndex]]);
 
   const handleInput = (event) => {
     setQuantity(event.target.value);

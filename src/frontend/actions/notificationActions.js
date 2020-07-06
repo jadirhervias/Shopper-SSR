@@ -23,6 +23,9 @@ export const createUserDeviceGroup = (deviceId, userId) => {
       console.log(data);
       console.log(status);
 
+      document.cookie = `notificationKeyName=${data.notification_key_name}`;
+      document.cookie = `notificationKey=${data.notification_key}`;
+
       dispatch(
         setNotificationKeyAndKeyName({
           notificationKeyName: data.notification_key_name,

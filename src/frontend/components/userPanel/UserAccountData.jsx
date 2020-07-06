@@ -13,12 +13,16 @@ const UserAccountData = () => {
               <div className="col-12">
                 <div className="card-body">
                   <p className="card-title">{`Email: ${userData.email}`}</p>
-                  <p className="card-title">Nombre de usuario: Jadir Hervias</p>
-                  <p className="card-title">Tel&eacute;fono: </p>
-                  <input type="tel" />
+                  <p className="card-title">{`Nombre de usuario: ${userData.firstName} ${userData.lastName}`}</p>
+                  <p className="card-title">
+                    Tel&eacute;fono:
+                    {' '}
+                    {userData.phoneNumber}
+                  </p>
+                  {/* <input type="tel" />
                   <p className="card-text">
                     <small className="text-muted">Cuenta b&aacute;sica</small>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>

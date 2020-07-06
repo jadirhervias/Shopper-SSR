@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
@@ -11,14 +12,66 @@ import {
 // funcion para el llamado a la API (en actions con funciones dentro es donde actúa redux thunk)
 export const registerUser = (payload, redirectUrl) => {
   return (dispatch) => {
-    axios
-      // .post('/auth/sign-up', payload)
-      .post('/sign-up', payload)
-      .then(({ data }) => dispatch(registerRequest(data))) // delegar al action de registro original
+    // axios
+    //   .post('/sign-up', payload)
+    axios({
+      url: '/sign-up',
+      method: 'post',
+      data: payload,
+    })
+      .then(({ data }) => {
+        console.log('REGISTER EXITOSO');
+        dispatch(registerRequest(data));
+      })
       .then(() => {
         window.location.href = redirectUrl;
       })
-      .catch((error) => dispatch(setError(error)));
+      .catch((error) => {
+        console.log(`ERROR AL REGISTRARSE: ${error}`);
+        dispatch(setError(error));
+      });
+    // .then(({ status }) => {
+
+    //   console.log(`STATUS REGISTER: ${ status}`);
+
+    //   const { email, password } = payload;
+
+    //   console.log('login creds:');
+    //   console.log(email);
+    //   console.log(password);
+
+    //   axios({
+    //     url: '/login',
+    //     method: 'post',
+    //     auth: {
+    //       username: email,
+    //       password,
+    //     },
+    //   })
+    //     .then(({ data }) => {
+    //       console.log('REGISTER->LOGIN DATA:');
+    //       console.log(data);
+
+    //       document.cookie = `id=${data.user.id}`;
+    //       document.cookie = `firstName=${data.user.first_name}`;
+    //       document.cookie = `lastName=${data.user.last_name}`;
+    //       document.cookie = `phoneNumber=${data.user.phone_number}`;
+    //       document.cookie = `address=${data.user.addres}`;
+    //       document.cookie = `lat=${data.user.user_lat}`;
+    //       document.cookie = `lng=${data.user.user_lng}`;
+    //       document.cookie = `email=${data.user.email}`;
+
+    //       dispatch(loginRequest(data));
+    //     // dispatch(registerRequest(data))
+    //     })
+    //     .then(() => {
+    //       window.location.href = redirectUrl;
+    //     })
+    //     .catch((error) => {
+    //       console.log(`ERROR AL LOGEARSE: ${error}`);
+    //       dispatch(setError(error));
+    //     });
+    // }) // delegar al action de registro original
   };
 };
 
@@ -43,12 +96,14 @@ export const loginUser = ({ email, password }, redirectUrl) => {
         document.cookie = `address=${data.user.addres}`;
         document.cookie = `lat=${data.user.user_lat}`;
         document.cookie = `lng=${data.user.user_lng}`;
-        document.cookie = `notificationKeyName=${data.user.notification.notification_key_name}`;
-        document.cookie = `notificationKey=${data.user.notification.notification_key}`;
         document.cookie = `email=${data.user.email}`;
+        if (data.user.notification) {
+          document.cookie = `notificationKeyName=${data.user.notification.notification_key_name}`;
+          document.cookie = `notificationKey=${data.user.notification.notification_key}`;
+          dispatch(setNotificationKeyAndKeyName(data.user.notification));
+        }
 
         dispatch(loginRequest(data));
-        dispatch(setNotificationKeyAndKeyName(data.user.notification));
 
         console.log('LOGIN EXITOSO');
       })

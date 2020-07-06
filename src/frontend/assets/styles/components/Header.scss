@@ -80,6 +80,14 @@
   margin-left: 16px;
 }
 
+.pending-orders__container {
+  min-width: 380px !important;
+}
+
+.pending-orders__container--order {
+  max-width: 540px !important;
+}
+
 // Cuando se activa el collapse del navBar
 @media only screen and (max-width: 767px) {
   .shopping-car-link-2 {

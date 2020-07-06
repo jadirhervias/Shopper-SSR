@@ -30,6 +30,7 @@ const Register = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.registerUser(form, '/login');
+    // props.registerUser(form, '/');
 
     // YA NO ES NECEARIO, PORQUE LA REDIRECCIÓN SE HACE EN EL MISMO ACTION
     // history de react router (browser router)

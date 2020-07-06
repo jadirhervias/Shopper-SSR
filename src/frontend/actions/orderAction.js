@@ -23,6 +23,19 @@ export const verifyAndPayOrder = (
       if ((status === 200 || status === 201) && cardAuthorizationId) {
         $('#modalProcessPayment').modal('hide');
 
+        Swal.fire({
+          title: 'Procesando orden',
+          timerProgressBar: true,
+          onBeforeOpen: () => {
+            Swal.showLoading();
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer');
+          }
+        });
+
         const validCustomer = {
           id: orderDetails.customer.id,
           email: orderDetails.customer.email,
@@ -56,34 +69,6 @@ export const verifyAndPayOrder = (
         delete validOrder.shopping_car.totalCost;
         validOrder.source_id = cardAuthorizationId;
         validOrder.fecha_compra = new Date().toISOString().slice(0, 10);
-
-        let timerInterval;
-        Swal.fire({
-          title: 'Procesando orden',
-          // html: 'I will close in <b></b> milliseconds.',
-          // timer: 3500,
-          timerProgressBar: true,
-          onBeforeOpen: () => {
-            Swal.showLoading();
-            // timerInterval = setInterval(() => {
-            //   const content = Swal.getContent()
-            //   if (content) {
-            //     const b = content.querySelector('b')
-            //     if (b) {
-            //       b.textContent = Swal.getTimerLeft()
-            //     }
-            //   }
-            // }, 100)
-          },
-          onClose: () => {
-            // clearInterval(timerInterval)
-          },
-        }).then((result) => {
-          /* Read more about handling dismissals below */
-          if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer');
-          }
-        });
 
         const { data, status } = await axios({
           url: '/order',
@@ -167,20 +152,13 @@ export const saveUserCard = (card, userId) => {
   };
 };
 
-// export const setOrder = (order) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data, status } = await axios({
-//         url: '/order',
-//         method: 'POST',
-//         data: order
-//       });
-
-//       dispatch(setHistoryOrder(data));
-
-//     } catch (error) {
-//       console.log(error);
-//       dispatch(setError(error));
-//     }
-//   };
-// };
+export const setCurrentOrder = (order) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setOrder(order));
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};
