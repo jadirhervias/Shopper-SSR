@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { isRunningOnServerSide } from '../../utils/windowReference';
 import '../../assets/styles/components/LocationModal.scss';
 
 const LocationModal = () => {
-  const shoppingCar = useSelector((state) => state.shoppingCar);
-
   const shopLat = -11.9331205;
   const shopLong = -77.045615;
 
@@ -31,58 +29,60 @@ const LocationModal = () => {
   }
 
   useEffect(() => {
-    // Attach your callback function to the `window` object
-    window.initMap = function () {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-          lat: -34.397,
-          lng: 150.644,
-        },
-        zoom: 14,
-      });
-
-      infoWindow = new google.maps.InfoWindow();
-
-      // Try HTML5 geolocation.
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function (position) {
-            const userCoordenates = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            };
-
-            infoWindow.setPosition(userCoordenates);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(userCoordenates);
+    if (isRunningOnServerSide) {
+      // Attach your callback function to the `window` object
+      window.initMap = function () {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {
+            lat: -34.397,
+            lng: 150.644,
           },
-          function () {
-            handleLocationError(true, infoWindow, map.getCenter());
-          }
-        );
-      } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-      }
+          zoom: 14,
+        });
 
-      // The marker, positioned at the shop
-      const marker = new google.maps.Marker({
-        position: shopLocation,
-        map,
-      });
-    };
+        infoWindow = new google.maps.InfoWindow();
 
-    // Create the script tag, set the appropriate attributes
-    const script = document.createElement('script');
-    script.src =
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyBZSh7VHgy9ocUR0j06RE2do0vO74Gw-0E&callback=initMap';
-    script.id = 'googleMaps';
-    script.defer = true;
-    script.async = true;
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              const userCoordenates = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
 
-    // Append the 'script' element to 'head'
-    document.head.appendChild(script);
+              infoWindow.setPosition(userCoordenates);
+              infoWindow.setContent('Location found.');
+              infoWindow.open(map);
+              map.setCenter(userCoordenates);
+            },
+            function () {
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        // The marker, positioned at the shop
+        const marker = new google.maps.Marker({
+          position: shopLocation,
+          map,
+        });
+      };
+
+      // Create the script tag, set the appropriate attributes
+      const script = document.createElement('script');
+      script.src =
+        'https://maps.googleapis.com/maps/api/js?key=AIzaSyBZSh7VHgy9ocUR0j06RE2do0vO74Gw-0E&callback=initMap';
+      script.id = 'googleMaps';
+      script.defer = true;
+      script.async = true;
+
+      // Append the 'script' element to 'head'
+      document.head.appendChild(script);
+    }
   }, []);
 
   return (

@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
 import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
-import { logoutRequest } from '../../actions';
+import OrderTracking from '../orders/OrderTracking';
+import { logoutUser } from '../../actions/authActions';
+import { removeRegistrationDeviceId } from '../../actions/notificationActions';
 import logo from '../../assets/static/shopper-logo.png';
 import profile from '../../assets/static/user-icon.png';
 import shoppingCarIcon from '../../assets/static/shopping-car.png';
 import '../../assets/styles/components/Header.scss';
-import OrderStatus from '../orders/OrderStatusPopover';
 
 const Header = (props) => {
   const { user } = props;
@@ -16,37 +18,22 @@ const Header = (props) => {
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
 
-  const htmlPopover = renderToString(<OrderStatus />);
+  // useEffect(() => {
+  //   // Enable all popovers
+  //   $(function () {
+  //     $('[data-toggle="popover"]').popover();
+  //   });
 
-  useEffect(() => {
-    // Enable all popovers
-    $(function () {
-      $('[data-toggle="popover"]').popover();
-    });
+  //   $('#pendingOrders').popover({
+  //     html: true,
+  //     content: htmlPopover,
+  //   });
+  // }, []);
 
-    $('#pendingOrders').popover({
-      html: true,
-      content: htmlPopover,
-    });
-  }, []);
-
-  const handleLogout = () => {
-    // vaciar los datos del usuario
-    document.cookie = 'id=';
-    document.cookie = 'token=';
-    document.cookie = 'email=';
-    document.cookie = 'fullName=';
-    document.cookie = 'firstName=';
-    document.cookie = 'lastName=';
-    document.cookie = 'phoneNumber=';
-    document.cookie = 'address=';
-    document.cookie = 'lat=';
-    document.cookie = 'lng=';
-    document.cookie = 'notificationKeyName=';
-    document.cookie = 'notificationKey=';
-
-    props.logoutRequest({});
-    window.location.href = '/';
+  const handleLogout = (e) => {
+    e.preventDefault();
+    props.removeRegistrationDeviceId(user.registrationDeviceId, user.id);
+    props.logoutUser('/');
   };
 
   return (
@@ -135,7 +122,7 @@ const Header = (props) => {
             <>
               {/* Current order status */}
               {/* <a
-                id='pendingOrders'
+                id="pendingOrders"
                 tabIndex="0"
                 className="btn btn-danger"
                 role="button"
@@ -150,6 +137,19 @@ const Header = (props) => {
               >
                 Popover current order
               </a> */}
+
+              <div className="dropdown mr-4">
+                <button
+                  type="button"
+                  data-toggle="dropdown"
+                  className="btn btn-danger"
+                >
+                  Pedidos
+                </button>
+                <div className="dropdown-menu p-3">
+                  <OrderTracking />
+                </div>
+              </div>
 
               {/* Shopping car */}
               <Link to="/carrito" className="shopping-car-link-1 mr-4">
@@ -263,7 +263,8 @@ const mapStateToProps = (state) => {
 // mapDispatchToProps: Disparar las acciones (que cambian el estado del DOM)
 // Después del Action, mapear sus datos con lo siguiente
 const mapDispatchToProps = {
-  logoutRequest,
+  logoutUser,
+  removeRegistrationDeviceId,
 };
 
 // connect: conecta los props y dispatch que se utilizarán en el componente (Header)

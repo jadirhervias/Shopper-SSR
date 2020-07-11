@@ -2,18 +2,21 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
+import { addRegistrationDeviceId } from './notificationActions';
 import {
   registerRequest,
   setError,
   loginRequest,
   setNotificationKeyAndKeyName,
+  logoutRequest,
 } from '.';
 
 // funcion para el llamado a la API (en actions con funciones dentro es donde actúa redux thunk)
 export const registerUser = (payload, redirectUrl) => {
   return (dispatch) => {
     // axios
-    //   .post('/sign-up', payload)
+    //   .post('/sign-up', payload)    // props.addRegistrationDeviceId(user.registrationDeviceId, user.id);
+
     axios({
       url: '/sign-up',
       method: 'post',
@@ -75,7 +78,11 @@ export const registerUser = (payload, redirectUrl) => {
   };
 };
 
-export const loginUser = ({ email, password }, redirectUrl) => {
+export const loginUser = (
+  { email, password },
+  redirectUrl,
+  registrationDeviceId
+) => {
   return (dispatch) => {
     axios({
       url: '/login',
@@ -103,6 +110,8 @@ export const loginUser = ({ email, password }, redirectUrl) => {
           dispatch(setNotificationKeyAndKeyName(data.user.notification));
         }
 
+        dispatch(addRegistrationDeviceId(registrationDeviceId, data.user.id));
+
         dispatch(loginRequest(data));
 
         console.log('LOGIN EXITOSO');
@@ -114,6 +123,33 @@ export const loginUser = ({ email, password }, redirectUrl) => {
         console.log(`ERROR AL LOGEARSE: ${error}`);
         dispatch(setError(error));
       });
+  };
+};
+
+export const logoutUser = (redirectUrl) => {
+  return async (dispatch) => {
+    try {
+      // vaciar los datos del usuario
+      document.cookie = 'id=';
+      document.cookie = 'token=';
+      document.cookie = 'email=';
+      document.cookie = 'fullName=';
+      document.cookie = 'firstName=';
+      document.cookie = 'lastName=';
+      document.cookie = 'phoneNumber=';
+      document.cookie = 'address=';
+      document.cookie = 'lat=';
+      document.cookie = 'lng=';
+      document.cookie = 'notificationKeyName=';
+      document.cookie = 'notificationKey=';
+
+      dispatch(logoutRequest({}));
+
+      window.location.href = redirectUrl;
+    } catch {
+      console.log(`ERROR AL HACER LOGOUT: ${error}`);
+      dispatch(setError(error));
+    }
   };
 };
 

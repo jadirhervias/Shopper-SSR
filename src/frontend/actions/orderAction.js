@@ -12,15 +12,19 @@ export const verifyAndPayOrder = (
 ) => {
   return async (dispatch) => {
     try {
-      const { data, status } = await axios({
+      const authorizationResponse = await axios({
         url: '/verify-card',
         method: 'POST',
         data: card,
       });
 
-      const cardAuthorizationId = data;
+      const cardAuthorizationId = authorizationResponse.data;
 
-      if ((status === 200 || status === 201) && cardAuthorizationId) {
+      if (
+        (authorizationResponse.status === 200 ||
+          authorizationResponse.status === 201) &&
+        cardAuthorizationId
+      ) {
         $('#modalProcessPayment').modal('hide');
 
         Swal.fire({
@@ -70,11 +74,15 @@ export const verifyAndPayOrder = (
         validOrder.source_id = cardAuthorizationId;
         validOrder.fecha_compra = new Date().toISOString().slice(0, 10);
 
-        const { data, status } = await axios({
-          url: '/order',
+        const orderResponse = await axios({
+          url: '/orders',
           method: 'post',
           data: validOrder,
         });
+
+        if (orderResponse.status === 201) {
+          dispatch(setOrder(orderResponse.data));
+        }
 
         Swal.fire(
           'Pedido realizado correctamente',

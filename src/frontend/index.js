@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 import reducer from './reducers';
 import App from './routes/App';
+// import { databaseRootRef } from './firebase/cloudMessaging';
 // import './firebase/app';
 
 if (typeof window !== 'undefined') {

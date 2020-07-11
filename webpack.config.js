@@ -9,7 +9,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 
 require('dotenv').config();
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.ENV === 'production';
 
 const entry = ['./src/frontend/index.js'];
 
@@ -24,8 +24,8 @@ module.exports = {
   // devtool: isProd ? 'hidden-source-map' : 'cheap-source-map',
   mode: isProd ? 'production' : 'development',
   output: {
-    // path: isProd ? path.resolve(__dirname, 'src/server/public') : '/',
-    path: path.resolve(__dirname, 'src/server/public'),
+    path: isProd ? path.resolve(__dirname, 'src/server/public') : '/',
+    // path: path.resolve(__dirname, 'src/server/public'),
     // isProd ?
     // path.join(process.cwd(), './src/server/public')
     // : '/',

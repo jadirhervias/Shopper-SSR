@@ -35,10 +35,10 @@ function api(app) {
 
           // Setear la nueva cookie
           res.cookie('token', token, {
-            httpOnly: config.dev,
-            // httpOnly: !config.dev,
-            secure: config.dev,
-            // secure: !config.dev,
+            // httpOnly: config.dev,
+            httpOnly: !config.dev,
+            // secure: config.dev,
+            secure: !config.dev,
             // domain: 'shopper-demo.com'
           });
 
@@ -242,7 +242,7 @@ function api(app) {
   });
 
   // Hacer el pedido
-  app.post('/order', async (req, res, next) => {
+  app.post('/orders', async (req, res, next) => {
     try {
       console.log(req.body);
       const { token } = req.cookies;

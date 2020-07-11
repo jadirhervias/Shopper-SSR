@@ -22,7 +22,7 @@ const main = async (req, res, next) => {
       id,
       notificationKey,
       notificationKeyName,
-      notificationDeviceId,
+      registrationDeviceId,
       firstName,
       lastName,
       address,
@@ -136,7 +136,7 @@ const main = async (req, res, next) => {
       if (!email || !id) {
         initialState = {
           user: {
-            notificationDeviceId: null,
+            registrationDeviceId: null,
             notificationKey: null,
             notificationKeyName: null,
           },
@@ -180,7 +180,7 @@ const main = async (req, res, next) => {
             lng,
             notificationKey,
             notificationKeyName,
-            notificationDeviceId,
+            registrationDeviceId,
           },
           userCards,
           searchResults: [],
@@ -214,7 +214,7 @@ const main = async (req, res, next) => {
     } catch (error) {
       initialState = {
         user: {
-          notificationDeviceId: null,
+          registrationDeviceId: null,
           notificationKey: null,
           notificationKeyName: null,
         },

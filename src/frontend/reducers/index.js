@@ -21,7 +21,7 @@ import {
   SHOW_USER_SHOPPING_CARS,
   SHOW_USER_CARDS,
   SHOW_USER_ACCOUNT,
-  SET_NOTIFICATION_DEVICE_ID,
+  SET_REGISTRATION_DEVICE_ID,
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
@@ -173,12 +173,12 @@ const reducer = (state, action) => {
       };
 
     // FIREBASE NOTIFICATIONS
-    case SET_NOTIFICATION_DEVICE_ID:
+    case SET_REGISTRATION_DEVICE_ID:
       return {
         ...state,
         user: {
           ...state.user,
-          notificationDeviceId: action.payload,
+          registrationDeviceId: action.payload,
         },
       };
 

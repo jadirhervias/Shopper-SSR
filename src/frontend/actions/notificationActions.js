@@ -2,7 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import {
-  setNotificationDeviceId,
+  setRegistrationDeviceId,
   setNotificationKeyAndKeyName,
   setError,
 } from '.';
@@ -39,7 +39,8 @@ export const createUserDeviceGroup = (deviceId, userId) => {
   };
 };
 
-export const addDeviceRegistrationId = (deviceId, userId) => {
+// Add it to the Firebase server
+export const addRegistrationDeviceId = (deviceId, userId) => {
   return async (dispatch) => {
     try {
       const { data, status } = await axios({
@@ -53,7 +54,9 @@ export const addDeviceRegistrationId = (deviceId, userId) => {
       console.log(data);
       console.log(status);
 
-      dispatch(setNotificationDeviceId(deviceId));
+      // document.cookie = `notificationDeviceId=${deviceId}`;
+
+      // dispatch(setRegistrationDeviceId(deviceId));
     } catch (error) {
       console.log(`Error action - ${error}`);
       dispatch(setError(error));
@@ -61,7 +64,7 @@ export const addDeviceRegistrationId = (deviceId, userId) => {
   };
 };
 
-export const removeDeviceRegistrationId = (deviceId, userId) => {
+export const removeRegistrationDeviceId = (deviceId, userId) => {
   return async (dispatch) => {
     try {
       const { data, status } = await axios({
@@ -75,7 +78,9 @@ export const removeDeviceRegistrationId = (deviceId, userId) => {
       console.log(data);
       console.log(status);
 
-      dispatch(setNotificationDeviceId(null));
+      document.cookie = 'registrationDeviceId=';
+
+      dispatch(setRegistrationDeviceId(null));
     } catch (error) {
       console.log(`Error action - ${error}`);
       dispatch(setError(error));
@@ -94,10 +99,12 @@ export const setUserNotificationKeyAndKeyName = (keys) => {
   };
 };
 
-export const setDeviceRegistrationId = (deviceId) => {
+// Set the state and cookie
+export const setUserRegistrationDeviceId = (deviceId) => {
   return async (dispatch) => {
     try {
-      dispatch(setNotificationDeviceId(deviceId));
+      document.cookie = `registrationDeviceId=${deviceId}`;
+      dispatch(setRegistrationDeviceId(deviceId));
     } catch (error) {
       console.log(`Error action - ${error}`);
       dispatch(setError(error));

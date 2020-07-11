@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginUser } from '../actions/authActions';
+import { addRegistrationDeviceId } from '../actions/notificationActions';
 import googleIconColors from '../assets/static/google-icon-colors.png';
 import '../assets/styles/components/Login.scss';
 
@@ -11,6 +12,8 @@ const Login = (props) => {
   const [form, setValues] = useState({
     email: '',
   });
+
+  const user = useSelector((state) => state.user);
 
   console.log(form);
 
@@ -24,7 +27,12 @@ const Login = (props) => {
   const handleSubmit = (event) => {
     // para evitar recargas de página, cambios en la URL, comportamientos típicos de html
     event.preventDefault();
-    props.loginUser(form, '/');
+    console.log(`registrarion ID: ${user.registrationDeviceId}`);
+    props.loginUser(form, '/', user.registrationDeviceId);
+
+    // Hooks warning!
+    // const user = useSelector(state => state.user);
+    // props.addRegistrationDeviceId(user.registrationDeviceId, user.id);
   };
 
   return (
@@ -96,6 +104,7 @@ const Login = (props) => {
 
 const mapDispatchToProps = {
   loginUser,
+  addRegistrationDeviceId,
 };
 
 Login.propTypes = {
