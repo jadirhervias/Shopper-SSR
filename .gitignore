@@ -3,6 +3,7 @@ src/server/public/assets
 src/server/public/manifest.json
 src/server/firebase
 src/frontend/firebase/firebaseConfig.js
+src/frontend/credentials/googleApiKey.js
 
 # Logs
 logs
