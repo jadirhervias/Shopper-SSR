@@ -63,7 +63,13 @@ const Search = (props) => {
                   onChange={handleInput}
                 />
                 <InputGroup.Append>
-                  <Button size="lg" variant="info">
+                  <Button
+                    size="lg"
+                    variant="info"
+                    data-toggle="modal"
+                    data-target="#modalGoogleMapsSearch"
+                    aria-describedby="googleMapsSearchHelpBlock"
+                  >
                     Buscar
                   </Button>
                 </InputGroup.Append>

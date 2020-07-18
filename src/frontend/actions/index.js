@@ -29,6 +29,8 @@ import {
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
+  LOAD_GOOGLE_MAP,
+  SET_ORDER_COORDENATES,
 } from '../types';
 
 // AUTH
@@ -142,6 +144,11 @@ export const setOrder = (payload) => ({
   payload,
 });
 
+export const setOrderCoordenates = (payload) => ({
+  type: SET_ORDER_COORDENATES,
+  payload,
+});
+
 // FIREBASE NOTIFICATIONS
 export const setRegistrationDeviceId = (payload) => ({
   type: SET_REGISTRATION_DEVICE_ID,
@@ -162,6 +169,12 @@ export const showLoading = () => ({
 export const hideLoading = () => ({
   type: DISABLE_LOADING,
   payload: false,
+});
+
+// GOOGLE LOAD
+export const loadGoogleMap = (payload) => ({
+  type: LOAD_GOOGLE_MAP,
+  payload,
 });
 
 // ERROR

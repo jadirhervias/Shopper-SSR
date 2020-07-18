@@ -266,6 +266,31 @@ function api(app) {
     }
   });
 
+  // Obtener historico de ordenes del usuario
+  app.get('/orders-list/:userId', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/orders/${userId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      // JSON + HAL
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // Crear grupo de dispositivos del usuario para recibir notificaciones
   app.post('/create-device-group', async (req, res, next) => {
     try {
@@ -323,6 +348,31 @@ function api(app) {
 
       const { data, status } = await axios({
         url: `${config.apiUrl}/user-notification/${userId}/remove`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Guardar carrito de un usuario
+  app.post('/user/shopping-cars/:userId', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/users/shopping-cars/${userId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

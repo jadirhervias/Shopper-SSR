@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreditCardIcon from '../../assets/static/credit-card.png';
 import { emailValidator, trimFilter } from '../../utils/inputValidators';
@@ -18,6 +18,7 @@ const ProcessPayment = () => {
   const shop = useSelector((state) => state.currentShop);
   const user = useSelector((state) => state.user);
   const shoppingCar = useSelector((state) => state.shoppingCar);
+  const orderCoordenates = useSelector((state) => state.orderCoordenates);
 
   const [payForm, setPayform] = useState({
     card_number: '',
@@ -32,10 +33,7 @@ const ProcessPayment = () => {
     customer: user,
     shopper: null,
     shop_id: shop.id,
-    coordenates: {
-      lat: user.lat,
-      lng: user.lng,
-    },
+    coordenates: {},
     firebase_db_reference_key: null,
     shopping_car: null,
     state: 0,
@@ -47,7 +45,10 @@ const ProcessPayment = () => {
     // No pay verification ID yet
   });
 
-  console.log(payForm);
+  useEffect(() => {
+    console.log(orderCoordenates);
+    console.log('payment modal mounted!');
+  }, [orderCoordenates]);
 
   const handleInput = (event) => {
     setPayform({
@@ -77,7 +78,8 @@ const ProcessPayment = () => {
           payFormValidated,
           orderForm,
           currentShoppingCar,
-          commissionCost
+          commissionCost,
+          orderCoordenates
         )
       );
     } else {

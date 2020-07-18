@@ -42,6 +42,23 @@ export const creditCardValidator = (...data) => {};
 
 export const dateFormatValidator = (...data) => {};
 
+export const trimInput = (input) => {
+  return input.trim();
+};
+
+export const notEmpty = (input) => {
+  if (
+    input.trim() === '' ||
+    input === '' ||
+    input === undefined ||
+    input === null
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
 // Form data tiene que ser un objeto de un solo nivel de profundidad con String values
 export const trimFilter = (formData, onlyTrim = false) => {
   const keyValue = Object.entries(formData);

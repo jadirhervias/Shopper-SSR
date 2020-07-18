@@ -1,9 +1,9 @@
-/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCar } from '../../actions/productsActions';
+import { FirebaseContext } from '../../firebase/firebaseInit';
 
 const ProductItem = (currentProduct) => {
   const [quantityValue, setQuantity] = useState(1);
@@ -11,6 +11,8 @@ const ProductItem = (currentProduct) => {
   const dispatch = useDispatch();
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
+
+  const { storageRef } = useContext(FirebaseContext);
 
   const alreadyAdded = shoppingCar.products.some(
     (items) => items.id === currentProduct.id
@@ -62,20 +64,35 @@ const ProductItem = (currentProduct) => {
     dispatch(addProductToCar(newContent));
   };
 
+  useEffect(() => {
+    storageRef
+      .child(`products/${currentProduct.image}`)
+      .getDownloadURL()
+      .then((url) => {
+        document.getElementById(`product-item-${currentProduct.id}`).src = url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div className="col products__container--product p-2">
       <div className="card h-100 product-content-scalable">
         <figure className="m-0">
           <img
-            src={
-              currentProduct.image ?
-                `data:image/jpeg;base64,${currentProduct.image.image}` :
-                'http://placehold.it/200x250'
-            }
+            id={`product-item-${currentProduct.id}`}
+            src={currentProduct.image}
+            // src={
+            //   currentProduct.image ?
+            //     `data:image/jpeg;base64,${currentProduct.image.image}` :
+            //     'http://placehold.it/200x250'
+            // }
             className="card-img-top"
             height={200}
             width={200}
             alt={currentProduct.name}
+            loading="lazy"
           />
         </figure>
         <div className="card-body text-center">

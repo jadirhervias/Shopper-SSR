@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addProductToCar,
   removeProductOfCar,
 } from '../../actions/productsActions';
+import { FirebaseContext } from '../../firebase/firebaseInit';
 import '../../assets/styles/components/ProductDetail.scss';
 
 const ProductDetail = (product) => {
@@ -13,6 +14,20 @@ const ProductDetail = (product) => {
   const dispatch = useDispatch();
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
+
+  const { storageRef } = useContext(FirebaseContext);
+
+  useEffect(() => {
+    storageRef
+      .child(`products/${product.image}`)
+      .getDownloadURL()
+      .then((url) => {
+        document.getElementById(`product-in-car-${product.id}`).src = url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleAddToCar = (product) => {
     // Get the products in the shopping car
@@ -137,15 +152,17 @@ const ProductDetail = (product) => {
         <div className="col-md-4">
           <figure className="m-0">
             <img
-              src={
-                product.image ?
-                  `data:image/jpeg;base64,${product.image.image}` :
-                  'http://placehold.it/200x250'
-              }
+              id={`product-in-car-${product.id}`}
+              // src={
+              //   product.image ?
+              //     `data:image/jpeg;base64,${product.image.image}` :
+              //     'http://placehold.it/200x250'
+              // }
               className="card-img"
               alt="producto"
               height={200}
               width={200}
+              loading="lazy"
             />
           </figure>
         </div>

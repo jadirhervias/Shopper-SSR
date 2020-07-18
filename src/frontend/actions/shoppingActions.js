@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import {
   showProductsByShop,
@@ -10,12 +7,13 @@ import {
   hideLoading,
   setError,
 } from './index';
+// import productsAsyncMapping from '../utils/productsAsyncMapping';
 
 export const showShop = (id) => {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      const { data, status } = await axios({
+      const { data } = await axios({
         url: `/shops/${id}`,
         method: 'GET',
       });
@@ -42,11 +40,11 @@ export const showShop = (id) => {
   };
 };
 
-export const showProducts = (idSubCategoria) => {
+export const showProducts = (idSubCategoria, storageRef = null) => {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      const { data, status } = await axios({
+      const { data } = await axios({
         url: `/subcategories/${idSubCategoria}`,
         method: 'GET',
       });
@@ -55,6 +53,24 @@ export const showProducts = (idSubCategoria) => {
 
       // Clean filters
       dispatch(filterProductsByBrand(null));
+
+      // const productsToLoad = await productsAsyncMapping(storageRef, data);
+
+      //..............................
+
+      // productsAsyncMapping(storageRef, data)
+      //   .then((productsToLoad) => {
+      //     console.log('prod w/ images:')
+      //     console.log(productsToLoad)
+
+      //     dispatch(showProductsBySubcategory(productsToLoad));
+      //   }).catch((error) => {
+      //     console.log(error)
+      //   })
+
+      // console.log('prod w/ images:')
+      // console.log(productsToLoad)
+
       dispatch(showProductsBySubcategory(data));
     } catch (error) {
       console.log(error);

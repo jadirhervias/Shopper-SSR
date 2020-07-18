@@ -4,7 +4,6 @@ import React from 'react';
 // import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import Breadcrumb from '../components/layout/Breadcrumb';
 import SearchShoppingCar from '../components/shopping/SearchShoppingCar';
 import CatalogCategories from '../components/shopping/CatalogCategories';
 import Products from '../components/shopping/Products';
@@ -17,7 +16,6 @@ const Shopping = (props) => {
       {/* TODO: No mostrar card de categorias si no hay */}
       <main>
         <SearchShoppingCar />
-        <Breadcrumb />
         <CatalogCategories>
           <Products />
         </CatalogCategories>

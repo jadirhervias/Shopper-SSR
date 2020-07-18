@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import orderDeliveredIcon from '../../assets/static/order-delivered-icon.png';
 import orderCanceledIcon from '../../assets/static/order-canceled-icon.png';
 import orderInProgressIcon from '../../assets/static/order-in-progress-icon.png';
 import '../../assets/styles/components/OrderItem.scss';
 
 const OrderItem = (order) => {
-  const dispatch = useDispatch();
+  const shops = useSelector((state) => state.shops);
+  const { name } = shops.find((item) => item.id === order.shop_id);
 
   return (
     <div className="card shadow-sm h-80 mb-3">
@@ -16,17 +16,17 @@ const OrderItem = (order) => {
         <div className="col-md-5 col-sm-6">
           <div className="card-body">
             <h6 className="card-title">{order.id}</h6>
-            <p className="card-title">{order.address}</p>
+            <p className="card-title">{name}</p>
             <p className="card-text">
-              <small className="text-muted">{order.date}</small>
+              <small className="text-muted">{order.fecha_compra}</small>
             </p>
           </div>
         </div>
         <div className="col-md-3 col-sm-6">
           <div className="card-body">
             <h4 className="card-title">
-              S/.
-              {order.cost}
+              {`S/. ${order.total_cost / 100}`}
+              {`${(order.total_cost / 100) % 1 === 0 ? '.00' : ''}`}
             </h4>
           </div>
         </div>
@@ -36,14 +36,14 @@ const OrderItem = (order) => {
               <div className="col-sm-12 text-center">
                 <img
                   src={
-                    order.state === 1 ?
+                    order.state === 3 ?
                       orderDeliveredIcon :
                       order.state === 2 ?
                         orderInProgressIcon :
                         orderCanceledIcon
                   }
                   alt={
-                    order.state === 1 ?
+                    order.state === 3 ?
                       'order-delivered' :
                       order.state === 2 ?
                         'order-canceled' :
@@ -52,14 +52,14 @@ const OrderItem = (order) => {
                 />
                 <h5
                   className={
-                    order.state === 1 ?
+                    order.state === 3 ?
                       'order-delivered-text' :
                       order.state === 2 ?
                         'order-in-progress-text' :
                         'order-canceled-text'
                   }
                 >
-                  {order.state === 1 ?
+                  {order.state === 3 ?
                     'Pedido entregado' :
                     order.state === 2 ?
                       'Pedido en progreso' :

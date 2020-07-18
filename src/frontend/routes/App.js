@@ -1,6 +1,4 @@
-/* eslint-disable import/named */
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Home from '../containers/Home';
@@ -12,52 +10,71 @@ import Layout from '../components/layout/Layout';
 import ShoppingCarOrder from '../containers/ShoppingCarOrder';
 import UserPanel from '../containers/UserPanel';
 import Admin from '../containers/Admin';
-import { messaging, databaseRootRef } from '../firebase/cloudMessaging';
-import {
-  pushNotification,
-  dismissNotification,
-} from '../components/notifications/pushNotification';
+import { pushNotification } from '../components/notifications/pushNotification';
 import {
   createUserDeviceGroup,
   setUserRegistrationDeviceId,
 } from '../actions/notificationActions';
-import { setCurrentOrder } from '../actions/orderAction';
-import { isRunningOnServerSide } from '../utils/windowReference';
+import { FirebaseContext } from '../firebase/firebaseInit';
+import { loadGoogleMap } from '../actions';
+import googleApiKey from '../credentials/googleApiKey';
 import '../assets/styles/components/Notification.scss';
 
 const App = ({ isLogged }) => {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.user);
-  const order = useSelector((state) => state.order);
+  const { messaging } = useContext(FirebaseContext);
 
-  // Firebase Cloud Notification
+  // Init Google maps
+  const initGoogleMaps = () => {
+    if (!document.getElementById('googleMaps')) {
+      // Create the script tag, set the appropriate attributes
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
+      script.id = 'googleMaps';
+      script.defer = true;
+      script.async = true;
+
+      script.addEventListener('load', function () {
+        dispatch(loadGoogleMap(true));
+      });
+
+      // Append the 'script' element to 'head'
+      document.head.appendChild(script);
+    }
+  };
+
   useEffect(() => {
-    if (isRunningOnServerSide && isLogged) {
-      // When closing notifications
-      // window.dismissNotification = dismissNotification();
-      window.dismissNotification = function () {
-        const currentNotif = document.querySelector('.notif-front');
-        const middleNotif = document.querySelector('.notif-middle');
-        const lastNotif = document.querySelector('.notif-last');
-        const notifOut = document.querySelectorAll('.notif-out');
+    initGoogleMaps();
 
-        if (currentNotif) {
-          currentNotif.classList.replace('notif-front', 'n');
-          //Remove it after animating
-          setTimeout(() => {
-            currentNotif.remove();
+    // When closing notifications
+    // window.dismissNotification = dismissNotification();
 
-            currentNotif ?
-              middleNotif.classList.replace('notif-middle', 'notif-front') :
-              '';
-            middleNotif ?
-              lastNotif.classList.replace('notif-last', 'notif-middle') :
-              '';
-            lastNotif ? notifOut.classList.replace('notif-out', 'n') : '';
-          }, 300);
-        }
-      };
+    window.dismissNotification = function () {
+      const currentNotif = document.querySelector('.notif-front');
+      const middleNotif = document.querySelector('.notif-middle');
+      const lastNotif = document.querySelector('.notif-last');
+      const notifOut = document.querySelectorAll('.notif-out');
 
+      if (currentNotif) {
+        currentNotif.classList.replace('notif-front', 'n');
+        //Remove it after animating
+        setTimeout(() => {
+          currentNotif.remove();
+
+          currentNotif ?
+            middleNotif.classList.replace('notif-middle', 'notif-front') :
+            '';
+          middleNotif ?
+            lastNotif.classList.replace('notif-last', 'notif-middle') :
+            '';
+          lastNotif ? notifOut.classList.replace('notif-out', 'n') : '';
+        }, 300);
+      }
+    };
+
+    if (isLogged) {
+      // Firebase Cloud Notification
       // Attach this function to the `window` object
       window.initFirebaseMessaging = function () {
         messaging
@@ -93,8 +110,6 @@ const App = ({ isLogged }) => {
           });
 
         messaging.onMessage((payload) => {
-          console.log('onMessage: ', payload);
-          console.log(payload.data.order);
           pushNotification({
             text: payload.notification.body,
             icon: 'information-circle',
@@ -103,77 +118,15 @@ const App = ({ isLogged }) => {
           });
         });
       };
-
       window.initFirebaseMessaging();
 
-      const ordersRef = databaseRootRef
-        .child('orders')
-        .orderByChild('customer/id')
-        .equalTo(userLogged.id)
-        .limitToFirst(1);
+      // TODO: Check if this work OK
+      // window.dismissNotification();
 
-      console.log('DATABASE INIT');
-
-      // ordersRef.once('value', function (dataSnapshot) {
-      //   console.log('VALUE EVENT');
-      //   console.log(`Firebase key ${ dataSnapshot.val().firebaseDbReferenceKey}`);
-      //   console.log(dataSnapshot.val());
-      //   dispatch(setCurrentOrder(dataSnapshot.val()));
-      // });
-
-      ordersRef.on('child_added', function (childSnapshot, prevChildKey) {
-        console.log('CHILD ADDED EVENT');
-        console.log(
-          `Firebase key ${childSnapshot.val().firebaseDbReferenceKey}`
-        );
-        console.log(childSnapshot.val());
-        dispatch(setCurrentOrder(childSnapshot.val()));
-      });
-
-      ordersRef.on('child_changed', function (childSnapshot, prevChildKey) {
-        console.log('CHILD CHANGED EVENT');
-        console.log(
-          `Firebase key ${childSnapshot.val().firebaseDbReferenceKey}`
-        );
-        console.log(childSnapshot.val());
-
-        // Like child remove Event
-        if (
-          childSnapshot.val().state !== 0 &&
-          childSnapshot.val().state !== 1 &&
-          childSnapshot.val().state !== 2
-        ) {
-          dispatch(setCurrentOrder({}));
-        } else {
-          dispatch(setCurrentOrder(childSnapshot.val()));
-        }
-      });
-
-      ordersRef.on('child_removed', function (childSnapshot, prevChildKey) {
-        console.log('CHILD REMOVED EVENT');
-        console.log(
-          `Firebase key ${childSnapshot.val().firebaseDbReferenceKey}`
-        );
-        console.log(childSnapshot.val());
-        dispatch(setCurrentOrder({}));
-      });
+      // TODO: Init another map to show nearest shops
     }
-
     //   // navigator.serviceWorker.addEventListener('message', (message) => console.log(message));
   }, []);
-
-  // useEffect(() => {
-  //   const ordersRef = databaseRootRef.child('orders');
-
-  //   console.log('DATABASE INIT');
-
-  //   if (order) {
-  //     ordersRef.child(order).on('child_added', function (childSnapshot, prevChildKey) {
-  //       console.log('CHILD ADDED EVENT');
-  //       console.log(childSnapshot.val());
-  //     });
-  //   }
-  // }, [order]);
 
   return (
     // Encapsula los componentes que se necesitan y sus rutas

@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Category from './Category';
 import '../../assets/styles/components/SearchShoppingCar.scss';
+import Breadcrumb from '../layout/Breadcrumb';
 
 const CatalogCategories = ({ children }) => {
   const currentShop = useSelector((state) => state.currentShop);
@@ -11,6 +12,9 @@ const CatalogCategories = ({ children }) => {
     <>
       <section className="catalogCategories">
         <div className="container px-0">
+          <div className="row px-5 m-0">
+            <Breadcrumb />
+          </div>
           <div className="row px-5 m-0">
             <div className="col-lg-3 catalogCategories__categoriesCard px-0 my-4">
               <div className="accordion" id="accordionCategories">

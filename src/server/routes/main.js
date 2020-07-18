@@ -13,9 +13,6 @@ import renderFullPage from '../render/index';
 
 const main = async (req, res, next) => {
   try {
-    console.log('COOKIES AL INICIAR APP');
-    console.log(req.cookies);
-
     let initialState;
     const {
       email,
@@ -33,16 +30,13 @@ const main = async (req, res, next) => {
     } = req.cookies;
 
     try {
-      const { data } = await axios({
+      const shopsData = await axios({
         url: `${config.apiUrl}/api/${config.apiVersion}/shops`,
         method: 'GET',
       });
 
-      console.log('SHOPS');
-      console.log(data.content);
-
       // Datos iniciales obtenidos de la API
-      const shops = data.content;
+      const shops = shopsData.data.content;
       // const myList = data;
       const userCards = [
         {
@@ -65,73 +59,6 @@ const main = async (req, res, next) => {
         ...item,
         card_number: '************'.concat(item.card_number.substring(7, 11)),
       }));
-
-      const savedShoppingCars = [
-        {
-          id: 'dnn1nd90723fn8f0193f',
-          name: 'Fiesta',
-          count: 2,
-          total: 5.5,
-          // Unicachi
-          shop: '5ed96b57f0a4636596224a28',
-          products: [
-            {
-              id: '5ea63708c97be35753f9d934',
-              name: 'Pinguinos de Marinela',
-              details: 'panecillos de chocolate con relleno de merengue',
-              cost: 5,
-              format: '2 unidades por paquete',
-              brand: 'Marinela',
-              stock: 88,
-              last_update: '2020-04-26T20:00:00.000+00:00',
-              quantity: 1,
-            },
-            {
-              id: '5ea639a2820f2d4fb97a619a',
-              name: 'cua cua',
-              details: 'wafer bañado en chocolate',
-              cost: 0.5,
-              format: '1 barra por unidad',
-              brand: 'Field',
-              stock: 88,
-              last_update: '2020-04-26T20:45:00.000+00:00',
-              quantity: 1,
-            },
-          ],
-        },
-        {
-          id: 'dmvp1390723fn8f0193f',
-          name: 'Domingo familiar',
-          count: 2,
-          total: 5.5,
-          // Unicachi
-          shop: '5ed96b57f0a4636596224a28',
-          products: [
-            {
-              id: '5ea63708c97be35753f9d934',
-              name: 'Pinguinos de Marinela',
-              details: 'panecillos de chocolate con relleno de merengue',
-              cost: 5,
-              format: '2 unidades por paquete',
-              brand: 'Marinela',
-              stock: 88,
-              last_update: '2020-04-26T20:00:00.000+00:00',
-              quantity: 1,
-            },
-            {
-              id: '5ea639a2820f2d4fb97a619a',
-              name: 'cua cua',
-              details: 'wafer bañado en chocolate',
-              cost: 0.5,
-              format: '1 barra por unidad',
-              brand: 'Field',
-              stock: 88,
-              last_update: '2020-04-26T20:45:00.000+00:00',
-              quantity: 1,
-            },
-          ],
-        },
-      ];
 
       if (!email || !id) {
         initialState = {
@@ -158,8 +85,10 @@ const main = async (req, res, next) => {
             productsList: [],
           },
           order: {},
+          orderCoordenates: {},
           orderHistory: [],
           pagination: {},
+          mapLoaded: false,
           loading: false,
           error: null,
           showUserCards: false,
@@ -168,6 +97,14 @@ const main = async (req, res, next) => {
           showUserAccount: false,
         };
       } else {
+        const userShoppingCarsData = await axios({
+          url: `${config.apiUrl}/users/shopping-cars/${id}`,
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         initialState = {
           user: {
             id,
@@ -192,7 +129,7 @@ const main = async (req, res, next) => {
             products: [],
             totalCost: 0,
           },
-          savedShoppingCars,
+          savedShoppingCars: userShoppingCarsData.data,
           // favoriteProducts: [],
           products: {
             filterIndex: null,
@@ -201,8 +138,10 @@ const main = async (req, res, next) => {
           },
           currentShop: {},
           order: {},
+          orderCoordenates: {},
           orderHistory: [],
           pagination: {},
+          mapLoaded: false,
           loading: false,
           error: null,
           showUserCards: false,
@@ -236,8 +175,10 @@ const main = async (req, res, next) => {
         },
         currentShop: {},
         order: {},
+        orderCoordenates: {},
         orderHistory: [],
         pagination: {},
+        mapLoaded: false,
         loading: false,
         error: null,
         showUserCards: false,

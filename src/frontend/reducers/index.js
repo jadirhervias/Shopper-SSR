@@ -17,6 +17,7 @@ import {
   SET_HISTORY_ORDER,
   SAVE_CARD,
   SET_ORDER,
+  SET_ORDER_COORDENATES,
   SHOW_USER_ORDERS,
   SHOW_USER_SHOPPING_CARS,
   SHOW_USER_CARDS,
@@ -25,6 +26,7 @@ import {
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
+  LOAD_GOOGLE_MAP,
 } from '../types';
 
 const reducer = (state, action) => {
@@ -172,6 +174,12 @@ const reducer = (state, action) => {
         order: action.payload,
       };
 
+    case SET_ORDER_COORDENATES:
+      return {
+        ...state,
+        orderCoordenates: action.payload,
+      };
+
     // FIREBASE NOTIFICATIONS
     case SET_REGISTRATION_DEVICE_ID:
       return {
@@ -192,6 +200,7 @@ const reducer = (state, action) => {
         },
       };
 
+    // Loading
     case ENABLE_LOADING:
       return {
         ...state,
@@ -202,6 +211,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         loading: false,
+      };
+
+    // Load Google Map
+    case LOAD_GOOGLE_MAP:
+      return {
+        ...state,
+        mapLoaded: action.payload,
       };
 
     default:

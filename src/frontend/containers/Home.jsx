@@ -1,21 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Search from '../components/home/Search';
-// import Features from '../components/home/Features';
 import DeliveryInfo from '../components/home/DeliveryInfo';
 import Shops from '../components/home/Shops';
 import Carousel from '../components/home/Carousel';
 import CarouselItem from '../components/home/CarouselItem';
+import SearchMapModal from '../components/home/SearchMapModal';
 import '../assets/styles/App.scss';
 
 const Home = ({ myList, shops, searchResults }) => {
+  const mapLoaded = useSelector((state) => state.mapLoaded);
   return (
     <>
       <Header />
       <Search />
+
+      {mapLoaded && <SearchMapModal />}
 
       {searchResults.length > 0 && (
         <Shops title="Resultados de búsqueda">
@@ -28,7 +31,6 @@ const Home = ({ myList, shops, searchResults }) => {
       )}
 
       <DeliveryInfo />
-      {/* <Features /> */}
 
       {/* 'isFav' es una prop usada para habilitar el botón eliminar y deshabilitar el boton agregar */}
       {myList.length > 0 && (

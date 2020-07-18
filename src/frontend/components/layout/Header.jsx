@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
-// import { renderToString } from 'react-dom/server';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import OrderTracking from '../orders/OrderTracking';
@@ -17,18 +14,7 @@ const Header = (props) => {
   const hasUser = user.id && user.email;
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
-
-  // useEffect(() => {
-  //   // Enable all popovers
-  //   $(function () {
-  //     $('[data-toggle="popover"]').popover();
-  //   });
-
-  //   $('#pendingOrders').popover({
-  //     html: true,
-  //     content: htmlPopover,
-  //   });
-  // }, []);
+  const order = useSelector((state) => state.order);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -121,23 +107,6 @@ const Header = (props) => {
           {hasUser ? (
             <>
               {/* Current order status */}
-              {/* <a
-                id="pendingOrders"
-                tabIndex="0"
-                className="btn btn-danger"
-                role="button"
-                data-container="body"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="bottom"
-                title="Pedidos"
-                // data-content={
-                //   renderToString(<OrderStatus />)
-                // }
-              >
-                Popover current order
-              </a> */}
-
               <div className="dropdown mr-4">
                 <button
                   type="button"
@@ -147,7 +116,11 @@ const Header = (props) => {
                   Pedidos
                 </button>
                 <div className="dropdown-menu p-3">
-                  <OrderTracking />
+                  {Object.keys(order).length !== 0 ? (
+                    <OrderTracking />
+                  ) : (
+                    'No tiene una orden pendiente'
+                  )}
                 </div>
               </div>
 

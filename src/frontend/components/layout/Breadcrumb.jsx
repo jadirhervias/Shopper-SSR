@@ -6,8 +6,6 @@ import '../../assets/styles/components/Breadcrumb.scss';
 
 const Breadcrumb = () => {
   const currentShop = useSelector((state) => state.currentShop);
-  console.log('CURRENT SHOP');
-  console.log(currentShop);
 
   return (
     <nav aria-label="breadcrumb">

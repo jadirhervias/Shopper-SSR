@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ProductDetail from './ProductDetail';
 import LocationModal from './LocationModal';
 import ProcessPayment from './ProcessPayment';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
+import Breadcrumb from '../layout/Breadcrumb';
+import SaveShopingCarModal from './SaveShoppingCarModal';
 
 const ShoppingCar = () => {
   const commissionCost = 5;
@@ -13,8 +16,12 @@ const ShoppingCar = () => {
 
   return (
     <div className="container">
+      <div className="row m-0">
+        <Breadcrumb />
+      </div>
+
       {Object.keys(order).length > 0 && (
-        <div className="row justify-content-center p-0 my-4">
+        <div className="d-flex flex-row bd-highlight justify-content-center p-0 my-4">
           <div className="alert alert-info" role="alert">
             Ya tienes una orden pendiente. Podr&aacute;s seguir pidiendo cuando
             llegue tu orden
@@ -33,7 +40,13 @@ const ShoppingCar = () => {
                 <button type="button" className="btn btn-danger">
                   Agregar un producto manualmente
                 </button>
-                <button type="button" className="btn btn-danger">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-toggle="modal"
+                  data-target="#modalSaveShoppingCar"
+                  aria-describedby="saveShoppingCarHelpBlock"
+                >
                   Guardar carrito
                 </button>
               </div>
@@ -44,7 +57,7 @@ const ShoppingCar = () => {
             </>
           ) : (
             <>
-              <div className="row justify-content-center p-4 m-0">
+              <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
                 <span>
                   <img
                     height={300}
@@ -53,10 +66,10 @@ const ShoppingCar = () => {
                   />
                 </span>
               </div>
-              <div className="row justify-content-center p-4 m-0">
+              <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
                 <h2>No tienes productos en tu carrito</h2>
               </div>
-              <div className="row justify-content-center p-4">
+              <div className="d-flex flex-row bd-highlight justify-content-center p-4">
                 {Object.keys(order).length > 0 ? (
                   <button type="button" className="btn btn-danger btn-lg">
                     ¡Sigue explorando tus tiendas favoritas!
@@ -73,7 +86,7 @@ const ShoppingCar = () => {
         {Object.keys(order).length === 0 && (
           <>
             <div className="col-md-4">
-              <div className="row justify-content-center mx-0 mb-4">
+              <div className="d-flex flex-row bd-highlight justify-content-center mx-0 mb-4">
                 {/* style="width: 18rem;" */}
                 <div className="card py-4 shadow-sm rounded">
                   {/* <div className="card-header"> */}
@@ -120,27 +133,32 @@ const ShoppingCar = () => {
                         </div>
                         <div className="col-5 text-right">
                           {`S/. ${
-                            shoppingCar.totalCost >= 3 ?
-                              shoppingCar.totalCost + commissionCost :
-                              shoppingCar.totalCost
+                            shoppingCar.totalCost >= 3
+                              ? shoppingCar.totalCost + commissionCost
+                              : shoppingCar.totalCost
                           }`}
                           {`${shoppingCar.totalCost % 1 === 0 ? '.00' : ''}`}
                         </div>
                       </div>
-                      <div className="row justify-content-center m-0 py-2">
+                      <div className="d-flex flex-row bd-highlight justify-content-center m-0 py-2">
                         <div className="col-12 text-center">
-                          <button
-                            type="button"
-                            className="btn btn-outline-danger"
-                            data-toggle="modal"
-                            data-target="#modalGoogleMaps"
-                            disabled={!(shoppingCar.products.length > 0)}
-                          >
-                            Ubicación y direcci&oacute;n
-                          </button>
+                          {shoppingCar.products.length > 0 &&
+                          shoppingCar.totalCost >= 3 ? (
+                            <p
+                              className="product-detail--link"
+                              data-toggle="modal"
+                              data-target="#modalGoogleMaps"
+                            >
+                              Cambiar direcci&oacute;n de entrega por defecto
+                            </p>
+                          ) : (
+                            <p>
+                              Cambiar direcci&oacute;n de entrega por defecto
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <div className="row justify-content-center m-0">
+                      <div className="d-flex flex-row bd-highlight justify-content-center m-0">
                         <div className="col-12 text-center">
                           <button
                             type="button"
@@ -174,6 +192,7 @@ const ShoppingCar = () => {
                 </div>
               </div>
             </div>
+            <SaveShopingCarModal />
             <ProcessPayment />
             <LocationModal />
           </>

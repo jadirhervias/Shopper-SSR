@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCar } from '../../actions/productsActions';
+import { FirebaseContext } from '../../firebase/firebaseInit';
 
 const ProductDetailsModal = (currentProduct) => {
   const dispatch = useDispatch();
 
   const shoppingCar = useSelector((state) => state.shoppingCar);
+
+  const { storageRef } = useContext(FirebaseContext);
 
   const alreadyAdded = shoppingCar.products.some(
     (items) => items.id === currentProduct.id
@@ -21,6 +24,16 @@ const ProductDetailsModal = (currentProduct) => {
   );
 
   useEffect(() => {
+    storageRef
+      .child(`products/${currentProduct.image}`)
+      .getDownloadURL()
+      .then((url) => {
+        document.getElementById(`product-modal-${currentProduct.id}`).src = url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     if (alreadyAdded) {
       setQuantity([
         shoppingCar.products[shoppingCarIndex] ?
@@ -111,14 +124,17 @@ const ProductDetailsModal = (currentProduct) => {
                 <div className="col-md-6 text-center">
                   <figure className="m-0 p-0">
                     <img
-                      src={
-                        currentProduct.image ?
-                          `data:image/jpeg;base64,${currentProduct.image.image}` :
-                          'http://placehold.it/200x250'
-                      }
+                      id={`product-modal-${currentProduct.id}`}
+                      src={currentProduct.image}
+                      // src={
+                      //   currentProduct.image ?
+                      //     `data:image/jpeg;base64,${currentProduct.image.image}` :
+                      //     'http://placehold.it/200x250'
+                      // }
                       alt={currentProduct.name}
                       height={200}
                       width={200}
+                      loading="lazy"
                     />
                   </figure>
                 </div>
@@ -164,19 +180,9 @@ const ProductDetailsModal = (currentProduct) => {
                           type="number"
                           value={quantityValue}
                           onChange={handleInput}
+                          min={1}
+                          max={20}
                         />
-                        {/* <select
-                          className='form-control'
-                          type='number'
-                          value={quantityValue}
-                          onChange={handleSelect}
-                        >
-                          <option value={1}>1</option>
-                          <option value={2}>2</option>
-                          <option value={3}>3</option>
-                          <option value={4}>4</option>
-                          <option value={5}>5</option>
-                        </select> */}
                       </div>
                     </div>
                   </div>

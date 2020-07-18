@@ -1,5 +1,9 @@
-#map {
+#payOrderMap {
   width: 100%;
   height: 400px;
   background-color: grey;
+}
+
+#addressSelectResults {
+  z-index: 1055 !important;
 }

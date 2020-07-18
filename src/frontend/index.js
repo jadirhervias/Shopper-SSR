@@ -1,6 +1,5 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-// import { rehydrateMarks } from 'react-imported-component';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -8,8 +7,7 @@ import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 import reducer from './reducers';
 import App from './routes/App';
-// import { databaseRootRef } from './firebase/cloudMessaging';
-// import './firebase/app';
+import FirebaseProvider from './firebase/firebaseInit';
 
 if (typeof window !== 'undefined') {
   const history = createBrowserHistory();
@@ -31,17 +29,16 @@ if (typeof window !== 'undefined') {
   // para no exponer los datos de la app al usuario
   delete window.__PRELOADED_STATE__;
 
-  // rehydrateMarks().then(() => {
   hydrate(
     // Provider: Permite encapsular nuestros componente por medio de un connect,
     // para poder transmitir toda la informacion del STORE(estado) a todos los componentes dentro
     <Provider store={store}>
-      <Router history={history}>
-        <App isLogged={preloadedState.user.email} />
-        {/* <App isLogged={preloadedState.user.id} /> */}
-      </Router>
+      <FirebaseProvider>
+        <Router history={history}>
+          <App isLogged={preloadedState.user.email && preloadedState.user.id} />
+        </Router>
+      </FirebaseProvider>
     </Provider>,
     document.getElementById('root')
   );
-  // });
 }

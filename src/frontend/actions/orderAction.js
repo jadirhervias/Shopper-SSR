@@ -2,13 +2,20 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { setOrder, saveCard, setHistoryOrder, setError } from './index';
+import {
+  setOrder,
+  saveCard,
+  setHistoryOrder,
+  setError,
+  setOrderCoordenates,
+} from './index';
 
 export const verifyAndPayOrder = (
   card,
   orderDetails,
   shoppingCar,
-  comissionCost
+  comissionCost,
+  orderCoordenates
 ) => {
   return async (dispatch) => {
     try {
@@ -58,6 +65,7 @@ export const verifyAndPayOrder = (
         const validOrder = {
           ...orderDetails,
           customer: validCustomer,
+          coordenates: orderCoordenates,
           total_cost: (shoppingCar.totalCost + comissionCost) * 100,
         };
 
@@ -66,7 +74,7 @@ export const verifyAndPayOrder = (
         delete validOrder.customer.notificationKey;
 
         shoppingCar.products.forEach((product) => {
-          product.image = null;
+          // product.image = null;
           product.last_update = null;
         });
         validOrder.shopping_car = shoppingCar;
@@ -134,6 +142,17 @@ export const payOrder = (orderDetails) => {
         method: 'POST',
         data: orderDetails,
       });
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};
+
+export const setOrderCoordenatesAction = (coordenates) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setOrderCoordenates(coordenates));
     } catch (error) {
       console.log(error);
       dispatch(setError(error));

@@ -1,18 +1,48 @@
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { useEffect, useContext } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setFavoriteShop, removeFavoriteShop } from '../../actions';
 import { showShop } from '../../actions/shoppingActions';
-import '../../assets/styles/components/CarouselItem.scss';
+import { FirebaseContext } from '../../firebase/firebaseInit';
 import enterIcon from '../../assets/static/enter-icon.png';
 import favoriteIcon from '../../assets/static/favorite-icon.png';
 import removeIcon from '../../assets/static/remove-icon.png';
+import '../../assets/styles/components/CarouselItem.scss';
 
 const CarouselItem = (props) => {
-  let { id, name, categories, last_update, isFav, parent } = props;
+  let { id, name, image, categories, last_update, isFav, parent } = props;
+
+  const dispatch = useDispatch();
+
+  const myList = useSelector((state) => state.myList);
+
+  let context;
+
+  if (useContext(FirebaseContext) !== null) {
+    context = useContext(FirebaseContext);
+  }
+
+  useEffect(() => {
+    if (context.storageRef !== null || context.storageRef !== undefined) {
+      context.storageRef
+        .child(`shops/${image}`)
+        .getDownloadURL()
+        .then((url) => {
+          const elements = document.getElementsByClassName(
+            `carousel-item__img image-${id}`
+          );
+          for (let i = 0; i < elements.length; i++) {
+            elements[i].src = url;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [myList]);
 
   // Función Handle para guardar el nuevo estado
   const handleSetFavoriteShop = () => {
@@ -35,14 +65,12 @@ const CarouselItem = (props) => {
     props.removeFavoriteShop(id);
   };
 
-  const dispatch = useDispatch();
-
   return (
     <div className="carousel-item">
       <img
-        className="carousel-item__img"
-        src="http://placehold.it/200x250"
+        className={`carousel-item__img image-${id}`}
         alt={name}
+        // loading='lazy'
       />
       <div className="carousel-item__details">
         <div>
