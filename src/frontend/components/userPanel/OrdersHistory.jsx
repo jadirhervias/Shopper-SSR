@@ -46,12 +46,6 @@ const OrdersHistory = () => {
                 {/* <div className="p-2 bd-highlight"> */}
                 <h2>No haz realizado compras a&uacute;n</h2>
                 {/* </div> */}
-                <div className="p-2 bd-highlight">
-                  <h4>
-                    ¡Encuentra los productos de tus tiendas favoritas cerca de
-                    ti!
-                  </h4>
-                </div>
               </div>
               <div className="d-flex justify-content-center p-4 m-0">
                 {/* <div className="p-2 bd-highlight"> */}
