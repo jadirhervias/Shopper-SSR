@@ -30,7 +30,6 @@ const CatalogCategories = ({ children }) => {
                       TODAS LAS CATEGORÍAS
                     </small>
                   </div>
-
                   {Object.entries(currentShop).length !== 0 &&
                   currentShop.categories &&
                   currentShop.categories.length > 0 ? (
