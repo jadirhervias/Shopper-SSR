@@ -1,0 +1,13 @@
+@import '../Vars.scss';
+
+.arrow-character {
+  color: black;
+}
+
+.custom-page-item {
+  color: $secondary-color-1;
+}
+
+.custom-active button {
+  background-color: rgba(68, 68, 68, 0.055) !important;
+}

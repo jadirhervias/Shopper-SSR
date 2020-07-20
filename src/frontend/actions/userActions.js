@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {
@@ -6,22 +5,48 @@ import {
   showUserShoppingCars,
   showUserCards,
   showUserAccount,
-  setError,
+  setNumber,
+  setSize,
+  setPageIsEmpty,
+  setPageIsFirst,
+  setPageIsLast,
+  setNumberOfElements,
+  setTotalElements,
+  setTotalPages,
   setHistoryOrder,
   showLoading,
   hideLoading,
+  setError,
 } from './index';
 
-export const showUserOrdersHistory = (userId) => {
+export const showUserOrdersHistory = (userId, page = 0) => {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
+      let url;
+
+      if (page !== null || page !== 0) {
+        url = `/orders-list/${userId}/${Number(page)}`;
+      } else {
+        url = `/orders-list/${userId}/0`;
+      }
+
       const { data } = await axios({
-        url: `/orders-list/${userId}`,
+        url,
         method: 'get',
       });
 
-      dispatch(setHistoryOrder(data));
+      // Pagination parameters
+      dispatch(setNumber(data.number));
+      dispatch(setSize(data.size));
+      dispatch(setPageIsEmpty(data.empty));
+      dispatch(setPageIsFirst(data.first));
+      dispatch(setPageIsLast(data.last));
+      dispatch(setNumberOfElements(data.numberOfElements));
+      dispatch(setTotalElements(data.totalElements));
+      dispatch(setTotalPages(data.totalPages));
+
+      dispatch(setHistoryOrder(data.content));
       dispatch(hideLoading());
     } catch (error) {
       console.log(error);

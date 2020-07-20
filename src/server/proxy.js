@@ -192,13 +192,13 @@ function api(app) {
   });
 
   // Productos de la tienda por sub-categoría
-  app.get('/subcategories/:id', async (req, res, next) => {
+  app.get('/subcategories/:id/:page', async (req, res, next) => {
     try {
       const { token } = req.cookies;
-      const { id } = req.params;
+      const { id, page } = req.params;
 
       const { data, status } = await axios({
-        url: `${config.apiUrl}/subcategories/${id}`,
+        url: `${config.apiUrl}/subcategories/${id}/pagination?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -210,7 +210,7 @@ function api(app) {
       }
 
       // JSON + HAL
-      return res.status(200).json(data.products);
+      return res.status(200).json(data);
     } catch (error) {
       next(error);
     }
@@ -267,13 +267,13 @@ function api(app) {
   });
 
   // Obtener historico de ordenes del usuario
-  app.get('/orders-list/:userId', async (req, res, next) => {
+  app.get('/orders-list/:userId/:page', async (req, res, next) => {
     try {
       const { token } = req.cookies;
-      const { userId } = req.params;
+      const { userId, page } = req.params;
 
       const { data, status } = await axios({
-        url: `${config.apiUrl}/orders/${userId}`,
+        url: `${config.apiUrl}/orders/${userId}/pagination?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProductDetail from './ProductDetail';
 import LocationModal from './LocationModal';
 import ProcessPayment from './ProcessPayment';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
-import Breadcrumb from '../layout/Breadcrumb';
+// import Breadcrumb from '../layout/Breadcrumb';
 import SaveShopingCarModal from './SaveShoppingCarModal';
+import { isRunningOnClientSide } from '../../utils/windowReference';
 
 const ShoppingCar = () => {
   const commissionCost = 5;
@@ -17,7 +19,11 @@ const ShoppingCar = () => {
   return (
     <div className="container">
       <div className="row m-0">
-        <Breadcrumb />
+        {/* {
+          isRunningOnClientSide && (
+            <Breadcrumb />
+          )
+        } */}
       </div>
 
       {Object.keys(order).length > 0 && (
@@ -75,9 +81,9 @@ const ShoppingCar = () => {
                     ¡Sigue explorando tus tiendas favoritas!
                   </button>
                 ) : (
-                  <button type="button" className="btn btn-danger btn-lg">
+                  <Link className="btn btn-danger btn-lg" to="/">
                     Comprar ahora
-                  </button>
+                  </Link>
                 )}
               </div>
             </>
@@ -194,7 +200,7 @@ const ShoppingCar = () => {
             </div>
             <SaveShopingCarModal />
             <ProcessPayment />
-            <LocationModal />
+            {isRunningOnClientSide && <LocationModal />}
           </>
         )}
       </div>

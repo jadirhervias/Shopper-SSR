@@ -1,5 +1,4 @@
 /* eslint-disable operator-linebreak */
-/* eslint-disable no-unused-vars */
 import {
   SET_FAVORITE_SHOP,
   REMOVE_FAVORITE_SHOP,
@@ -7,13 +6,22 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SET_SUBCATERGORY_ID,
+  SET_SUBCATERGORY_NAME,
   SHOW_PRODUCTS_BY_SHOP,
-  SHOW_PRODUCTS_BY_CATEGORY,
   SHOW_PRODUCTS_BY_SUBCATEGORY,
   ADD_TO_CAR,
   REMOVE_OF_CAR,
   FILTER_BRANDS,
   SORT_PRODUCTS,
+  SIZE,
+  EMPTY,
+  FIRST,
+  LAST,
+  NUMBER,
+  NUMBER_OF_ELEMENTS,
+  TOTAL_PAGES,
+  TOTAL_ELEMENTS,
   SET_HISTORY_ORDER,
   SAVE_CARD,
   SET_ORDER,
@@ -84,6 +92,24 @@ const reducer = (state, action) => {
       };
 
     // SHOPPING
+    case SET_SUBCATERGORY_ID:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          subcategoryId: action.payload,
+        },
+      };
+
+    case SET_SUBCATERGORY_NAME:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          subcategoryName: action.payload,
+        },
+      };
+
     case SHOW_PRODUCTS_BY_SHOP:
       return {
         ...state,
@@ -126,6 +152,79 @@ const reducer = (state, action) => {
         products: {
           ...state.products,
           sortIndex: action.payload,
+        },
+      };
+
+    // PAGINATION
+    case NUMBER:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          number: action.payload,
+        },
+      };
+
+    case SIZE:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          size: action.payload,
+        },
+      };
+
+    case LAST:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          last: action.payload,
+        },
+      };
+
+    case FIRST:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          first: action.payload,
+        },
+      };
+
+    case EMPTY:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          empty: action.payload,
+        },
+      };
+
+    case NUMBER_OF_ELEMENTS:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          numberOfElements: action.payload,
+        },
+      };
+
+    case TOTAL_PAGES:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          totalPages: action.payload,
+        },
+      };
+
+    case TOTAL_ELEMENTS:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          totalElements: action.payload,
         },
       };
 
@@ -200,7 +299,7 @@ const reducer = (state, action) => {
         },
       };
 
-    // Loading
+    // LOADING
     case ENABLE_LOADING:
       return {
         ...state,

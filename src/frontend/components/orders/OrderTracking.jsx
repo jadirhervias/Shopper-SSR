@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FirebaseContext } from '../../firebase/firebaseInit';
@@ -67,15 +68,15 @@ const OrderTracking = () => {
         </h4>
         <div>
           <h4>Order state</h4>
-          {order.state === 0 ?
-            'Orden pendiente' :
-            order.state === 1 ?
-              'Orden tomada... tu pedido esta en camino' :
-              order.state === 2 ?
-                'Tu orden ha llegado. Anda a recibirlo!' :
-                order.state !== 0 || order.state !== 1 || order.state !== 2 ?
-                  'No hay órdenes pendientes' :
-                  ''}
+          {order.state === 0
+            ? 'Orden pendiente'
+            : order.state === 1
+            ? 'Orden tomada... tu pedido esta en camino'
+            : order.state === 2
+            ? 'Tu orden ha llegado. Anda a recibirlo!'
+            : order.state !== 0 || order.state !== 1 || order.state !== 2
+            ? 'No hay órdenes pendientes'
+            : ''}
         </div>
         <div>
           <h4>Order Info</h4>

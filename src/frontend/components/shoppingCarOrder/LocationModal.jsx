@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isRunningOnServerSide } from '../../utils/windowReference';
+import { isRunningOnClientSide } from '../../utils/windowReference';
 import AddressResults from './AddressResults';
 import '../../assets/styles/components/LocationModal.scss';
 import { setOrderCoordenatesAction } from '../../actions/orderAction';
@@ -57,6 +58,7 @@ const LocationModal = () => {
     e.preventDefault();
     console.log('ON CLICK FIND LOCATION');
     console.log(searchAddress);
+    // TODO: update in production (billing issues)
     geocodeAddress(geocoder, map, searchAddress);
   };
   // TODO FIN
@@ -68,9 +70,9 @@ const LocationModal = () => {
   ) => {
     infoWindow.setPosition(userCoordenates);
     infoWindow.setContent(
-      browserHasGeolocation ?
-        'Error: El servicio de geolocalizacion falló' :
-        'Error: Tu navegador no soporta geolocalización.'
+      browserHasGeolocation
+        ? 'Error: El servicio de geolocalizacion falló'
+        : 'Error: Tu navegador no soporta geolocalización.'
     );
     infoWindow.open(map);
   };
@@ -141,50 +143,74 @@ const LocationModal = () => {
   };
 
   // Map to use in order process
-  const initLocationModalMap = () => {
-    const map = new google.maps.Map(document.getElementById('payOrderMap'), {
-      zoom: 9,
-      streetViewControl: false,
-      mapTypeControl: false,
-    });
-    setLocationModalMap(map);
+  const initLocationModalMap = () =>
+    // map, infoWindowObj, geocoder, currentShopmarker
+    {
+      const map = new google.maps.Map(document.getElementById('payOrderMap'), {
+        zoom: 9,
+        streetViewControl: false,
+        mapTypeControl: false,
+      });
+      setLocationModalMap(map);
 
-    const infoWindowObj = new google.maps.InfoWindow();
-    setInfoWindow(infoWindowObj);
+      const infoWindowObj = new google.maps.InfoWindow();
+      setInfoWindow(infoWindowObj);
 
-    // Try HTML5 geolocation.
-    useBrowserGeolocation(map, infoWindowObj);
+      // Try HTML5 geolocation.
+      useBrowserGeolocation(map, infoWindowObj);
 
-    const geocoder = new google.maps.Geocoder();
-    setLocationModalGeocoder(geocoder);
+      const geocoder = new google.maps.Geocoder();
+      setLocationModalGeocoder(geocoder);
 
-    // Attach the map to the `window` object
-    window.map = map;
+      // Attach the map to the `window` object
+      window.map = map;
 
-    // The marker, positioned at the shop
-    const currentShopmarker = new google.maps.Marker({
-      position: {
-        lat: Number(shop.shop_lat),
-        lng: Number(shop.shop_lng),
-      },
-      map,
-    });
-  };
+      // The marker, positioned at the shop
+      const currentShopmarker = new google.maps.Marker({
+        position: {
+          lat: Number(shop.shop_lat),
+          lng: Number(shop.shop_lng),
+        },
+        map,
+      });
+    };
 
   useEffect(() => {
-    if (isRunningOnServerSide) {
-      initLocationModalMap();
+    // if (isRunningOnClientSide) {
 
-      // TODO: use app state to load map or not
-      // window.addEventListener('load', () => {
-      //   if (props.googleMapsLoaded) {
-      //     initMap();
-      //   }
-      // })
-    }
+    // const map = new google.maps.Map(document.getElementById('payOrderMap'), {
+    //   zoom: 9,
+    //   streetViewControl: false,
+    //   mapTypeControl: false,
+    // });
+
+    // const infoWindowObj = new google.maps.InfoWindow();
+
+    // const geocoder = new google.maps.Geocoder();
+
+    // window.map = map;
+
+    // const currentShopmarker = new google.maps.Marker({
+    //   position: {
+    //     lat: Number(shop.shop_lat),
+    //     lng: Number(shop.shop_lng),
+    //   },
+    //   map,
+    // });
+
+    // initLocationModalMap(map, infoWindowObj, geocoder, currentShopmarker);
+    initLocationModalMap();
+
+    // TODO: use app state to load map or not
+    // window.addEventListener('load', () => {
+    //   if (props.googleMapsLoaded) {
+    //     initMap();
+    //   }
+    // })
+    // }
 
     return () => {
-      console.log('local modal unmounted!');
+      console.log('location modal unmounted!');
       setSearchAddress('');
     };
   }, []);
@@ -240,7 +266,8 @@ const LocationModal = () => {
                         e,
                         locationModalGeocoder,
                         locationModalMap
-                      )}
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -263,7 +290,8 @@ const LocationModal = () => {
                     data-dismiss="modal"
                     value="Cancelar"
                     onClick={(e) =>
-                      handleCancel(e, locationModalMap, infoWindow)}
+                      handleCancel(e, locationModalMap, infoWindow)
+                    }
                   />
                 </div>
                 <div className="bd-highlight p-2">

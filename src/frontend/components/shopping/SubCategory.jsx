@@ -10,15 +10,15 @@ const SubCategory = ({ id, name }) => {
   const dispatch = useDispatch();
   const { storageRef } = useContext(FirebaseContext);
 
-  const handleShowProducts = (id, storageRef) => {
-    dispatch(showProducts(id, storageRef));
+  const handleShowProducts = (id, subCategoryName, storageRef) => {
+    dispatch(showProducts(id, 0, subCategoryName, storageRef));
   };
 
   return (
     <p>
       <a
         className="btn btn-light"
-        onClick={() => handleShowProducts(id, storageRef)}
+        onClick={() => handleShowProducts(id, name, storageRef)}
       >
         {name}
       </a>

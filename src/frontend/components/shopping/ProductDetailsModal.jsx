@@ -166,7 +166,11 @@ const ProductDetailsModal = (currentProduct) => {
                       <button
                         type="button"
                         className="btn btn-lg btn-danger modal__add-to-car-button"
-                        onClick={() => handleAddToCar(currentProduct)}
+                        onClick={
+                          quantityValue > 0 ?
+                            () => handleAddToCar(currentProduct) :
+                            () => {}
+                        }
                         data-dismiss="modal"
                       >
                         Agregar al carrito
@@ -180,7 +184,7 @@ const ProductDetailsModal = (currentProduct) => {
                           type="number"
                           value={quantityValue}
                           onChange={handleInput}
-                          min={1}
+                          min={0}
                           max={20}
                         />
                       </div>

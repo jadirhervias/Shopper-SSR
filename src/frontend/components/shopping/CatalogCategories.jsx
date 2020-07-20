@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Category from './Category';
+// import Breadcrumb from '../layout/Breadcrumb';
+import { isRunningOnClientSide } from '../../utils/windowReference';
 import '../../assets/styles/components/SearchShoppingCar.scss';
-import Breadcrumb from '../layout/Breadcrumb';
 
 const CatalogCategories = ({ children }) => {
   const currentShop = useSelector((state) => state.currentShop);
@@ -13,7 +15,11 @@ const CatalogCategories = ({ children }) => {
       <section className="catalogCategories">
         <div className="container px-0">
           <div className="row px-5 m-0">
-            <Breadcrumb />
+            {/* {
+              isRunningOnClientSide && (
+                <Breadcrumb />
+              )
+            } */}
           </div>
           <div className="row px-5 m-0">
             <div className="col-lg-3 catalogCategories__categoriesCard px-0 my-4">

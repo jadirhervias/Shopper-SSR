@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Image } from 'react-bootstrap';
 import '../../assets/styles/components/DeliveryInfo.scss';
 import deliveryInfo from '../../assets/static/delivery-info.png';
 
@@ -22,13 +21,17 @@ const DeliveryInfo = () => {
             <Link
               className="deliveryInfo__content--button btn btn-md mt-2"
               id="shoppingNowButton"
-              to={{}}
+              to="/"
             >
               Hacer compras ya
             </Link>
           </div>
           <div className="col-md-8 p-0 deliveryInfo__image">
-            <Image src={deliveryInfo} fluid />
+            <img
+              src={deliveryInfo}
+              className="search-decoration-image img-fluid"
+              alt="delivery-info-img"
+            />
           </div>
         </div>
       </div>

@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  Jumbotron,
-  InputGroup,
-  FormControl,
-  Button,
-  Image,
-  Col,
-  Row,
-} from 'react-bootstrap';
 import { searchRequest } from '../../actions';
 import left from '../../assets/static/search-izq.png';
 import right from '../../assets/static/search-der.png';
@@ -34,54 +25,60 @@ const Search = (props) => {
   return (
     <section className="main">
       {/* ¿Dónde quieres comprar hoy? */}
-      <Jumbotron fluid className="main__container">
-        {/* <Container fluid> */}
-        <Row className="align-items-center">
-          <Col md={2}>
-            <Image src={left} className="search-decoration-image" fluid />
-          </Col>
-          <Col md={8} className="text-center main__container--middle-content">
-            <Row className="main__container--title justify-content-center mb-1 px-5">
+      <div className="jumbotron jumbotron-fluid main__container">
+        <div className="d-flex flex-lg-row justify-content-between">
+          <div className="p-2 bd-highlight">
+            <img
+              src={left}
+              className="search-decoration-image img-fluid"
+              alt="bg-1"
+            />
+          </div>
+          <div className="bd-highlight text-center main__container--middle-content">
+            <div className="d-flex flex-lg-row main__container--title justify-content-center mb-1 px-5">
               <h1>Quédate en casa, nosotros nos encargamos</h1>
-            </Row>
-            <Row className="justify-content-center mb-5 px-5">
-              <h4 className="main__container--subtitle">
+            </div>
+            <div className="d-flex flex-lg-row justify-content-center mb-5 px-5">
+              <h4 className="main__container--subtitle my-5">
                 Obtén tus compras del supermercado o mercado favorito en menos
                 de una hora
               </h4>
-            </Row>
-            <Row className="main__container--search-form px-5">
-              <InputGroup>
-                <FormControl
+            </div>
+            <div className="d-flex flex-lg-row main__container--search-form">
+              <div className="input-group">
+                <input
                   name="searching"
                   type="text"
-                  placeholder="Ingrese su locación"
-                  aria-label="Ingrese su locación"
+                  placeholder="¿D&oacute;nde quieres comprar hoy?"
+                  aria-label="¿D&oacute;nde quieres comprar hoy?"
                   aria-describedby="basic-addon2"
-                  className="main__container--input-search"
+                  className="form-control main__container--input-search"
                   autoComplete="off"
                   onChange={handleInput}
                 />
-                <InputGroup.Append>
-                  <Button
-                    size="lg"
-                    variant="info"
+                <div className="input-group-append">
+                  <button
+                    type="button"
+                    className="btn btn-info btn-lg"
                     data-toggle="modal"
                     data-target="#modalGoogleMapsSearch"
                     aria-describedby="googleMapsSearchHelpBlock"
                   >
                     Buscar
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Row>
-          </Col>
-          <Col md={2}>
-            <Image src={right} className="search-decoration-image" fluid />
-          </Col>
-        </Row>
-        {/* </Container> */}
-      </Jumbotron>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="p-2 bd-highlight">
+            <img
+              src={right}
+              className="search-decoration-image img-fluid"
+              alt="bg-2"
+            />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

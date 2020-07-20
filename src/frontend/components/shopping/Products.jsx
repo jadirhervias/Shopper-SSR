@@ -11,6 +11,7 @@ import ProductItem from './ProductItem';
 import Spinner from '../layout/Spinner';
 // import { FirebaseContext } from '../../firebase/firebaseInit';
 import '../../assets/styles/components/Products.scss';
+import PaginationSection from './PaginationSection';
 
 const Products = () => {
   const products = useSelector((state) => state.products);
@@ -67,39 +68,7 @@ const Products = () => {
     <section className="products">
       <div className="container">
         {/* Título de categoría y paginación */}
-        <div className="d-flex flex-md-row flex-wrap align-content-center px-4 pt-4 pb-2">
-          <div className="p-2 bd-highlight">
-            {/* {props.categoria} */}
-            <h2>Despensa</h2>
-          </div>
-          <div className="p-2 flex-grow-1 bd-highlight" />
-          <div className="p-2 bd-highlight">
-            <span className="align-middle">Mostrando 15 de 80 resultados</span>
-          </div>
-          <div className="p-2 bd-highlight">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-end">
-                <li className="page-item">
-                  <a
-                    className="page-link arrow-character"
-                    href="/productos"
-                    tabIndex="-1"
-                    aria-disabled="true"
-                  >
-                    {/* &laquo; */}
-                    ❮
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link arrow-character" href="/productos">
-                    {/* &raquo; */}
-                    ❯
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+        <PaginationSection />
 
         {/* products__container--filters */}
         <ProductsFilter />

@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import OrdersPagination from './OrdersPagination';
 import OrderItem from './OrderItem';
 import Spinner from '../layout/Spinner';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
@@ -19,23 +21,19 @@ const OrdersHistory = () => {
 
   return (
     <div className="container">
+      <OrdersPagination />
+
+      <hr className="my-1 mx-4 mb-4" />
+
       {loading ? (
         <Spinner />
       ) : (
         <>
           {orderHistory.length > 0 ? (
-            <>
-              <div className="row justify-content-between p-2 m-0">
-                <h2>Mis pedidos</h2>
-              </div>
-              <hr className="mt-3 mb-4 mx-1" />
-              {orderHistory.map((item) => (
-                <OrderItem key={item.id} {...item} />
-              ))}
-            </>
+            orderHistory.map((item) => <OrderItem key={item.id} {...item} />)
           ) : (
             <>
-              <div className="row justify-content-center py-4 m-0">
+              <div className="d-flex flex-md-row justify-content-center py-4 m-0">
                 <span>
                   <img
                     height={300}
@@ -44,16 +42,30 @@ const OrdersHistory = () => {
                   />
                 </span>
               </div>
-              <div className="row justify-content-center p-4 m-0">
+              <div className="d-flex justify-content-center p-4 m-0">
+                {/* <div className="p-2 bd-highlight"> */}
                 <h2>No haz realizado compras a&uacute;n</h2>
+                {/* </div> */}
+                <div className="p-2 bd-highlight">
+                  <h4>
+                    ¡Encuentra los productos de tus tiendas favoritas cerca de
+                    ti!
+                  </h4>
+                </div>
+              </div>
+              <div className="d-flex justify-content-center p-4 m-0">
+                {/* <div className="p-2 bd-highlight"> */}
                 <h4>
                   ¡Encuentra los productos de tus tiendas favoritas cerca de ti!
                 </h4>
+                {/* </div> */}
               </div>
-              <div className="row justify-content-center p-4">
-                <button type="button" className="btn btn-danger btn-lg">
-                  Comprar ahora
-                </button>
+              <div className="d-flex flex-md-row justify-content-center p-4">
+                <div className="p-2 bd-highlight">
+                  <Link className="btn btn-danger btn-lg" to="/">
+                    Comprar ahora
+                  </Link>
+                </div>
               </div>
             </>
           )}

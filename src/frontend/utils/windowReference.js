@@ -1,7 +1,11 @@
 export const isRunningOnServerSide = () => {
-  return typeof window === 'undefined';
+  const res = typeof window === 'undefined';
+  if (res === true) return true;
+  return false;
 };
 
 export const isRunningOnClientSide = () => {
-  return typeof window !== 'undefined';
+  const res = typeof window !== 'undefined';
+  if (res === true) return true;
+  return false;
 };

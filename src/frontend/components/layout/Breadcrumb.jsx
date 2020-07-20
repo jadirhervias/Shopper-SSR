@@ -1,7 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { matchPath, withRouter } from 'react-router';
 import { useSelector } from 'react-redux';
-import { isRunningOnClientSide } from '../../utils/windowReference';
+import {
+  isRunningOnClientSide,
+  isRunningOnServerSide,
+} from '../../utils/windowReference';
 import '../../assets/styles/components/Breadcrumb.scss';
 
 const Breadcrumb = () => {

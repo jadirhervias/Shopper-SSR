@@ -80,6 +80,8 @@ const main = async (req, res, next) => {
           // favoriteProducts: [],
           currentShop: {},
           products: {
+            subcategoryId: '',
+            subcategoryName: '',
             filterIndex: null,
             sortIndex: 0,
             productsList: [],
@@ -87,7 +89,16 @@ const main = async (req, res, next) => {
           order: {},
           orderCoordenates: {},
           orderHistory: [],
-          pagination: {},
+          pagination: {
+            size: 0,
+            last: false,
+            first: true,
+            empty: false,
+            numberOfElements: 0,
+            totalPages: 0,
+            totalElements: 0,
+            number: 0,
+          },
           mapLoaded: false,
           loading: false,
           error: null,
@@ -132,6 +143,8 @@ const main = async (req, res, next) => {
           savedShoppingCars: userShoppingCarsData.data,
           // favoriteProducts: [],
           products: {
+            subcategoryId: '',
+            subcategoryName: '',
             filterIndex: null,
             sortIndex: 0,
             productsList: [],
@@ -140,7 +153,16 @@ const main = async (req, res, next) => {
           order: {},
           orderCoordenates: {},
           orderHistory: [],
-          pagination: {},
+          pagination: {
+            size: 0,
+            last: false,
+            first: true,
+            empty: false,
+            numberOfElements: 0,
+            totalPages: 0,
+            totalElements: 0,
+            number: 0,
+          },
           mapLoaded: false,
           loading: false,
           error: null,
@@ -169,6 +191,8 @@ const main = async (req, res, next) => {
         savedShoppingCars: [],
         // favoriteProducts: [],
         products: {
+          subcategoryId: '',
+          subcategoryName: '',
           filterIndex: null,
           sortIndex: 0,
           productsList: [],
@@ -177,7 +201,16 @@ const main = async (req, res, next) => {
         order: {},
         orderCoordenates: {},
         orderHistory: [],
-        pagination: {},
+        pagination: {
+          size: 0,
+          last: false,
+          first: true,
+          empty: false,
+          numberOfElements: 0,
+          totalPages: 0,
+          totalElements: 0,
+          number: 0,
+        },
         mapLoaded: false,
         loading: false,
         error: null,
@@ -194,6 +227,8 @@ const main = async (req, res, next) => {
     const store = createStore(reducer, initialState);
     const preloadedState = store.getState();
     const isLogged = initialState.user.email && initialState.user.id;
+
+    console.log(req.url);
 
     const html = renderToString(
       <Provider store={store}>

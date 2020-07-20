@@ -4,11 +4,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FirebaseContext } from '../../firebase/firebaseInit';
 import { trimInput, textValidator } from '../../utils/inputValidators';
 import { saveUserShoppingCar } from '../../actions/userActions';
+import { isRunningOnClientSide } from '../../utils/windowReference';
 import '../../assets/styles/components/SaveShoppingCarModal.scss';
 
 const SaveShopingCarModal = () => {
   const dispatch = useDispatch();
-  const { storageRef } = useContext(FirebaseContext);
+
+  let storageRef;
+
+  if (isRunningOnClientSide === true && FirebaseContext !== null) {
+    console.log('client side');
+    const firebaseContext = useContext(FirebaseContext);
+    storageRef = firebaseContext.storageRef;
+  }
+
   const shop = useSelector((state) => state.currentShop);
   const user = useSelector((state) => state.user);
   const shoppingCar = useSelector((state) => state.shoppingCar);
@@ -54,15 +63,17 @@ const SaveShopingCarModal = () => {
   };
 
   useEffect(() => {
-    storageRef
-      .child(`shops/${shop.image}`)
-      .getDownloadURL()
-      .then((url) => {
-        document.getElementById(`currentShop__image-${shop.id}`).src = url;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isRunningOnClientSide === true && storageRef !== null) {
+      storageRef
+        .child(`shops/${shop.image}`)
+        .getDownloadURL()
+        .then((url) => {
+          document.getElementById(`currentShop__image-${shop.id}`).src = url;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (
