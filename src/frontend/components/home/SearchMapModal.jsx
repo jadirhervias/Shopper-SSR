@@ -1,102 +1,94 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import AddressResults from '../shoppingCarOrder/AddressResults';
+import SearchLocationModalMap from '../maps/SearchLocationModalMap';
+import { setOrderCoordenatesAction } from '../../actions/orderAction';
+import googleApiKey from '../../credentials/googleApiKey';
 import '../../assets/styles/components/SearchMapModal.scss';
-import { isRunningOnClientSide } from '../../utils/windowReference';
 
 const SearchMapModal = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const mapLoaded = useSelector((state) => state.mapLoaded);
-  // eslint-disable-next-line prefer-const
-  // let google = {};
 
-  const handleLocationError = (
-    browserHasGeolocation,
-    infoWindow,
-    userCoordenates,
-    map
-  ) => {
-    infoWindow.setPosition(userCoordenates);
-    infoWindow.setContent(
-      browserHasGeolocation
-        ? 'Error: El servicio de geolocalizacion falló'
-        : 'Error: Tu navegador no soporta geolocalización.'
-    );
-    infoWindow.open(map);
+  const [searchAddress, setSearchAddress] = useState('');
+  const [geocoderResults, setGeocoderResults] = useState([]);
+
+  const fetchGeocodeResults = async (address) => {
+    try {
+      const { data, status } = await axios({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json',
+        params: {
+          address,
+          key: googleApiKey,
+        },
+        method: 'GET',
+      });
+
+      if (status === 200 || data.status === 'OK') {
+        // setGeocoderResults(data.results);
+        return data.results;
+      }
+      console.log(
+        `Geocode no fue exitoso por el seguiente motivo: ${data.status}`
+      );
+
+      return;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // Map to use in order process
-  const initSearchMapModal = () => {
-    const map2 = new google.maps.Map(
-      document.getElementById('searchShopsMap'),
-      {
-        center: {
-          lat: Number(user.lat),
-          lng: Number(user.lng),
-        },
-        zoom: 14,
-        streetViewControl: false,
-        mapTypeControl: false,
-      }
-    );
-
-    const infoWindow = new google.maps.InfoWindow();
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          const userCoordenates = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          infoWindow.setPosition(userCoordenates);
-          infoWindow.setContent('Se encontró tu ubicación');
-          infoWindow.open(map2);
-          map2.setCenter(userCoordenates);
-        },
-        function () {
-          handleLocationError(true, infoWindow, map2.getCenter(), map2);
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map2.getCenter(), map2);
+  const handleChange = (e) => {
+    if (e.target.value === '') {
+      setGeocoderResults([]);
     }
+    setSearchAddress(e.target.value);
+    // TODO: Habilitar para produccion
+    // fetchGeocodeResults(e.target.value)
+    //   .then((res) => {
+    //     console.log(res);
+    //     setGeocoderResults(res);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
 
-    // Attach the map to the `window` object
-    window.map2 = map2;
+  const handleFindLocation = (e) => {
+    e.preventDefault();
+    console.log('ON CLICK FIND LOCATION');
+    console.log(searchAddress);
+    fetchGeocodeResults(searchAddress)
+      .then((res) => {
+        console.log(res);
+        setGeocoderResults(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    // The marker, positioned at the shop
-    // const currentShopmarker = new google.maps.Marker({
-    //   position: {
-    //     lat: shop.shop_lat,
-    //     lng: shop.shop_lng,
-    //   },
-    //   map,
-    // });
-
-    // The marker, positioned at the user default location from the database
-    const userDefaultMarker = new google.maps.Marker({
-      position: {
-        lat: Number(user.lat),
-        lng: Number(user.lng),
-      },
-      map2,
-    });
+  const handleCancel = (e) => {
+    e.preventDefault();
+    // Remove chosen location
+    setSearchAddress('');
+    setGeocoderResults([]);
+    dispatch(
+      setOrderCoordenatesAction({
+        lat: Number(user.user_lat),
+        lng: Number(user.user_lng),
+      })
+    );
   };
 
   useEffect(() => {
-    if (isRunningOnClientSide && mapLoaded) {
-      initSearchMapModal();
-
-      // TODO: use app state to load map or not
-      // window.addEventListener('load', () => {
-      //   if (props.googleMapsLoaded) {
-      //     initMap();
-      //   }
-      // })
-    }
+    console.log('location modal mounted!');
+    return () => {
+      console.log('location modal unmounted!');
+      setSearchAddress('');
+    };
   }, []);
 
   return (
@@ -121,6 +113,7 @@ const SearchMapModal = () => {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
+                  onClick={handleCancel}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,47 +121,37 @@ const SearchMapModal = () => {
               <div className="d-flex flex-row bd-highlight justify-content-center my-2">
                 <h3>Ubica tus tiendas preferidas cerca de ti</h3>
               </div>
-              <form
-                action="POST"
-                // onSubmit={handleSubmit}
-              >
-                <div className="d-flex flex-row bd-highlight justify-content-center my-2">
-                  <div className="bd-highlight p-2">
-                    <div className="form-group">
-                      <div className="bd-highlight p-2">
-                        <input
-                          type="text"
-                          name="name"
-                          className="form-control text-center"
-                          placeholder="Ingrese su direcci&oacute;n"
-                          // onChange={handleInput}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex flex-row bd-highlight justify-content-around my-2">
-                  <div className="bd-highlight p-2" />
-                  <div className="bd-highlight p-2 align-self-center" />
-                </div>
-              </form>
-              <div className="d-flex flex-row bd-highlight justify-content-center my-2">
-                <div id="searchShopsMap" />
-              </div>
-              <div className="d-flex flex-row bd-highlight justify-content-around mt-3 mb-2">
+              <div className="d-flex flex-row bd-highlight justify-content-center align-items-center">
                 <div className="bd-highlight p-2">
                   <input
-                    type="submit"
-                    className="btn btn-lg btn-secondary"
-                    data-dismiss="modal"
-                    value="Cancelar"
+                    autoComplete="off"
+                    type="text"
+                    className="form-control mb-2 mr-sm-2 text-center"
+                    id="addressSelect"
+                    placeholder="Ingrese una direcci&oacute;n"
+                    onChange={handleChange}
+                    value={searchAddress}
                   />
                 </div>
                 <div className="bd-highlight p-2">
                   <input
                     type="submit"
-                    className="btn btn-lg btn-danger btn-block"
-                    value="Guardar"
+                    className="btn btn-lg btn-info"
+                    onClick={handleFindLocation}
+                    disabled={searchAddress === ''}
+                  />
+                </div>
+              </div>
+
+              <AddressResults geocoderResults={geocoderResults} />
+
+              <div className="d-flex flex-row bd-highlight justify-content-center align-items-center p-4">
+                <div style={{ height: '400px', width: '600px' }}>
+                  <SearchLocationModalMap
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&v=3.exp&libraries=geometry,drawing,places`}
+                    loadingElement={<div style={{ height: '100%' }} />}
+                    containerElement={<div style={{ height: '400px' }} />}
+                    mapElement={<div style={{ height: '100%' }} />}
                   />
                 </div>
               </div>

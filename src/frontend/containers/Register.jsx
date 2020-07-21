@@ -1,12 +1,17 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../actions/authActions';
+import { emailValidator } from '../utils/inputValidators';
 import '../assets/styles/components/Register.scss';
 
 const Register = (props) => {
-  // form: estado del componente
-  // setValues: captura los valores pasados en los inputs
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [form, setValues] = useState({
     first_name: '',
     last_name: '',
@@ -14,11 +19,9 @@ const Register = (props) => {
     phone_number: '',
     address: '',
     password: '',
+    passwordConfirm: '',
   });
 
-  console.log(form);
-
-  // Para capturar la info que se transmitirá al estado a partir del form
   const handleInput = (event) => {
     setValues({
       ...form,
@@ -26,10 +29,37 @@ const Register = (props) => {
     });
   };
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleShowAlert = (message) => {
+    setAlertMessage(message);
+  };
+
   // Para mandar la información
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.registerUser(form, '/login');
+    if (form.password === form.passwordConfirm) {
+      if (emailValidator(form.email)) {
+        setShowAlert(false);
+        const formToSend = {
+          ...form,
+        };
+        delete formToSend.passwordConfirm;
+        props.registerUser(formToSend, '/login');
+      } else {
+        handleShowAlert('Ingrese un email válido');
+        setShowAlert(true);
+      }
+    } else {
+      handleShowAlert('Verifique que ambas contraseñas coincidan');
+      setShowAlert(true);
+    }
     // props.registerUser(form, '/');
 
     // YA NO ES NECEARIO, PORQUE LA REDIRECCIÓN SE HACE EN EL MISMO ACTION
@@ -107,17 +137,52 @@ const Register = (props) => {
               />
               <span className="register--focus-input" />
             </div>
-            <div className="form-group mb-3 register--wrap-input">
+            <div className="form-group register--wrap-input">
               <input
                 name="password"
                 className="register__container--form--input text-center px-4"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Contraseña"
                 autoComplete="off"
                 required
                 onChange={handleInput}
               />
               <span className="register--focus-input" />
+            </div>
+            <div className="d-flex align-items-end flex-column bd-highlight">
+              <a
+                className="badge badge-pill badge-light show-hide-password mb-3"
+                onClick={handleShowPassword}
+              >
+                <small>{showPassword ? 'OCULTAR' : 'MOSTRAR'}</small>
+              </a>
+            </div>
+            <div className="form-group register--wrap-input">
+              <input
+                name="passwordConfirm"
+                className="register__container--form--input text-center px-4"
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="Confirmar Contraseña"
+                autoComplete="off"
+                required
+                onChange={handleInput}
+              />
+              <span className="register--focus-input" />
+            </div>
+            <div className="d-flex align-items-end flex-column bd-highlight">
+              <a
+                className="badge badge-pill badge-light show-hide-password mb-3"
+                onClick={handleShowConfirmPassword}
+              >
+                <small>{showConfirmPassword ? 'OCULTAR' : 'MOSTRAR'}</small>
+              </a>
+            </div>
+            <div className="d-flex align-items-center flex-column bd-highlight">
+              {showAlert && (
+                <div className="alert alert-warning" role="alert">
+                  {alertMessage}
+                </div>
+              )}
             </div>
             <button className="btn btn-light" type="submit">
               Registrarme

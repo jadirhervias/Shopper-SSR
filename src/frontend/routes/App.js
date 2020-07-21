@@ -16,8 +16,6 @@ import {
   setUserRegistrationDeviceId,
 } from '../actions/notificationActions';
 import { FirebaseContext } from '../firebase/firebaseInit';
-import { loadGoogleMap } from '../actions';
-// import googleApiKey from '../credentials/googleApiKey';
 import '../assets/styles/components/Notification.scss';
 
 const App = ({ isLogged }) => {
@@ -25,27 +23,7 @@ const App = ({ isLogged }) => {
   const userLogged = useSelector((state) => state.user);
   const { messaging } = useContext(FirebaseContext);
 
-  // Init Google maps
-  const initGoogleMaps = () => {
-    const googleMapsDom = document.getElementById('googleMaps');
-    if (!document.head.contains(googleMapsDom)) {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
-      script.id = 'googleMaps';
-      script.defer = true;
-      // script.async = true;
-
-      googleMapsDom.addEventListener('load', function () {
-        dispatch(loadGoogleMap(true));
-      });
-
-      document.head.appendChild(script);
-    }
-  };
-
   useEffect(() => {
-    initGoogleMaps();
-
     // When closing notifications
     window.dismissNotification = function () {
       const currentNotif = document.querySelector('.notif-front');
@@ -116,11 +94,6 @@ const App = ({ isLogged }) => {
         });
       };
       window.initFirebaseMessaging();
-
-      // TODO: Check if this work OK
-      // window.dismissNotification();
-
-      // TODO: Init another map to show nearest shops
     }
     //   // navigator.serviceWorker.addEventListener('message', (message) => console.log(message));
   }, []);

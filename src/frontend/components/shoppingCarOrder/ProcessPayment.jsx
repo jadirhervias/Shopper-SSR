@@ -1,15 +1,11 @@
-/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreditCardIcon from '../../assets/static/credit-card.png';
 import { emailValidator, trimFilter } from '../../utils/inputValidators';
-import {
-  validateTokenCard,
-  saveUserCard,
-  verifyAndPayOrder,
-} from '../../actions/orderAction';
+import { verifyAndPayOrder } from '../../actions/orderAction';
+import securePay from '../../assets/static/secure-pay.png';
 
 const ProcessPayment = () => {
   const dispatch = useDispatch();
@@ -110,28 +106,28 @@ const ProcessPayment = () => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="row justify-content-center align-items-center mb-2">
+              <div className="d-flex flex-row bd-highlight justify-content-center align-items-center mb-2">
                 <h3>Pago</h3>
               </div>
-              <div className="row justify-content-center align-items-center p-4">
+              <div className="d-flex flex-row bd-highlight justify-content-center align-items-center p-4">
                 <form
                   action="POST"
                   onSubmit={(e) => handleSubmit(e, shoppingCar)}
                 >
-                  <div className="row justify-content-center align-items-center mb-2">
-                    <div className="col-md-12">
-                      <input
-                        type="text"
-                        name="card_number"
-                        className="form-control"
-                        placeholder="Número de la tarjeta"
-                        onChange={handleInput}
-                        required
-                      />
-                    </div>
+                  <div className="d-flex flex-column bd-highlight mb-2">
+                    {/* <div className="d-flex flex-column bd-highlight"> */}
+                    <input
+                      type="text"
+                      name="card_number"
+                      className="form-control"
+                      placeholder="Número de la tarjeta"
+                      onChange={handleInput}
+                      required
+                    />
                   </div>
-                  <div className="row justify-content-center align-items-center mb-2">
-                    <div className="col-md-3 col-sm-3 col-xs-3">
+                  {/* </div> */}
+                  <div className="d-flex flex-row bd-highlight justify-content-between align-items-center mb-2">
+                    <div className="bd-highlight pr-2">
                       <input
                         type="text"
                         name="expiration_month"
@@ -141,7 +137,7 @@ const ProcessPayment = () => {
                         required
                       />
                     </div>
-                    <div className="col-md-3 col-sm-3 col-xs-3">
+                    <div className="bd-highlight px-3">
                       <input
                         type="text"
                         name="expiration_year"
@@ -151,7 +147,7 @@ const ProcessPayment = () => {
                         required
                       />
                     </div>
-                    <div className="col-md-3 col-sm-3 col-xs-3">
+                    <div className="bd-highlight px-3">
                       <input
                         type="text"
                         name="cvv"
@@ -161,7 +157,7 @@ const ProcessPayment = () => {
                         required
                       />
                     </div>
-                    <div className="col-md-3 col-sm-3 col-xs-3">
+                    <div className="bd-highlight pl-2">
                       <img
                         src={CreditCardIcon}
                         className="img-rounded"
@@ -174,20 +170,20 @@ const ProcessPayment = () => {
                           <input type="text" className="form-control" placeholder="Nombre en la tarjeta" />
                         </div>
                       </div> */}
-                  <div className="row justify-content-center align-items-center mb-2">
-                    <div className="col-md-12">
-                      <input
-                        type="text"
-                        name="email"
-                        className="form-control"
-                        placeholder="Email"
-                        onChange={handleInput}
-                        required
-                      />
-                    </div>
+                  <div className="d-flex flex-column bd-highlight mb-2">
+                    {/* <div className="d-flex flex-column bd-highlight"> */}
+                    <input
+                      type="text"
+                      name="email"
+                      className="form-control"
+                      placeholder="Email"
+                      onChange={handleInput}
+                      required
+                    />
                   </div>
-                  <div className="row justify-content-center align-items-center mb-2">
-                    <div className="col-md-12">
+                  {/* </div> */}
+                  <div className="d-flex flex-row bd-highlight justify-content-center align-items-center mb-2">
+                    <div className="bd-highlight">
                       <div className="form-group">
                         <div className="form-check">
                           {/* is-invalid */}
@@ -211,8 +207,16 @@ const ProcessPayment = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="row justify-content-center align-items-center mb-2">
-                    <div className="col-md-6 col-sm-6 col-xs-6">
+                  <div className="d-flex flex-row bd-highlight justify-content-center align-items-center mb-2">
+                    <div className="bd-highlight">
+                      <img src={securePay} alt="scure-pay" />
+                    </div>
+                    <div className="bd-highlight pl-1">
+                      <span>Pago seguro</span>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row bd-highlight justify-content-center align-items-center mb-2">
+                    <div className="bd-highlight px-5">
                       <input
                         type="submit"
                         className="btn btn-secondary"
@@ -220,7 +224,7 @@ const ProcessPayment = () => {
                         value="Cancelar"
                       />
                     </div>
-                    <div className="col-md-6 col-sm-6 col-xs-6">
+                    <div className="bd-highlight px-5">
                       <input
                         type="submit"
                         className="btn btn-danger btn-block"

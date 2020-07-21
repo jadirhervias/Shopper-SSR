@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Search from '../components/home/Search';
@@ -12,13 +12,12 @@ import SearchMapModal from '../components/home/SearchMapModal';
 import '../assets/styles/App.scss';
 
 const Home = ({ myList, shops, searchResults }) => {
-  const mapLoaded = useSelector((state) => state.mapLoaded);
   return (
     <>
       <Header />
       <Search />
 
-      {mapLoaded && <SearchMapModal />}
+      <SearchMapModal />
 
       {searchResults.length > 0 && (
         <Shops title="Resultados de búsqueda">

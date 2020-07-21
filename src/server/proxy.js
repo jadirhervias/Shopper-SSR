@@ -42,7 +42,15 @@ function api(app) {
             // domain: 'shopper-demo.com'
           });
 
-          return res.status(200).json(user);
+          const userToken = {
+            ...user.user,
+            token,
+          };
+
+          console.log(userToken);
+
+          return res.status(200).json(userToken);
+          // return res.status(200).json(user);
         });
       } catch (error) {
         next(error);
@@ -130,6 +138,31 @@ function api(app) {
       data.page && delete data.page;
 
       // JSON + HAL
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Obtener tiendas mas cercanas al usuario
+  app.get('/nearest-shops', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/shops/sorted`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'get',
+        data: req.body,
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.unauthorized);
+      }
+
+      // Array
       return res.status(200).json(data);
     } catch (error) {
       next(error);

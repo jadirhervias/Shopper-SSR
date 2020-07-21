@@ -11,7 +11,7 @@ import '../../assets/styles/components/Footer.scss';
 const Footer = () => (
   <footer className="pt-4 pb-2 footer__container bg-footer">
     <div className="container px-0">
-      <div className="row justify-content-center m-0">
+      <div className="row justify-content-center align-items-center m-0">
         <div className="col-xl-4 col-sm-6 text-center pt-4 px-0">
           <h6 className="footer__container--list-tittle">
             <strong>Sobre nosotros</strong>
@@ -44,7 +44,7 @@ const Footer = () => (
           <strong className="footer__container--list-tittle">
             Síguenos en
           </strong>
-          <div className="row justify-content-center m-0">
+          <div className="row justify-content-center align-items-center m-0">
             <Link to="/">
               <FaFacebookSquare size={32} className="social-network-icon m-1" />
             </Link>
@@ -62,7 +62,7 @@ const Footer = () => (
 
         {/* <div className="col-1 d-none d-xl-block " /> */}
       </div>
-      <div className="row justify-content-center text-center m-0">
+      <div className="row justify-content-center align-items-center text-center m-0">
         <div className="col-md-12 px-0">2020 &copy;Shopper</div>
       </div>
     </div>

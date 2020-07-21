@@ -15,7 +15,6 @@ const renderFullPage = (html, preloadedState) => {
       <link rel="stylesheet" href="${
         files ? files['main.css'] : 'assets/app.css'
       }" type="text/css" />
-      <script src="${`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}`}" id="googleMaps" defer></script>
 
       <!-- <link rel="manifest" href="/manifest.json" /> -->
 

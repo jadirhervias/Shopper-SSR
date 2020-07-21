@@ -7,9 +7,8 @@ import ProductDetail from './ProductDetail';
 import LocationModal from './LocationModal';
 import ProcessPayment from './ProcessPayment';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
-// import Breadcrumb from '../layout/Breadcrumb';
+import Breadcrumb from '../layout/Breadcrumb';
 import SaveShopingCarModal from './SaveShoppingCarModal';
-import { isRunningOnClientSide } from '../../utils/windowReference';
 
 const ShoppingCar = () => {
   const commissionCost = 5;
@@ -19,11 +18,7 @@ const ShoppingCar = () => {
   return (
     <div className="container">
       <div className="row m-0">
-        {/* {
-          isRunningOnClientSide && (
-            <Breadcrumb />
-          )
-        } */}
+        <Breadcrumb />
       </div>
 
       {Object.keys(order).length > 0 && (
@@ -187,10 +182,6 @@ const ShoppingCar = () => {
                           >
                             Solo se procesan compras mayores o iguales a 3 soles
                           </small>
-                          {/* <button className="btn btn-danger btn-lg" type="button" disabled>
-                        <span className="mb-2 mr-3 spinner-border spinner-border-sm" role="status" aria-hidden="true" />
-                        Procesando...
-                      </button> */}
                         </div>
                       </div>
                     </li>
@@ -200,7 +191,7 @@ const ShoppingCar = () => {
             </div>
             <SaveShopingCarModal />
             <ProcessPayment />
-            {isRunningOnClientSide && <LocationModal />}
+            <LocationModal />
           </>
         )}
       </div>

@@ -1,5 +1,10 @@
 @import '../Vars.scss';
 
+.show-hide-password:hover {
+  text-decoration: none !important;
+  background-color: white !important;
+}
+
 .register {
   background-image: linear-gradient(#fcb022, $primary-color);
   display: flex;
@@ -22,6 +27,7 @@
   flex-direction: column;
   justify-content: space-around;
   padding: 48px 64px 48px;
+  min-width: 500px;
 }
 
 .register__container--title {

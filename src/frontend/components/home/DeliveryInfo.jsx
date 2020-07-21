@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../assets/styles/components/DeliveryInfo.scss';
@@ -18,13 +19,13 @@ const DeliveryInfo = () => {
         <div className="row justify-content-md-center align-items-center m-0">
           <div className="col-md-4 deliveryInfo__content text-center p-0">
             <h4>Entregas rápidas, seguras e higiénicas</h4>
-            <Link
+            {/* <Link
               className="deliveryInfo__content--button btn btn-md mt-2"
               id="shoppingNowButton"
               to="/"
             >
               Hacer compras ya
-            </Link>
+            </Link> */}
           </div>
           <div className="col-md-8 p-0 deliveryInfo__image">
             <img

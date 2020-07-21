@@ -1,7 +1,9 @@
+/* eslint-disable no-return-await */
 import axios from 'axios';
 import {
   showProductsByShop,
   showProductsBySubcategory,
+  setNearestShops,
   filterProductsByBrand,
   showLoading,
   hideLoading,
@@ -111,20 +113,65 @@ export const showShop = (id) => {
   };
 };
 
-// export const showNextPageProducts = (idSubCategoria) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data, status } = await axios({
-//         url: `/subcategories/${idSubCategoria}`,
-//         method: 'GET',
-//       });
+const asyncMapping = async (shops, storageRef) => {
+  const urlShops = await Promise.all(
+    shops.map(async (item) =>
+      storageRef
+        .child(`shops/${item.shop.image}`)
+        .getDownloadURL()
+        .then((url) => {
+          const shopObj = {
+            ...item.shop,
+            image: url,
+          };
+          return {
+            ...item,
+            shop: shopObj,
+          };
+        })
+        .catch((error) => {
+          console.log(error);
+          // return item;
+          const shopObj = {
+            ...item.shop,
+            image: 'http://placehold.it/200x250',
+          };
+          return {
+            ...item,
+            shop: shopObj,
+          };
+        })
+    )
+  );
+  return urlShops;
+};
 
-//       console.log(data);
-//       dispatch(showProductsBySubcategory(data))
+export const setNearestShopsAction = (lat, lng, storageRef) => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      const { data } = await axios({
+        url: '/nearest-shops',
+        method: 'GET',
+        data: {
+          lat,
+          lng,
+        },
+      });
 
-//     } catch (error) {
-//       console.log(error);
-//       dispatch(setError(error));
-//     }
-//   }
-// };
+      dispatch(hideLoading());
+
+      asyncMapping(data, storageRef)
+        .then((res) => {
+          // state setup
+          dispatch(setNearestShops(res));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};

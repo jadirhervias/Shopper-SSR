@@ -1,11 +1,23 @@
-import React from 'react';
+import React from // { useState }
+  'react';
+import { useDispatch } from 'react-redux';
+import { setOrderCoordenatesAction } from '../../actions/orderAction';
 
-const AddressResults = ({
-  geocoderResults,
-  handleClick,
-  locationModalMap,
-  // searchAddress
-}) => {
+const AddressResults = ({ geocoderResults }) => {
+  const dispatch = useDispatch();
+  // const [searchLocation, setSearchLocation] = useState({});
+  // const [centerLocation, setCenterLocation] = useState({});
+
+  const handleClick = (e, address) => {
+    e.preventDefault();
+    dispatch(
+      setOrderCoordenatesAction(
+        JSON.parse(JSON.stringify(address.geometry.location))
+      )
+    );
+    // Clean local component states
+  };
+
   return (
     <>
       {
@@ -23,8 +35,7 @@ const AddressResults = ({
                       id={addressItem.place_id}
                       className="list-group-item list-group-item-action"
                       value={addressItem.formatted_address}
-                      onClick={(e) =>
-                        handleClick(e, addressItem, locationModalMap)}
+                      onClick={(e) => handleClick(e, addressItem)}
                     >
                       {addressItem.formatted_address}
                     </li>

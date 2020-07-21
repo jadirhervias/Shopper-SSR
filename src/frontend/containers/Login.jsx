@@ -15,8 +15,6 @@ const Login = (props) => {
 
   const user = useSelector((state) => state.user);
 
-  console.log(form);
-
   const handleInput = (event) => {
     setValues({
       ...form,

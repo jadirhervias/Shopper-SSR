@@ -2,13 +2,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import {
-  setOrder,
-  saveCard,
-  setHistoryOrder,
-  setError,
-  setOrderCoordenates,
-} from './index';
+import { setOrder, saveCard, setError, setOrderCoordenates } from './index';
 
 export const verifyAndPayOrder = (
   card,

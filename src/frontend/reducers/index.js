@@ -6,6 +6,7 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SEARCH_NEAREST_SHOPS_REQUEST,
   SET_SUBCATERGORY_ID,
   SET_SUBCATERGORY_NAME,
   SHOW_PRODUCTS_BY_SHOP,
@@ -35,7 +36,6 @@ import {
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
-  LOAD_GOOGLE_MAP,
 } from '../types';
 
 const reducer = (state, action) => {
@@ -61,7 +61,7 @@ const reducer = (state, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        user: action.payload.user,
+        user: action.payload,
         // myList: action.payload.myList,
       };
 
@@ -90,6 +90,12 @@ const reducer = (state, action) => {
                 .includes(action.payload.searching.toLowerCase())
             )
             : [],
+      };
+
+    case SEARCH_NEAREST_SHOPS_REQUEST:
+      return {
+        ...state,
+        nearestShopsSearchResults: action.payload,
       };
 
     // SHOPPING
@@ -317,13 +323,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         loading: false,
-      };
-
-    // Load Google Map
-    case LOAD_GOOGLE_MAP:
-      return {
-        ...state,
-        mapLoaded: action.payload,
       };
 
     default:

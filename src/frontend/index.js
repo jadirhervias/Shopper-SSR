@@ -15,9 +15,6 @@ import { saveState, loadState } from './utils/localStorage';
 window === 'undefined' && {};
 
 if (typeof window !== 'undefined') {
-  console.log(window);
-  console.log(typeof window);
-
   const history = createBrowserHistory();
   const preloadedState = loadState() || window.__PRELOADED_STATE__;
 
@@ -38,6 +35,7 @@ if (typeof window !== 'undefined') {
     saveState(store.getState());
   });
 
+  // TODO: delete this of window
   // para no exponer los datos de la app al usuario
   delete window.__PRELOADED_STATE__;
 

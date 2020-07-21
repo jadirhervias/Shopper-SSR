@@ -10,6 +10,7 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   SEARCH_REQUEST,
+  SEARCH_NEAREST_SHOPS_REQUEST,
   SET_SUBCATERGORY_ID,
   SET_SUBCATERGORY_NAME,
   SHOW_PRODUCTS_BY_SHOP,
@@ -40,7 +41,6 @@ import {
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
-  LOAD_GOOGLE_MAP,
   SET_ORDER_COORDENATES,
 } from '../types';
 
@@ -74,6 +74,11 @@ export const removeFavoriteShop = (payload) => ({
 // SEARCH
 export const searchRequest = (payload) => ({
   type: SEARCH_REQUEST,
+  payload,
+});
+
+export const setNearestShops = (payload) => ({
+  type: SEARCH_NEAREST_SHOPS_REQUEST,
   payload,
 });
 
@@ -232,12 +237,6 @@ export const showLoading = () => ({
 export const hideLoading = () => ({
   type: DISABLE_LOADING,
   payload: false,
-});
-
-// GOOGLE LOAD
-export const loadGoogleMap = (payload) => ({
-  type: LOAD_GOOGLE_MAP,
-  payload,
 });
 
 // ERROR

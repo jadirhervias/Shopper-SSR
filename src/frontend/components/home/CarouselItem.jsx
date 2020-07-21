@@ -40,6 +40,12 @@ const CarouselItem = (props) => {
         })
         .catch((error) => {
           console.log(error);
+          // const elements = document.getElementsByClassName(
+          //   `carousel-item__img image-${id}`
+          // );
+          // for (let i = 0; i < elements.length; i++) {
+          //   elements[i].src = 'http://placehold.it/200x250';
+          // }
         });
     }
   }, [myList]);
@@ -112,7 +118,7 @@ const CarouselItem = (props) => {
           N° Categorias:
           {categories.length}
         </p> */}
-        <p className="carousel-item__details--subtitle">{last_update}</p>
+        {/* <p className="carousel-item__details--subtitle">{last_update}</p> */}
       </div>
     </div>
   );
