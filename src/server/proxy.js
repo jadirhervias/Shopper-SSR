@@ -390,6 +390,30 @@ function api(app) {
     }
   });
 
+  // Guardar carrito de un usuario
+  app.get('/user/shopping-cars/:userId/:page', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId, page } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/users/shopping-cars/${userId}/pagination?page=${page}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'GET',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // // Para verificar si el token expiró
   // app.get('/verify/:user', async function (req, res, next) {
   //   try {

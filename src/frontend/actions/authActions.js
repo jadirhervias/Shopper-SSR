@@ -2,7 +2,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { addRegistrationDeviceId } from './notificationActions';
+import {
+  addRegistrationDeviceId,
+  removeRegistrationDeviceId,
+} from './notificationActions';
 import {
   registerRequest,
   setError,
@@ -126,9 +129,11 @@ export const loginUser = (
   };
 };
 
-export const logoutUser = (redirectUrl) => {
+export const logoutUser = (redirectUrl, deviceId, userId) => {
   return async (dispatch) => {
     try {
+      dispatch(removeRegistrationDeviceId(deviceId, userId));
+
       // vaciar los datos del usuario
       document.cookie = 'id=';
       document.cookie = 'token=';
@@ -144,6 +149,8 @@ export const logoutUser = (redirectUrl) => {
       document.cookie = 'notificationKey=';
 
       dispatch(logoutRequest({}));
+
+      localStorage.removeItem('state');
 
       window.location.href = redirectUrl;
     } catch {
@@ -167,9 +174,9 @@ export const favoriteShop = (userId, shop, cb) => (dispatch) => {
         data: { shopExist },
       } = data;
 
-      const message = shopExist ?
-        `${shop.title} ya está en tus favoritos` :
-        `${shop.title} fue agregada a tus favoritos`;
+      const message = shopExist
+        ? `${shop.title} ya está en tus favoritos`
+        : `${shop.title} fue agregada a tus favoritos`;
 
       !shopExist && dispatch(setFavorite(shop));
 

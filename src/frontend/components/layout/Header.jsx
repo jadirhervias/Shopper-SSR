@@ -19,7 +19,7 @@ const Header = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     props.removeRegistrationDeviceId(user.registrationDeviceId, user.id);
-    props.logoutUser('/');
+    props.logoutUser('/', user.registrationDeviceId, user.id);
   };
 
   return (

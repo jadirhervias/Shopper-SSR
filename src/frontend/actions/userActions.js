@@ -5,6 +5,8 @@ import {
   showUserShoppingCars,
   showUserCards,
   showUserAccount,
+  setHistoryOrder,
+  setUserShoppingCars,
   setNumber,
   setSize,
   setPageIsEmpty,
@@ -13,7 +15,6 @@ import {
   setNumberOfElements,
   setTotalElements,
   setTotalPages,
-  setHistoryOrder,
   showLoading,
   hideLoading,
   setError,
@@ -47,6 +48,42 @@ export const showUserOrdersHistory = (userId, page = 0) => {
       dispatch(setTotalPages(data.totalPages));
 
       dispatch(setHistoryOrder(data.content));
+      dispatch(hideLoading());
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};
+
+export const paginateUserShoppingCars = (userId, page = 0) => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      let url;
+
+      if (page !== null || page !== 0) {
+        url = `/user/shopping-cars/${userId}/${Number(page)}`;
+      } else {
+        url = `/user/shopping-cars/${userId}/0`;
+      }
+
+      const { data } = await axios({
+        url,
+        method: 'get',
+      });
+
+      // Pagination parameters
+      dispatch(setNumber(data.number));
+      dispatch(setSize(data.size));
+      dispatch(setPageIsEmpty(data.empty));
+      dispatch(setPageIsFirst(data.first));
+      dispatch(setPageIsLast(data.last));
+      dispatch(setNumberOfElements(data.numberOfElements));
+      dispatch(setTotalElements(data.totalElements));
+      dispatch(setTotalPages(data.totalPages));
+
+      dispatch(setUserShoppingCars(data.content));
       dispatch(hideLoading());
     } catch (error) {
       console.log(error);

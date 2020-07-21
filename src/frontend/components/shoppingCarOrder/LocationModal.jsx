@@ -12,6 +12,7 @@ const LocationModal = () => {
 
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.currentShop);
+  const mapLoaded = useSelector((state) => state.mapLoaded);
 
   const [searchAddress, setSearchAddress] = useState('');
   const [locationModalMap, setLocationModalMap] = useState({});
@@ -176,38 +177,37 @@ const LocationModal = () => {
     };
 
   useEffect(() => {
-    // if (isRunningOnClientSide) {
+    if (isRunningOnClientSide || mapLoaded) {
+      // const map = new google.maps.Map(document.getElementById('payOrderMap'), {
+      //   zoom: 9,
+      //   streetViewControl: false,
+      //   mapTypeControl: false,
+      // });
 
-    // const map = new google.maps.Map(document.getElementById('payOrderMap'), {
-    //   zoom: 9,
-    //   streetViewControl: false,
-    //   mapTypeControl: false,
-    // });
+      // const infoWindowObj = new google.maps.InfoWindow();
 
-    // const infoWindowObj = new google.maps.InfoWindow();
+      // const geocoder = new google.maps.Geocoder();
 
-    // const geocoder = new google.maps.Geocoder();
+      // window.map = map;
 
-    // window.map = map;
+      // const currentShopmarker = new google.maps.Marker({
+      //   position: {
+      //     lat: Number(shop.shop_lat),
+      //     lng: Number(shop.shop_lng),
+      //   },
+      //   map,
+      // });
 
-    // const currentShopmarker = new google.maps.Marker({
-    //   position: {
-    //     lat: Number(shop.shop_lat),
-    //     lng: Number(shop.shop_lng),
-    //   },
-    //   map,
-    // });
+      // initLocationModalMap(map, infoWindowObj, geocoder, currentShopmarker);
+      initLocationModalMap();
 
-    // initLocationModalMap(map, infoWindowObj, geocoder, currentShopmarker);
-    initLocationModalMap();
-
-    // TODO: use app state to load map or not
-    // window.addEventListener('load', () => {
-    //   if (props.googleMapsLoaded) {
-    //     initMap();
-    //   }
-    // })
-    // }
+      // TODO: use app state to load map or not
+      // window.addEventListener('load', () => {
+      //   if (props.googleMapsLoaded) {
+      //     initMap();
+      //   }
+      // })
+    }
 
     return () => {
       console.log('location modal unmounted!');

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import getManifest from '../getManifest';
 
 let files = false;
@@ -12,8 +13,9 @@ const renderFullPage = (html, preloadedState) => {
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <link rel="stylesheet" href="${
-  files ? files['main.css'] : 'assets/app.css'
-}" type="text/css" />
+        files ? files['main.css'] : 'assets/app.css'
+      }" type="text/css" />
+      <script src="${`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}`}" id="googleMaps" defer></script>
 
       <!-- <link rel="manifest" href="/manifest.json" /> -->
 
@@ -27,9 +29,9 @@ const renderFullPage = (html, preloadedState) => {
           // WARNING: See the following for security issues around embedding JSON in HTML:
           // http://redux.js.org/recipes/ServerRendering.html#security-considerations
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-    /</g,
-    '\\u003c'
-  )}
+          /</g,
+          '\\u003c'
+        )}
       </script>
 
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -37,11 +39,11 @@ const renderFullPage = (html, preloadedState) => {
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
       
       <script src="${
-  files ? files['main.js'] : 'assets/app.js'
-}" type="text/javascript"></script>
+        files ? files['main.js'] : 'assets/app.js'
+      }" type="text/javascript"></script>
       <script src="${
-  files ? files['vendors.js'] : 'assets/vendor.js'
-}" type="text/javascript"></script>
+        files ? files['vendors.js'] : 'assets/vendor.js'
+      }" type="text/javascript"></script>
     </body>
     </html>`;
 };

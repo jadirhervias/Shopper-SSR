@@ -28,6 +28,7 @@ import {
   NUMBER_OF_ELEMENTS,
   TOTAL_PAGES,
   TOTAL_ELEMENTS,
+  SET_SHOPPING_CARS,
   SET_HISTORY_ORDER,
   SAVE_CARD,
   SET_ORDER,
@@ -163,9 +164,14 @@ export const setTotalElements = (payload) => ({
   payload,
 });
 
-// PAY
+// USER
 export const setHistoryOrder = (payload) => ({
   type: SET_HISTORY_ORDER,
+  payload,
+});
+
+export const setUserShoppingCars = (payload) => ({
+  type: SET_SHOPPING_CARS,
   payload,
 });
 

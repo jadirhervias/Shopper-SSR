@@ -1,3 +1,5 @@
+/* eslint-disable no-native-reassign */
+/* eslint-disable no-global-assign */
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,10 +10,16 @@ import { Router } from 'react-router';
 import reducer from './reducers';
 import App from './routes/App';
 import FirebaseProvider from './firebase/firebaseInit';
+import { saveState, loadState } from './utils/localStorage';
+
+window === 'undefined' && {};
 
 if (typeof window !== 'undefined') {
+  console.log(window);
+  console.log(typeof window);
+
   const history = createBrowserHistory();
-  const preloadedState = window.__PRELOADED_STATE__;
+  const preloadedState = loadState() || window.__PRELOADED_STATE__;
 
   // const composeEnhancers = (process.env.NODE_ENV === 'production') ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose);
   // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : para habilitar debugging de redux en el navegador
@@ -25,6 +33,10 @@ if (typeof window !== 'undefined') {
     preloadedState,
     composeEnhancers(applyMiddleware(thunk))
   );
+
+  store.subscribe(function () {
+    saveState(store.getState());
+  });
 
   // para no exponer los datos de la app al usuario
   delete window.__PRELOADED_STATE__;

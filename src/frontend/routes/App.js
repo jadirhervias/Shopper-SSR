@@ -17,7 +17,7 @@ import {
 } from '../actions/notificationActions';
 import { FirebaseContext } from '../firebase/firebaseInit';
 import { loadGoogleMap } from '../actions';
-import googleApiKey from '../credentials/googleApiKey';
+// import googleApiKey from '../credentials/googleApiKey';
 import '../assets/styles/components/Notification.scss';
 
 const App = ({ isLogged }) => {
@@ -27,19 +27,18 @@ const App = ({ isLogged }) => {
 
   // Init Google maps
   const initGoogleMaps = () => {
-    if (!document.getElementById('googleMaps')) {
-      // Create the script tag, set the appropriate attributes
+    const googleMapsDom = document.getElementById('googleMaps');
+    if (!document.head.contains(googleMapsDom)) {
       const script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
       script.id = 'googleMaps';
       script.defer = true;
-      script.async = true;
+      // script.async = true;
 
-      script.addEventListener('load', function () {
+      googleMapsDom.addEventListener('load', function () {
         dispatch(loadGoogleMap(true));
       });
 
-      // Append the 'script' element to 'head'
       document.head.appendChild(script);
     }
   };
@@ -48,8 +47,6 @@ const App = ({ isLogged }) => {
     initGoogleMaps();
 
     // When closing notifications
-    // window.dismissNotification = dismissNotification();
-
     window.dismissNotification = function () {
       const currentNotif = document.querySelector('.notif-front');
       const middleNotif = document.querySelector('.notif-middle');

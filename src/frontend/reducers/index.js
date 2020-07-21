@@ -22,6 +22,7 @@ import {
   NUMBER_OF_ELEMENTS,
   TOTAL_PAGES,
   TOTAL_ELEMENTS,
+  SET_SHOPPING_CARS,
   SET_HISTORY_ORDER,
   SAVE_CARD,
   SET_ORDER,
@@ -228,7 +229,13 @@ const reducer = (state, action) => {
         },
       };
 
-    // PAY
+    // USER
+    case SET_SHOPPING_CARS:
+      return {
+        ...state,
+        savedShoppingCars: action.payload,
+      };
+
     case SET_HISTORY_ORDER:
       return {
         ...state,

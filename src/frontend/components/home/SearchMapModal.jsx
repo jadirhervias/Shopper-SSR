@@ -2,11 +2,13 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import '../../assets/styles/components/SearchMapModal.scss';
-import { isRunningOnServerSide } from '../../utils/windowReference';
+import { isRunningOnClientSide } from '../../utils/windowReference';
 
 const SearchMapModal = () => {
   const user = useSelector((state) => state.user);
-  // const shop = useSelector((state) => state.currentShop);
+  const mapLoaded = useSelector((state) => state.mapLoaded);
+  // eslint-disable-next-line prefer-const
+  // let google = {};
 
   const handleLocationError = (
     browserHasGeolocation,
@@ -16,9 +18,9 @@ const SearchMapModal = () => {
   ) => {
     infoWindow.setPosition(userCoordenates);
     infoWindow.setContent(
-      browserHasGeolocation ?
-        'Error: El servicio de geolocalizacion falló' :
-        'Error: Tu navegador no soporta geolocalización.'
+      browserHasGeolocation
+        ? 'Error: El servicio de geolocalizacion falló'
+        : 'Error: Tu navegador no soporta geolocalización.'
     );
     infoWindow.open(map);
   };
@@ -85,7 +87,7 @@ const SearchMapModal = () => {
   };
 
   useEffect(() => {
-    if (isRunningOnServerSide) {
+    if (isRunningOnClientSide && mapLoaded) {
       initSearchMapModal();
 
       // TODO: use app state to load map or not

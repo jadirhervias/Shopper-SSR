@@ -33,7 +33,8 @@ export const NUMBER_OF_ELEMENTS = 'NUMBER_OF_ELEMENTS';
 export const TOTAL_PAGES = 'TOTAL_PAGES';
 export const TOTAL_ELEMENTS = 'TOTAL_ELEMENTS';
 
-// PAY
+// USER
+export const SET_SHOPPING_CARS = 'SET_SHOPPING_CARS';
 export const SET_HISTORY_ORDER = 'SET_HISTORY_ORDER';
 export const SAVE_CARD = 'SAVE_CARD';
 

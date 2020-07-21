@@ -108,13 +108,13 @@ const main = async (req, res, next) => {
           showUserAccount: false,
         };
       } else {
-        const userShoppingCarsData = await axios({
-          url: `${config.apiUrl}/users/shopping-cars/${id}`,
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // const userShoppingCarsData = await axios({
+        //   url: `${config.apiUrl}/users/shopping-cars/${id}/pagination`,
+        //   method: 'GET',
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
 
         initialState = {
           user: {
@@ -140,7 +140,8 @@ const main = async (req, res, next) => {
             products: [],
             totalCost: 0,
           },
-          savedShoppingCars: userShoppingCarsData.data,
+          savedShoppingCars: [],
+          // savedShoppingCars: userShoppingCarsData.data.content,
           // favoriteProducts: [],
           products: {
             subcategoryId: '',
