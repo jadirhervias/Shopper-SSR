@@ -17,7 +17,7 @@ const Breadcrumb = () => {
                 <Link to="/">Home</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Tienda
+                {`Tienda (${currentShop.name})`}
               </li>
             </>
           ) : (
@@ -28,7 +28,7 @@ const Breadcrumb = () => {
                 </li>
                 {Object.keys(currentShop).length !== 0 && (
                   <li className="breadcrumb-item">
-                    <Link to="/productos">Tienda</Link>
+                    <Link to="/productos">{`Tienda (${currentShop.name})`}</Link>
                   </li>
                 )}
                 <li className="breadcrumb-item active" aria-current="page">

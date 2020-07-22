@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { MdMyLocation } from 'react-icons/md';
 import { searchRequest } from '../../actions';
 import left from '../../assets/static/search-izq.png';
 import right from '../../assets/static/search-der.png';
@@ -64,7 +65,7 @@ const Search = (props) => {
                     data-target="#modalGoogleMapsSearch"
                     aria-describedby="googleMapsSearchHelpBlock"
                   >
-                    Buscar
+                    <MdMyLocation size={24} />
                   </button>
                 </div>
               </div>

@@ -175,3 +175,35 @@ export const setNearestShopsAction = (lat, lng, storageRef) => {
     }
   };
 };
+
+export const setSearchProductsMatch = (idSubCategory, product) => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      const { data } = await axios({
+        url: `/search-products/${idSubCategory}/${product.replace(
+          /\s+/g,
+          '_'
+        )}`,
+        method: 'GET',
+      });
+
+      dispatch(hideLoading());
+      // Clean filters
+      dispatch(filterProductsByBrand(null));
+      dispatch(setNumber(0));
+      dispatch(setSize(0));
+      dispatch(setPageIsEmpty(false));
+      dispatch(setPageIsFirst(true));
+      dispatch(setPageIsLast(false));
+      dispatch(setNumberOfElements(0));
+      dispatch(setTotalElements(0));
+      dispatch(setTotalPages(0));
+      // dispatch(setSubcategoryId(idSubCategory));
+      dispatch(showProductsBySubcategory(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};

@@ -80,96 +80,102 @@ const PaginationSection = () => {
         <h2>{products.subcategoryName}</h2>
       </div>
       <div className="p-2 flex-grow-1 bd-highlight" />
-      <div className="p-2 bd-highlight">
-        <span className="align-middle">{`Mostrando ${pagination.numberOfElements} de ${pagination.totalElements} resultados`}</span>
-      </div>
-      <div className="p-2 bd-highlight">
-        <nav aria-label="Page navigation example">
-          <ul className="pagination justify-content-end">
-            <li className="page-item">
-              <button
-                className="page-link arrow-character"
-                type="button"
-                tabIndex="-1"
-                aria-disabled="true"
-                onClick={handleBackPageClick}
-                disabled={pagination.first}
-              >
-                {/* &laquo; */}
-                ❮
-              </button>
-            </li>
-            {/* First Page */}
-            {pagination.totalPages >= 5 && (
-              <li
-                className={`page-item ${
-                  pagination.number === 0 ? 'custom-active' : ''
-                }`}
-              >
-                <button
-                  type="button"
-                  className="page-link"
-                  onClick={(e) => handleSelectPageClick(e, 0)}
-                >
-                  1...
-                </button>
-              </li>
-            )}
-            {/* Middle pages */}
-            {pagination.totalPages >= 5 && (
-              <>
-                {middlePages.map((UIpage) => (
+      {pagination.size > 0 && !pagination.empty && (
+        <>
+          <div className="p-2 bd-highlight">
+            <span className="align-middle">{`Mostrando ${pagination.numberOfElements} de ${pagination.totalElements} resultados`}</span>
+          </div>
+          <div className="p-2 bd-highlight">
+            <nav aria-label="Page navigation example">
+              <ul className="pagination justify-content-end">
+                <li className="page-item">
+                  <button
+                    className="page-link arrow-character"
+                    type="button"
+                    tabIndex="-1"
+                    aria-disabled="true"
+                    onClick={handleBackPageClick}
+                    disabled={pagination.first}
+                  >
+                    {/* &laquo; */}
+                    ❮
+                  </button>
+                </li>
+                {/* First Page */}
+                {pagination.totalPages >= 5 && (
                   <li
                     className={`page-item ${
-                      UIpage === pagination.number + 1 ? 'custom-active' : ''
+                      pagination.number === 0 ? 'custom-active' : ''
                     }`}
-                    key={UIpage}
                   >
                     <button
                       type="button"
                       className="page-link"
-                      onClick={(e) => handleSelectPageClick(e, UIpage - 1)}
+                      onClick={(e) => handleSelectPageClick(e, 0)}
                     >
-                      {UIpage}
+                      1...
                     </button>
                   </li>
-                ))}
-              </>
-            )}
-            {/* Last Page */}
-            {pagination.totalPages >= 5 && (
-              <li
-                className={`page-item ${
-                  pagination.number + 1 === pagination.totalPages ?
-                    'custom-active' :
-                    ''
-                }`}
-              >
-                <button
-                  type="button"
-                  className="page-link"
-                  onClick={(e) =>
-                    handleSelectPageClick(e, pagination.totalPages - 1)}
-                >
-                  {`...${pagination.totalPages}`}
-                </button>
-              </li>
-            )}
-            <li className="page-item">
-              <button
-                className="page-link arrow-character"
-                type="button"
-                aria-disabled="true"
-                onClick={handleNextPageClick}
-                disabled={pagination.last}
-              >
-                {/* &raquo; */}
-                ❯
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
+                )}
+                {/* Middle pages */}
+                {pagination.totalPages >= 5 && (
+                  <>
+                    {middlePages.map((UIpage) => (
+                      <li
+                        className={`page-item ${
+                          UIpage === pagination.number + 1 ?
+                            'custom-active' :
+                            ''
+                        }`}
+                        key={UIpage}
+                      >
+                        <button
+                          type="button"
+                          className="page-link"
+                          onClick={(e) => handleSelectPageClick(e, UIpage - 1)}
+                        >
+                          {UIpage}
+                        </button>
+                      </li>
+                    ))}
+                  </>
+                )}
+                {/* Last Page */}
+                {pagination.totalPages >= 5 && (
+                  <li
+                    className={`page-item ${
+                      pagination.number + 1 === pagination.totalPages ?
+                        'custom-active' :
+                        ''
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="page-link"
+                      onClick={(e) =>
+                        handleSelectPageClick(e, pagination.totalPages - 1)}
+                    >
+                      {`...${pagination.totalPages}`}
+                    </button>
+                  </li>
+                )}
+                <li className="page-item">
+                  <button
+                    className="page-link arrow-character"
+                    type="button"
+                    aria-disabled="true"
+                    onClick={handleNextPageClick}
+                    disabled={pagination.last}
+                  >
+                    {/* &raquo; */}
+                    ❯
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
     </div>
   );
 };

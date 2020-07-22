@@ -1,24 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
-/* eslint-disable vars-on-top */
-/* eslint-disable no-var */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import ProductsFilter from './ProductsFilter';
 import ProductDetailsModal from './ProductDetailsModal';
 import ProductItem from './ProductItem';
 import Spinner from '../layout/Spinner';
-// import { FirebaseContext } from '../../firebase/firebaseInit';
 import '../../assets/styles/components/Products.scss';
 import PaginationSection from './PaginationSection';
 
 const Products = () => {
   const products = useSelector((state) => state.products);
   const loading = useSelector((state) => state.loading);
-  // const { storageRef } = useContext(FirebaseContext);
-  // useEffect(() => {}, products);
-
   const sortIndexState = products.sortIndex;
 
   // SORT INDEX:

@@ -26,7 +26,6 @@ const SearchLocationModalMap = () => {
   );
 
   const [infoWindowContent, setInfoWindowContent] = useState('');
-  const [nearestShops, setNearestShops] = useState([]);
 
   let context;
 
@@ -96,8 +95,8 @@ const SearchLocationModalMap = () => {
       navigator.geolocation.getCurrentPosition(
         function (position) {
           const userCoordenates = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
+            lat: Number(position.coords.latitude),
+            lng: Number(position.coords.longitude),
           };
           dispatch(setOrderCoordenatesAction(userCoordenates));
           // dispatch(setOrderCoordenatesAction({

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,13 +11,13 @@ import '../../assets/styles/components/SaveShoppingCarModal.scss';
 const SaveShopingCarModal = () => {
   const dispatch = useDispatch();
 
-  let storageRef;
+  // let storageRef;
 
-  if (isRunningOnClientSide === true && FirebaseContext !== null) {
-    console.log('client side');
-    const firebaseContext = useContext(FirebaseContext);
-    storageRef = firebaseContext.storageRef;
-  }
+  // if (isRunningOnClientSide === true && FirebaseContext !== null) {
+  //   console.log('client side');
+  //   const firebaseContext = useContext(FirebaseContext);
+  //   storageRef = firebaseContext.storageRef;
+  // }
 
   const shop = useSelector((state) => state.currentShop);
   const user = useSelector((state) => state.user);
@@ -63,17 +64,17 @@ const SaveShopingCarModal = () => {
   };
 
   useEffect(() => {
-    if (isRunningOnClientSide === true && storageRef !== null) {
-      storageRef
-        .child(`shops/${shop.image}`)
-        .getDownloadURL()
-        .then((url) => {
-          document.getElementById(`currentShop__image-${shop.id}`).src = url;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    // if (isRunningOnClientSide === true && storageRef !== null) {
+    //   storageRef
+    //     .child(`shops/${shop.image}`)
+    //     .getDownloadURL()
+    //     .then((url) => {
+    //       document.getElementById(`currentShop__image-${shop.id}`).src = url;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   }, []);
 
   return (

@@ -139,9 +139,10 @@ const ProductDetailsModal = (currentProduct) => {
                   </figure>
                 </div>
                 <div className="col-md-6">
-                  <div className="row py-2">
+                  {/* TODO: Implement rating */}
+                  {/* <div className="row py-2">
                     <div className="col-md-12">Rating Stars</div>
-                  </div>
+                  </div> */}
                   <div className="row py-2">
                     <div className="col-md-12">
                       <h2 className="font-weight-bold">

@@ -27,30 +27,25 @@ function api(app) {
             next(err);
             // return;
           }
+          console.log(data);
 
           const { token, ...user } = data;
 
           // Limpiar la cookie anterior
           res.clearCookie('token');
 
+          console.log(config.dev);
+
           // Setear la nueva cookie
           res.cookie('token', token, {
-            // httpOnly: config.dev,
-            httpOnly: !config.dev,
-            // secure: config.dev,
+            httpOnly: config.dev,
             secure: !config.dev,
             // domain: 'shopper-demo.com'
           });
 
-          const userToken = {
-            ...user.user,
-            token,
-          };
+          console.log(user);
 
-          console.log(userToken);
-
-          return res.status(200).json(userToken);
-          // return res.status(200).json(user);
+          return res.status(200).json(user);
         });
       } catch (error) {
         next(error);
@@ -446,6 +441,33 @@ function api(app) {
       next(error);
     }
   });
+
+  // Guardar carrito de un usuario
+  app.get(
+    '/search-products/:subcategoryId/:productChain',
+    async (req, res, next) => {
+      try {
+        const { token } = req.cookies;
+        const { subcategoryId, productChain } = req.params;
+
+        const { data, status } = await axios({
+          url: `${config.apiUrl}/subcategories/search/products/${subcategoryId}/${productChain}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          method: 'GET',
+        });
+
+        if (status !== 200 && status !== 201) {
+          return next(boom.badImplementation());
+        }
+
+        return res.status(201).json(data);
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
 
   // // Para verificar si el token expiró
   // app.get('/verify/:user', async function (req, res, next) {

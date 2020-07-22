@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -69,27 +70,21 @@ const Login = (props) => {
             <button className="btn btn-light" type="submit">
               Iniciar sesión
             </button>
-            <div className="login__container--remember-me">
+            {/* <div className="login__container--remember-me">
               <div className="login__container--remember-me--switch custom-control custom-switch">
-                {/* <input
-                  type="checkbox"
-                  className="custom-control-input"
-                  id="customSwitch1"
-                  // disabled
-                /> */}
                 <label className="custom-control-label" htmlFor="customSwitch1">
                   Recuérdame
                 </label>
               </div>
               <a href="/productos">Olvidé mi contraseña</a>
-            </div>
+            </div> */}
           </form>
-          <section className="login__container--social-media">
+          {/* <section className="login__container--social-media">
             <div className="mt-4 mb-4 justify-content-center">
               <img src={googleIconColors} alt="Google Icon" />
               Inicia sesión con Google
             </div>
-          </section>
+          </section> */}
           <section className="login__container--register">
             ¿No tienes tu cuenta?
             <Link to="/registrar">Regístrate aquí</Link>

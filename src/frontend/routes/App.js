@@ -52,46 +52,51 @@ const App = ({ isLogged }) => {
       // Firebase Cloud Notification
       // Attach this function to the `window` object
       window.initFirebaseMessaging = function () {
-        messaging
-          .requestPermission()
-          .then(() => {
-            console.log('Have permission');
-            const deviceToken = messaging.getToken();
-            return deviceToken;
-          })
-          .then((token) => {
-            if (token) {
-              console.log(token);
-              dispatch(setUserRegistrationDeviceId(token));
+        try {
+          messaging
+            .requestPermission()
+            .then(() => {
+              console.log('Have permission');
+              const deviceToken = messaging.getToken();
+              return deviceToken;
+            })
+            .then((token) => {
+              if (token) {
+                console.log(token);
+                dispatch(setUserRegistrationDeviceId(token));
 
-              if (
-                isLogged &&
-                !userLogged.notificationKeyName &&
-                !userLogged.notificationKey
-              ) {
-                dispatch(createUserDeviceGroup(token, userLogged.id));
+                if (
+                  isLogged &&
+                  !userLogged.notificationKeyName &&
+                  !userLogged.notificationKey
+                ) {
+                  dispatch(createUserDeviceGroup(token, userLogged.id));
+                }
+
+                // guardar token
+              } else {
+                console.log('No hay token');
+                // anular token
               }
+            })
+            .catch((err) => {
+              console.log('No se obtuvo permisos');
+              // Feedback UI
+              console.log(`Error${err}`);
+            });
 
-              // guardar token
-            } else {
-              console.log('No hay token');
-              // anular token
-            }
-          })
-          .catch((err) => {
-            console.log('No se obtuvo permisos');
-            // Feedback UI
-            console.log(`Error${err}`);
+          messaging.onMessage((payload) => {
+            pushNotification({
+              text: payload.notification.body,
+              icon: 'information-circle',
+              close: true,
+              type: 'info',
+            });
           });
-
-        messaging.onMessage((payload) => {
-          pushNotification({
-            text: payload.notification.body,
-            icon: 'information-circle',
-            close: true,
-            type: 'info',
-          });
-        });
+        } catch (error) {
+          console.log('El browser no soporta notificaciones');
+          console.log(error);
+        }
       };
       window.initFirebaseMessaging();
     }

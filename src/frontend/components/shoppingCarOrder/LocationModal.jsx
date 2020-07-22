@@ -159,7 +159,8 @@ const LocationModal = () => {
                 <div className="bd-highlight p-2">
                   <input
                     type="submit"
-                    className="btn btn-lg btn-info"
+                    value="Buscar"
+                    className="btn btn-md btn-info"
                     onClick={handleFindLocation}
                     disabled={searchAddress !== '' ? false : true}
                   />

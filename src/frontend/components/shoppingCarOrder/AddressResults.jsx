@@ -1,5 +1,4 @@
-import React from // { useState }
-  'react';
+import React from 'react'; // { useState }
 import { useDispatch } from 'react-redux';
 import { setOrderCoordenatesAction } from '../../actions/orderAction';
 

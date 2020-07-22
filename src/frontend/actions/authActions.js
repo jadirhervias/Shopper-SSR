@@ -101,23 +101,23 @@ export const loginUser = (
         console.log(data);
 
         document.cookie = `token=${data.token}`;
-        document.cookie = `id=${data.id}`;
-        document.cookie = `firstName=${data.first_name}`;
-        document.cookie = `lastName=${data.last_name}`;
-        document.cookie = `phoneNumber=${data.phone_number}`;
-        document.cookie = `address=${data.addres}`;
-        document.cookie = `lat=${data.user_lat}`;
-        document.cookie = `lng=${data.user_lng}`;
-        document.cookie = `email=${data.email}`;
-        if (data.notification) {
-          document.cookie = `notificationKeyName=${data.notification.notification_key_name}`;
-          document.cookie = `notificationKey=${data.notification.notification_key}`;
-          dispatch(setNotificationKeyAndKeyName(data.notification));
+        document.cookie = `id=${data.user.id}`;
+        document.cookie = `firstName=${data.user.first_name}`;
+        document.cookie = `lastName=${data.user.last_name}`;
+        document.cookie = `phoneNumber=${data.user.phone_number}`;
+        document.cookie = `address=${data.user.addres}`;
+        document.cookie = `lat=${data.user.user_lat}`;
+        document.cookie = `lng=${data.user.user_lng}`;
+        document.cookie = `email=${data.user.email}`;
+        if (data.user.notification) {
+          document.cookie = `notificationKeyName=${data.user.notification.notification_key_name}`;
+          document.cookie = `notificationKey=${data.user.notification.notification_key}`;
+          dispatch(setNotificationKeyAndKeyName(data.user.notification));
         }
 
-        dispatch(addRegistrationDeviceId(registrationDeviceId, data.id));
+        dispatch(addRegistrationDeviceId(registrationDeviceId, data.user.id));
 
-        dispatch(loginRequest(data));
+        dispatch(loginRequest(data.user));
 
         console.log('LOGIN EXITOSO');
       })
