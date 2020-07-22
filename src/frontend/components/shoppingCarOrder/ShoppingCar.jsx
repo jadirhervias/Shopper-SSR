@@ -8,16 +8,18 @@ import LocationModal from './LocationModal';
 import ProcessPayment from './ProcessPayment';
 import ShoppingBenefits from '../../assets/static/shopper-benefits.png';
 import Breadcrumb from '../layout/Breadcrumb';
+import Spinner from '../layout/Spinner';
 import SaveShopingCarModal from './SaveShoppingCarModal';
 
 const ShoppingCar = () => {
   const commissionCost = 5;
   const shoppingCar = useSelector((state) => state.shoppingCar);
   const order = useSelector((state) => state.order);
+  const loading = useSelector((state) => state.loading);
 
   return (
     <div className="container">
-      <div className="row m-0">
+      <div className="d-flex flex-row bd-highlight justify-content-start m-0">
         <Breadcrumb />
       </div>
 
@@ -30,57 +32,65 @@ const ShoppingCar = () => {
         </div>
       )}
 
-      <div className="row my-4">
+      <div className="d-flex flex-row bd-highlight justify-content-center my-4">
         <div
-          className={Object.keys(order).length > 0 ? 'col-md-12' : 'col-md-8'}
+          className={
+            Object.keys(order).length > 0 ? 'bd-highlight' : 'bd-highlight'
+          }
         >
-          {shoppingCar.products.length > 0 ? (
-            <>
-              <div className="row justify-content-between p-2 m-0">
-                <h2>Carrito de Compras</h2>
-                <button type="button" className="btn btn-danger">
-                  Agregar un producto manualmente
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-toggle="modal"
-                  data-target="#modalSaveShoppingCar"
-                  aria-describedby="saveShoppingCarHelpBlock"
-                >
-                  Guardar carrito
-                </button>
-              </div>
-              <hr className="mt-3 mb-4 mx-1" />
-              {shoppingCar.products.map((item) => (
-                <ProductDetail key={item.id} {...item} />
-              ))}
-            </>
+          {loading ? (
+            <Spinner />
           ) : (
             <>
-              <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
-                <span>
-                  <img
-                    height={300}
-                    src={ShoppingBenefits}
-                    alt="shopper beneficios"
-                  />
-                </span>
-              </div>
-              <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
-                <h2>No tienes productos en tu carrito</h2>
-              </div>
-              <div className="d-flex flex-row bd-highlight justify-content-center p-4">
-                {Object.keys(order).length > 0 ? (
-                  <button type="button" className="btn btn-danger btn-lg">
-                    ¡Sigue explorando tus tiendas favoritas!
-                  </button>
-                ) : (
-                  <Link className="btn btn-danger btn-lg" to="/">
-                    Comprar ahora
-                  </Link>
-                )}
-              </div>
+              {shoppingCar.products.length > 0 ? (
+                <>
+                  <div className="d-flex flex-row bd-highlight justify-content-between p-2 m-0">
+                    <h2>Carrito de Compras</h2>
+                    <button type="button" className="btn btn-danger">
+                      Agregar un producto manualmente
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      data-toggle="modal"
+                      data-target="#modalSaveShoppingCar"
+                      aria-describedby="saveShoppingCarHelpBlock"
+                    >
+                      Guardar carrito
+                    </button>
+                  </div>
+                  <hr className="mt-3 mb-4 mx-1" />
+                  {shoppingCar.products.map((item) => (
+                    <ProductDetail key={item.id} {...item} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
+                    <span>
+                      <img
+                        height={300}
+                        src={ShoppingBenefits}
+                        alt="shopper beneficios"
+                      />
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row bd-highlight justify-content-center p-4 m-0">
+                    <h2>No tienes productos en tu carrito</h2>
+                  </div>
+                  <div className="d-flex flex-row bd-highlight justify-content-center p-4">
+                    {Object.keys(order).length > 0 ? (
+                      <button type="button" className="btn btn-danger btn-lg">
+                        ¡Sigue explorando tus tiendas favoritas!
+                      </button>
+                    ) : (
+                      <Link className="btn btn-danger btn-lg" to="/">
+                        Comprar ahora
+                      </Link>
+                    )}
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
@@ -91,13 +101,13 @@ const ShoppingCar = () => {
                 {/* style="width: 18rem;" */}
                 <div className="card py-4 shadow-sm rounded">
                   {/* <div className="card-header"> */}
-                  <div className="row justify-content-between m-0">
+                  <div className="d-flex flex-row bd-highlight justify-content-between m-0">
                     <h2 className="mx-4">Resumen de tu pedido</h2>
                   </div>
                   {/* </div> */}
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                      <div className="row justify-content-between m-0">
+                      <div className="d-flex flex-row bd-highlight justify-content-between m-0">
                         <div className="col-7">
                           <h5>{`Subtotal (${shoppingCar.count})`}</h5>
                         </div>
@@ -109,7 +119,7 @@ const ShoppingCar = () => {
                       </div>
                     </li>
                     <li className="list-group-item">
-                      <div className="row justify-content-between m-0">
+                      <div className="d-flex flex-row bd-highlight justify-content-between m-0">
                         <div className="col-7">
                           <h5>Env&iacute;o</h5>
                         </div>
@@ -126,7 +136,7 @@ const ShoppingCar = () => {
                       </div>
                     </li>
                     <li className="list-group-item">
-                      <div className="row justify-content-between mx-0 my-4">
+                      <div className="d-flex flex-row bd-highlight justify-content-between mx-0 my-4">
                         <div className="col-7">
                           <h4>
                             <strong>TOTAL</strong>

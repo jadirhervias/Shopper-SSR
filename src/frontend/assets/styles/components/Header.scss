@@ -1,5 +1,27 @@
 @import '../Vars.scss';
 
+.order-tracking__container {
+  width: 300px !important;
+}
+
+#blue-circle {
+  height: 12px;
+  width: 12px;
+  background: $secondary-color-2;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
+
+#red-circle {
+  height: 12px;
+  width: 12px;
+  background: $secondary-color-1;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
+
 .header__navBar {
   background-color: $primary-color;
   height: 80px;

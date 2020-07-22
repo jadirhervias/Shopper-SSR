@@ -72,7 +72,7 @@ const Header = (props) => {
                 Ayuda
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/" className="nav-link header__navBar--menu-link">
                 Premium
               </Link>
@@ -101,11 +101,16 @@ const Header = (props) => {
                   Separated link
                 </Link>
               </div>
-            </li>
+            </li> */}
           </ul>
 
           {hasUser ? (
             <>
+              {order.state === 2 ? (
+                <div id="red-circle" className="mr-2" />
+              ) : (
+                order.state === 1 && <div id="blue-circle" className="mr-2" />
+              )}
               {/* Current order status */}
               <div className="dropdown mr-4">
                 <button
@@ -115,7 +120,7 @@ const Header = (props) => {
                 >
                   Pedidos
                 </button>
-                <div className="dropdown-menu p-3">
+                <div className="dropdown-menu p-3 order-tracking__container">
                   {Object.keys(order).length !== 0 ? (
                     <OrderTracking />
                   ) : (
@@ -165,10 +170,10 @@ const Header = (props) => {
                     <Link to="/user" className="dropdown-item user-options">
                       Mi Cuenta
                     </Link>
-                    <div className="dropdown-divider" role="separator" />
+                    {/* <div className="dropdown-divider" role="separator" />
                     <Link to="/admin" className="dropdown-item user-options">
                       Preferencias
-                    </Link>
+                    </Link> */}
                     <div className="dropdown-divider" role="separator" />
                     <Link
                       to={{}}

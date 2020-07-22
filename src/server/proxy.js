@@ -469,6 +469,30 @@ function api(app) {
     }
   );
 
+  // Obtener carrito de un usuario por id de carrito
+  app.get('/shopping-car/:userId/:shoppingCarId', async (req, res, next) => {
+    try {
+      const { token } = req.cookies;
+      const { userId, shoppingCarId } = req.params;
+
+      const { data, status } = await axios({
+        url: `${config.apiUrl}/users/shopping-cars/${userId}/${shoppingCarId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'GET',
+      });
+
+      if (status !== 200 && status !== 201) {
+        return next(boom.badImplementation());
+      }
+
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // // Para verificar si el token expiró
   // app.get('/verify/:user', async function (req, res, next) {
   //   try {

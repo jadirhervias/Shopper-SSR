@@ -4,6 +4,7 @@ import {
   showProductsByShop,
   showProductsBySubcategory,
   setNearestShops,
+  setOrderShoppingCar,
   filterProductsByBrand,
   showLoading,
   hideLoading,
@@ -201,6 +202,42 @@ export const setSearchProductsMatch = (idSubCategory, product) => {
       dispatch(setTotalPages(0));
       // dispatch(setSubcategoryId(idSubCategory));
       dispatch(showProductsBySubcategory(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error));
+    }
+  };
+};
+
+export const selectOrderShoppingCar = (userId, shoppingCarId, shopId) => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      const shop = await axios({
+        url: `/shops/${shopId}`,
+        method: 'GET',
+      });
+
+      dispatch(showProductsByShop(shop.data));
+
+      const shoppingCar = await axios({
+        url: `/shopping-car/${userId}/${shoppingCarId}`,
+        method: 'GET',
+      });
+
+      delete shoppingCar.data.id;
+      delete shoppingCar.data.name;
+      delete shoppingCar.data.shop_id;
+
+      const car = {
+        ...shoppingCar.data,
+        totalCost: shoppingCar.data.total_cost,
+      };
+
+      delete car.total_cost;
+
+      dispatch(hideLoading());
+      dispatch(setOrderShoppingCar(car));
     } catch (error) {
       console.log(error);
       dispatch(setError(error));

@@ -44,15 +44,17 @@ export const verifyAndPayOrder = (
         const validCustomer = {
           id: orderDetails.customer.id,
           email: orderDetails.customer.email,
-          first_name: orderDetails.customer.firstName,
-          last_name: orderDetails.customer.lastName,
-          phone_number: orderDetails.customer.phoneNumber,
+          first_name: orderDetails.customer.first_name,
+          last_name: orderDetails.customer.last_name,
+          phone_number: orderDetails.customer.phone_number,
           address: orderDetails.customer.address,
           user_lat: orderDetails.customer.lat,
           user_lng: orderDetails.customer.lng,
           notification_device_group: {
-            notification_key_name: orderDetails.customer.notificationKeyName,
-            notification_key: orderDetails.customer.notificationKey,
+            notification_key_name:
+              orderDetails.customer.notification.notification_key_name,
+            notification_key:
+              orderDetails.customer.notification.notification_key,
           },
         };
 
@@ -63,8 +65,9 @@ export const verifyAndPayOrder = (
           total_cost: (shoppingCar.totalCost + comissionCost) * 100,
         };
 
-        delete validOrder.customer.notificationDeviceId;
-        delete validOrder.customer.notificationKeyName;
+        delete validOrder.customer.notification;
+        // delete validOrder.customer.notificationDeviceId;
+        // delete validOrder.customer.notificationKeyName;
         delete validOrder.customer.notificationKey;
 
         shoppingCar.products.forEach((product) => {

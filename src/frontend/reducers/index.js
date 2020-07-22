@@ -36,6 +36,7 @@ import {
   SET_NOTIFICATION_KEY_AND_KEY_NAME,
   ENABLE_LOADING,
   DISABLE_LOADING,
+  SET_ORDER_SHOPPING_CAR,
 } from '../types';
 
 const reducer = (state, action) => {
@@ -290,6 +291,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         orderCoordenates: action.payload,
+      };
+
+    case SET_ORDER_SHOPPING_CAR:
+      return {
+        ...state,
+        shoppingCar: action.payload,
       };
 
     // FIREBASE NOTIFICATIONS

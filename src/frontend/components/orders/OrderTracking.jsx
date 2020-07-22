@@ -60,28 +60,28 @@ const OrderTracking = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="d-flex flex-column justify-content-center bd-highlight m-2">
+      <div className="p-2 w-100 bd-highlight">
         <h4>
-          Order ID:
-          {order.id}
-        </h4>
-        <div>
-          <h4>Order state</h4>
           {order.state === 0
             ? 'Orden pendiente'
             : order.state === 1
             ? 'Orden tomada... tu pedido esta en camino'
             : order.state === 2
-            ? 'Tu orden ha llegado. Anda a recibirlo!'
+            ? 'Tu orden ha llegado. Anda a recibirla!'
             : order.state !== 0 || order.state !== 1 || order.state !== 2
             ? 'No hay órdenes pendientes'
             : ''}
-        </div>
-        <div>
-          <h4>Order Info</h4>
-          {order.totalCost}
-        </div>
+        </h4>
+      </div>
+      <div className="px-2 w-100 bd-highlight">
+        <small>{`ID: ${order.id}`}</small>
+      </div>
+      <div className="p-2 w-100 bd-highlight">
+        <strong>Monto: </strong>
+        {`S/. ${order.totalCost / 100}${
+          (order.totalCost / 100) % 1 === 0 ? '.00' : ''
+        }`}
       </div>
     </div>
   );

@@ -42,6 +42,7 @@ import {
   ENABLE_LOADING,
   DISABLE_LOADING,
   SET_ORDER_COORDENATES,
+  SET_ORDER_SHOPPING_CAR,
 } from '../types';
 
 // AUTH
@@ -214,6 +215,11 @@ export const setOrder = (payload) => ({
 
 export const setOrderCoordenates = (payload) => ({
   type: SET_ORDER_COORDENATES,
+  payload,
+});
+
+export const setOrderShoppingCar = (payload) => ({
+  type: SET_ORDER_SHOPPING_CAR,
   payload,
 });
 
