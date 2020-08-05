@@ -1,7 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/imports-first */
-/* eslint-disable import/order */
 /* eslint-disable global-require */
 import express from 'express';
 import webpack from 'webpack';
@@ -9,10 +5,9 @@ import helmet from 'helmet';
 import chalk from 'chalk';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
-// import getManifest from './getManifest';
 import api from './proxy';
-import { config } from './config';
 import main from './routes/main';
+import { config } from './config';
 
 const app = express();
 
